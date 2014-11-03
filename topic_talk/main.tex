@@ -36,7 +36,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% DOCUMENTATION STARTS FROM HERE
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Preliminary Overview}
+\section{Overview of Multiagent System}
 % recapture contents of previous topic talks
 \frame{
     \frametitle{Recap}
@@ -48,6 +48,17 @@
                 \item Neuro-evolution
                 \item High-level Behaviors
             \end{itemize}
+    \end{itemize}
+}
+\frame{
+    \frametitle{Motivation}
+    \begin{itemize}
+        \item Most of works so far has focused exclusively on single agents
+            we can extend reinforcement learning straightforwardly to multiple
+            agents if they are all independent. 
+        \item Intuitive idea: Multiple agents together will outperform
+            any single agent due to the fact that they have more resources and
+            a better chance of receiving rewards.
         \item Today, we will touch a really broad area 
             $$ \text{"Multiagent System" (M.A.S.).}
             $$
@@ -67,25 +78,52 @@
         \item When is it proposed?
             \begin{itemize}
                 \item a relatively new sub-field of computer science 
-                \item only been studied since about 1980
-                \item the field has only gained widespread recognition since
+                \item has only been studied since about 1980
+                \item only gained widespread recognition since
                     about the mid-1990s
             \end{itemize}
     \end{itemize}
 }
 \frame{
-    \frametitle{Characteristics of M.A.S. Environments}
+    \frametitle{Applications/Simulations}
+    \begin{itemize}
+        \item
+            \href{https://www.youtube.com/watch?v=pqBSNAOsMDc&index=12&list=PLD56A0C7765234DCD}{Crowd
+                Simulation / Crowd Collision Avoidance}
+        \item    \href{https://www.youtube.com/watch?v=Hc6kng5A8lQ&index=13&list=PLD56A0C7765234DCD}{Clear
+                Path}
+    \end{itemize}
+}
+% 
+\frame{
+    \frametitle{Independent v.s. Cooperative Agents}
+    Using independent agents as a benchmark, Tang Ming (1993) \cite{1} studied
+    the performance of cooperative agents and concluded that: 
+    \begin{itemize}
+        \item Additional sensation from another agent is beneficial if it can
+            be used efficiently
+        \item Sharing learned policies or episodes among agents speeds up
+            learning at the cost of communication
+        \item For joint tasks, agents engaging in partnership can
+            significantly outperform independent agents although they may
+            learn slowly in the beginning.
+    \end{itemize}
+}
+\frame{
+    \frametitle{M.A.S. Environments}
     The agents in a multi-agent system have several important characteristics:
     \begin{itemize}
         \item Autonomy: the agents are at least partially independent, self-aware, autonomous.
         \item Local views: no agent has a full global view of the system, or
             the system is too complex for an agent to make practical use of
-            such knowledge
-        \item Decentralization: there is no designated controlling agent (or the system is effectively reduced to a monolithic system)
+            such knowledge.
+        \item Decentralization: there is no designated controlling agent (or
+            the system is effectively reduced to a monolithic system).
     \end{itemize}
 }
 \frame{
-    \frametitle{List of Multiagent Behaviors}
+    \frametitle{Active Research Areas}
+    List of Multiagent Behaviors:
     \begin{itemize}
         \item communication
         \item cooperation and coordination
@@ -134,7 +172,6 @@
 %%% REFERENCES
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Appendix}
-\bibliographystyle{IEEEtran}
 \setbeamertemplate{bibliography item}[book]
 \frame{
     \frametitle{Further Readings: Books}
@@ -170,7 +207,9 @@
 \frame{
     \frametitle{References}
     \begin{thebibliography}{9}
-        \bibitem{} Liu, Tie, et al. "Learning to detect a salient object."\textit{ Computer Vision and Pattern Recognition, 2007. CVPR'07. IEEE Conference on. IEEE, 2007. }
+        \bibitem[tan1993multi]{tan1993multi} Tan, Ming. "Multi-agent reinforcement learning:
+        Independent vs. cooperative agents." {\it Proceedings of the Tenth
+            International Conference on Machine Learning}. Vol. 337. 1993.
     \end{thebibliography}
 }
 \end{document}
