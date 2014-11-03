@@ -37,18 +37,18 @@
 %%% DOCUMENTATION STARTS FROM HERE
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Overview of Multiagent System}
+\setbeamertemplate{itemize item}[ball]
+\setbeamertemplate{itemize subitem}{$\int$}
 % recapture contents of previous topic talks
 \frame{
     \frametitle{Recap}
-    \begin{itemize}
-        \item What we currently have? 
+        What we currently have? 
             \begin{itemize}
                 \item Commitee Machine 
                 \item Reinforcement Learning
                 \item Neuro-evolution
                 \item High-level Behaviors
             \end{itemize}
-    \end{itemize}
 }
 \frame{
     \frametitle{Motivation}
@@ -67,47 +67,20 @@
 % introduce multiagent behavior
 \frame{
     \frametitle{Introduction}
-    \begin{itemize}
-        \item What is multiple agent system?
+         What is multiple agent system?
             \begin{itemize}
                 \item Unfortunately, it is not formally defined by M.A.S. community.
                 \item Employment of multiple agents (10 to thousands). 
                 \item Intelligent mechanisms to address interactions between
                     agents.
             \end{itemize}
-        \item When is it proposed?
+         When is it proposed?
             \begin{itemize}
                 \item a relatively new sub-field of computer science 
                 \item has only been studied since about 1980
                 \item only gained widespread recognition since
                     about the mid-1990s
             \end{itemize}
-    \end{itemize}
-}
-\frame{
-    \frametitle{Applications/Simulations}
-    \begin{itemize}
-        \item
-            \href{https://www.youtube.com/watch?v=pqBSNAOsMDc&index=12&list=PLD56A0C7765234DCD}{Crowd
-                Simulation / Crowd Collision Avoidance}
-        \item    \href{https://www.youtube.com/watch?v=Hc6kng5A8lQ&index=13&list=PLD56A0C7765234DCD}{Clear
-                Path}
-    \end{itemize}
-}
-% 
-\frame{
-    \frametitle{Independent v.s. Cooperative Agents}
-    Using independent agents as a benchmark, Tang Ming (1993) \cite{1} studied
-    the performance of cooperative agents and concluded that: 
-    \begin{itemize}
-        \item Additional sensation from another agent is beneficial if it can
-            be used efficiently
-        \item Sharing learned policies or episodes among agents speeds up
-            learning at the cost of communication
-        \item For joint tasks, agents engaging in partnership can
-            significantly outperform independent agents although they may
-            learn slowly in the beginning.
-    \end{itemize}
 }
 \frame{
     \frametitle{M.A.S. Environments}
@@ -122,27 +95,65 @@
     \end{itemize}
 }
 \frame{
-    \frametitle{Active Research Areas}
-    List of Multiagent Behaviors:
+    \frametitle{Applications/Simulations}
     \begin{itemize}
-        \item communication
-        \item cooperation and coordination
-        \item negotiation
-        \item distributed problem solving
-        \item multi-agent learning
-        \item fault-tolerance
+        \item Pacman
+        \item
+            \href{https://www.youtube.com/watch?v=pqBSNAOsMDc&index=12&list=PLD56A0C7765234DCD}{Crowd
+                Simulation / Crowd Collision Avoidance}
+        \item    \href{https://www.youtube.com/watch?v=Hc6kng5A8lQ&index=13&list=PLD56A0C7765234DCD}
+            {ClearPath: Highly Parallel Collision Avoidance for Multi-agent Simulation}
+        \item \href{https://www.youtube.com/watch?v=azIOCFjDZWA&list=PL5Tiw7DXCdu2roBlpHvUzOMvR7WGXMoP6}{MATISSE: A Multi-Agent based Traffic Simulation System}
+    \end{itemize}
+}
+% 
+\frame{
+    \frametitle{Independent v.s. Cooperative Agents}
+     Tang Ming (1993) \cite{1} studied the performance of cooperative agents,
+     using independent agents as a benchmark. Here are the discoveries:
+    \begin{itemize}
+        \item Additional sensation from another agent is beneficial if it can
+            be used efficiently.
+        \item Sharing learned policies or episodes among agents speeds up
+            learning at the cost of communication.
+        \item For joint tasks, agents engaging in partnership can
+            significantly outperform independent agents although they may
+            learn slowly in the beginning.
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Active Research Areas}
+    Currently active research areas of M.A.S. are advanced Multiagent
+    Behaviors, as follows:
+    \begin{itemize}
+        \item Communication
+        \item Cooperation and Coordination
+        \item Negotiation
+        \item Distributed Problem Solving
+        \item Multi-agent Learning
+        \item Fault Tolerance
     \end{itemize}
 }
 % explain each multiagent behavior
-
-%% http://web.media.mit.edu/~cynthiab/Readings/tan-MAS-reinfLearn.pdf
 \frame{
-    \frametitle{Simulations}
-    \begin{itemize}
-        \item ..
-    \end{itemize}
+    \frametitle{Communication}
 }
-% https://www.youtube.com/watch?v=Hc6kng5A8lQ
+\frame{
+    \frametitle{Cooperation and Coordination}
+}
+\frame{
+    \frametitle{Negotiation}
+}
+\frame{
+    \frametitle{Distributed Problem Solving}
+}
+\frame{
+    \frametitle{Multi-agent Learning}
+}
+\frame{
+    \frametitle{Fault Tolerance}
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Detailed Research Literature}
 \frame{
@@ -207,7 +218,7 @@
 \frame{
     \frametitle{References}
     \begin{thebibliography}{9}
-        \bibitem[tan1993multi]{tan1993multi} Tan, Ming. "Multi-agent reinforcement learning:
+        \bibitem{tan1993multi} Tan, Ming. "Multi-agent reinforcement learning:
         Independent vs. cooperative agents." {\it Proceedings of the Tenth
             International Conference on Machine Learning}. Vol. 337. 1993.
     \end{thebibliography}
