@@ -12,6 +12,7 @@
 \usepackage{geometry}
 \usepackage{color}
 \usepackage{JSPPT}
+\usepackage[style=ieee]{biblatex}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% PRESENTATION INFORMATION
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -47,21 +48,40 @@
                 \item Neuro-evolution
                 \item High-level Behaviors
             \end{itemize}
+        \item Today, we will touch a really broad area 
+            $$ \text{"Multiagent System" (M.A.S.).}
+            $$
     \end{itemize}
 }
 % introduce multiagent behavior
 \frame{
     \frametitle{Introduction}
-    \begin{definition}
-        dfa
-    \end{definition}
     \begin{itemize}
         \item What is multiple agent system?
             \begin{itemize}
-                \item Employment of multiple agents
+                \item Unfortunately, it is not formally defined by M.A.S. community.
+                \item Employment of multiple agents (10 to thousands). 
+                \item Intelligent mechanisms to address interactions between
+                    agents.
             \end{itemize}
-        \item Multiagent Behaviors
-        \item Multiagent System
+        \item When is it proposed?
+            \begin{itemize}
+                \item a relatively new sub-field of computer science 
+                \item only been studied since about 1980
+                \item the field has only gained widespread recognition since
+                    about the mid-1990s
+            \end{itemize}
+    \end{itemize}
+}
+\frame{
+    \frametitle{Characteristics of M.A.S. Environments}
+    The agents in a multi-agent system have several important characteristics:
+    \begin{itemize}
+        \item Autonomy: the agents are at least partially independent, self-aware, autonomous.
+        \item Local views: no agent has a full global view of the system, or
+            the system is too complex for an agent to make practical use of
+            such knowledge
+        \item Decentralization: there is no designated controlling agent (or the system is effectively reduced to a monolithic system)
     \end{itemize}
 }
 \frame{
@@ -106,7 +126,7 @@
     \begin{itemize}
         \item Motivations
         \item Mechanisms
-        \item 
+        \item Suggestions
         \end{itemize}
 }
 
@@ -114,16 +134,43 @@
 %%% REFERENCES
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Appendix}
+\bibliographystyle{IEEEtran}
+\setbeamertemplate{bibliography item}[book]
 \frame{
-    \frametitle{Useful Resources}
+    \frametitle{Further Readings: Books}
     \begin{thebibliography}{9}
-       \bibitem{ConcreteMath} MULTIAGENT SYSTEMS Algorithmic, Game-Theoretic, and Logical Foundations: http://www.masfoundations.org/mas.pdf
+        \bibitem{wooldridge2009introduction} W. Michael. {\it An introduction to
+            multiagent systems}. John Wiley \& Sons, 2009.
+       \bibitem{shoham2008multiagent} S. Yoav, and K. L. Brown. 
+       {\it Multiagent systems: Algorithmic, game-theoretic, and logical
+           foundations}. Cambridge University Press, 2008.
+       \bibitem{weiss1999multiagent} W, Gerhard, ed. {\it Multiagent systems:
+           a modern approach to distributed artificial intelligence}. MIT press, 1999.
+   \end{thebibliography}
+}
+\setbeamertemplate{bibliography item}[online]
+\frame{
+    \frametitle{Further Readings: Courses and Labs}
+    \begin{thebibliography}{9}
+        \bibitem{CS224Spr} Stanford CS224M: Multi Agent Systems (Spring 2013-14). 
+       \href{http://web.stanford.edu/class/cs224m/}{HERE}
+
+        \bibitem{CPSC689} MIT CPSC689: Special Topics in Multi-Agent Systems (Spring 2006). 
+       \href{http://web.stanford.edu/class/cs224m/}{HERE}
+        \bibitem{StanfordGroup} Stanford Multiagent Research Group. 
+       \href{http://multiagent.stanford.edu/}{HERE}
+       \bibitem{AARTLab} CMU Advanced Agent-Robotics Technology Lab. 
+       \href{http://www.cs.cmu.edu/~softagents/multi.html}{HERE}
+
+       \bibitem{MITLab} MIT Robust Open Multi-Agent Systems (ROMA) Research Group. 
+       \href{http://ccs.mit.edu/roma/}{HERE}
     \end{thebibliography}
 }
+\setbeamertemplate{bibliography item}[text]
 \frame{
     \frametitle{References}
     \begin{thebibliography}{9}
-        \bibitem{ConcreteMath} Liu, Tie, et al. "Learning to detect a salient object."\textit{ Computer Vision and Pattern Recognition, 2007. CVPR'07. IEEE Conference on. IEEE, 2007. }
+        \bibitem{} Liu, Tie, et al. "Learning to detect a salient object."\textit{ Computer Vision and Pattern Recognition, 2007. CVPR'07. IEEE Conference on. IEEE, 2007. }
     \end{thebibliography}
 }
 \end{document}
