@@ -8,10 +8,10 @@ let b:atp_TexOptions = '-synctex=1'
 let b:atp_TexFlavor = 'tex'
 let b:atp_auruns = '1'
 let b:atp_ReloadOnError = '1'
-let b:atp_OutDir = '/v/filer4b/v38q001/jimmylin/workspace/MultiagentSystem/topic_talk'
+let b:atp_OutDir = '/Users/JimmyLin/workspace/Projects/MultiagentSystem/topic_talk'
 let b:atp_OpenViewer = '1'
 let b:atp_XpdfServer = 'main'
-let b:atp_Viewer = 'okular'
+let b:atp_Viewer = 'open'
 let b:TreeOfFiles = {}
 let b:ListOfFiles = []
 let b:TypeDict = {}

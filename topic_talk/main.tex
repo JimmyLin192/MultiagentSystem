@@ -180,9 +180,9 @@ grouping into “complex” behaviors).
     \begin{columns}[T] 
              \begin{column}[T]{5cm} 
              \begin{itemize}
-                 \item In \textbf{social learning}, agents improve their own performance by learning from observations made by other members of the population
+                 \item In \textbf{social learning}, agents improve their performance by learning from other members of the population
                  \item Traditionally, agents are partitioned into students and teachers, where teachers are chosen to be high fitness members of the population
-                 \item \textbf{Problem}: Fitness is not a guarantee of superior behavior. High fitness agents may make mistakes, and low fitness agents can still do well under certain circumstances
+                 \item \textbf{Problem}: How to decide which agents should be teachers and which student?
                  \end{itemize}
              \end{column}
              \begin{column}[T]{4cm} 
@@ -196,7 +196,7 @@ grouping into “complex” behaviors).
     \begin{columns}[T] 
              \begin{column}[T]{4cm} 
              \begin{itemize}
-                \item In this example, agents represent \textbf{Unmanned Aerial Vehicles} (\textbf{UAVs}) searching a grid of airspace 
+                \item In this example, agents are \textbf{Unmanned Aerial Vehicles} (\textbf{UAVs}) searching a grid of airspace 
                 \item Agents have limited communication and some mobility restrictions (such as slow turning)
              \end{itemize}
              \end{column}
@@ -227,10 +227,9 @@ grouping into “complex” behaviors).
     \begin{columns}[T] 
     	\begin{column}[T]{5cm} 
 		    \begin{itemize}
-		    \item Trained via Reinforcement Learning
-		    \item The search space is divided into a grid, and each cell is given a \textit{certainty} value between 0 and 1 
+		    \item Agents trained via Reinforcement Learning
+		    \item Each cell in the search space is given a \textit{certainty} value between 0 and 1 
 		    \item The uncertainty of a cell is reduced by half for each agent that enters that cell
-		    \item Rewards equal the decrease in uncertainty in a given cell divided evenly among the entering agents 
 		    \end{itemize}
 		\end{column}
 		\begin{column}[T]{5cm}
@@ -242,15 +241,19 @@ grouping into “complex” behaviors).
 \frame{
     \frametitle{UAV Example}
     \begin{itemize}
+    \item Rewards equal the decrease in uncertainty in a given cell divided evenly among the entering agents 
     \item Agents want to spread out and avoid entering the same cell
     \item At each time-step, an agent only has three options (turn left, turn right, keep straight)
     \item Three neural networks are used to estimate the benefit of each course
     \end{itemize}
-    Compare three architectures:
+    }
+\frame{
+    \frametitle{UAV Experiment}
+    Compare these three architectures:
 	\begin{itemize}
-	\item \textbf{Centralized Learning}: three shared networks receive input from all agents
-	\item \textbf{Decentralized Learning}: each agent has it's own three networks
-	\item \textbf{Opportunistic Cooperative Learning}: each agent has it's own three networks. Additionally, when two agents come close together, the less successful one copies the other's network with probability $\pi$
+	\item \textbf{Centralized Learning}: shared networks receive input from all agents
+	\item \textbf{Decentralized Learning}: each agent has its own three networks
+	\item \textbf{Opportunistic Cooperative Learning}: each agent has its own three networks. Additionally, when two agents come close together, the less successful one copies the other's network with probability $\pi$
 	\end{itemize}
 }
 
@@ -265,7 +268,7 @@ grouping into “complex” behaviors).
 \frame{
     \frametitle{Egaltarian Social Learning}
     \begin{itemize}
-    \item In \textbf{Egaltarian Social Learning} (\textbf{ESL}), agents learn from each other instead of from a limited number of teachers 
+    \item In \textbf{Egaltarian Social Learning} (\textbf{ESL}), agents learn from each other instead without any designated ``teachers'' 
     \item The population of agents is partitioned into subcultures at the start of each generation
     \item An agent may probabilistically learn from any other agent in the same subculture
     %\item An agent's quality as an example is determined by the receiving agent
@@ -279,7 +282,7 @@ grouping into “complex” behaviors).
     \item Plants are automatically consumed when an agent draws close enough; some types of plant give positive reward, others negative reward
     \item Agents have sensors for each type of plant, as well as a sensor for their own velocity
     \item They cannot see other agents, or plants they have already consumed
-    \item Networks are trained with backpropagation and NeuroEvolution of Augmenting Topologies (NEAT)
+    \item Use backpropagation networks and train with NeuroEvolution of Augmenting Topologies (NEAT)
     \end{itemize}
 }
 
