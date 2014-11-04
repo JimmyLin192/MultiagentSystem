@@ -3,7 +3,7 @@
 %%% 
 %%%  COPYRIGHT (C) JIMMY LIN, 2013, UT AUSTIN
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\documentclass[9pt]{beamer}
+\documentclass[10pt]{beamer}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%  PACKAGES USED IN THIS TEX SOURCE FILE
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -11,11 +11,12 @@
 \usepackage{wrapfig}
 \usepackage{geometry}
 \usepackage{color}
-%\usepackage{JSPPT}
+\usepackage{JSPPT}
+\usepackage[style=ieee]{biblatex}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% PRESENTATION INFORMATION
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title{An Overview of Multiagent Systems}
+\title{Multiagent Behaviors in Neural Network}
 \author[Jimmy Lin and Barry Feigenbaum]{\bf Jimmy Lin \\Barry Feigenbaum}
 \institute{\bf Prof. Risto Miikkulainen\\[0.3cm] Department of Computer Science \\The University of Texas At Austin}
 
@@ -35,11 +36,145 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% DOCUMENTATION STARTS FROM HERE
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Introduction}
+\section{Overview of Multiagent System}
+\setbeamertemplate{itemize item}[ball]
+\setbeamertemplate{itemize subitem}{$\int$}
+% recapture contents of previous topic talks
 \frame{
-    \frametitle{Introduction and Motivation}
-    good
+    \frametitle{Recap}
+        What we currently have? 
+            \begin{itemize}
+                \item Commitee Machine 
+                \item Reinforcement Learning
+                \item Neuro-evolution
+                \item High-level Behaviors
+            \end{itemize}
 }
+\frame{
+    \frametitle{Motivation}
+    \begin{itemize}
+        \item Most of works so far has focused exclusively on single agents
+            we can extend reinforcement learning straightforwardly to multiple
+            agents if they are all independent. 
+        \item Intuitive idea: Multiple agents together will outperform
+            any single agent due to the fact that they have more resources and
+            a better chance of receiving rewards.
+        \item Today, we will touch a really broad area 
+            $$ \text{"Multiagent System" (M.A.S.).}
+            $$
+    \end{itemize}
+}
+% introduce multiagent behavior
+\frame{
+    \frametitle{Introduction}
+         What is multiple agent system?
+            \begin{itemize}
+                \item Unfortunately, it is not formally defined by M.A.S. community.
+                \item Employment of multiple agents (10 to thousands). 
+                \item Intelligent mechanisms to address interactions between
+                    agents.
+            \end{itemize}
+         When is it proposed?
+            \begin{itemize}
+                \item a relatively new sub-field of computer science 
+                \item has only been studied since about 1980
+                \item only gained widespread recognition since
+                    about the mid-1990s
+            \end{itemize}
+}
+\frame{
+    \frametitle{M.A.S. Environments}
+    The agents in a multi-agent system have several important characteristics:
+    \begin{itemize}
+        \item Autonomy: the agents are at least partially independent, self-aware, autonomous.
+        \item Local views: no agent has a full global view of the system, or
+            the system is too complex for an agent to make practical use of
+            such knowledge.
+        \item Decentralization: there is no designated controlling agent (or
+            the system is effectively reduced to a monolithic system).
+    \end{itemize}
+}
+\frame{
+    \frametitle{Applications/Simulations}
+    \begin{itemize}
+        \item Pacman
+        \item
+            \href{https://www.youtube.com/watch?v=pqBSNAOsMDc&index=12&list=PLD56A0C7765234DCD}{Crowd
+                Simulation / Crowd Collision Avoidance}
+        \item    \href{https://www.youtube.com/watch?v=Hc6kng5A8lQ&index=13&list=PLD56A0C7765234DCD}
+            {ClearPath: Highly Parallel Collision Avoidance for Multi-agent Simulation}
+        \item \href{https://www.youtube.com/watch?v=azIOCFjDZWA&list=PL5Tiw7DXCdu2roBlpHvUzOMvR7WGXMoP6}{MATISSE: A Multi-Agent based Traffic Simulation System}
+    \end{itemize}
+}
+% 
+\frame{
+    \frametitle{Independent v.s. Cooperative Agents}
+     Tang Ming (1993) \cite{1} studied the performance of cooperative agents,
+     using independent agents as a benchmark. Here are the discoveries:
+    \begin{itemize}
+        \item Additional sensation from another agent is beneficial if it can
+            be used efficiently.
+        \item Sharing learned policies or episodes among agents speeds up
+            learning at the cost of communication.
+        \item For joint tasks, agents engaging in partnership can
+            significantly outperform independent agents although they may
+            learn slowly in the beginning.
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Active Research Areas}
+    Currently active research areas of M.A.S. are advanced Multiagent
+    Behaviors, as follows:
+    \begin{itemize}
+        \item Communication
+        \item Cooperation and Coordination
+        \item Negotiation
+        \item Distributed Problem Solving
+        \item Multi-agent Learning
+        \item Fault Tolerance
+    \end{itemize}
+}
+% explain each multiagent behavior
+\frame{
+    \frametitle{Communication}
+    {\bf Communication} is defined as altering the state of the environment
+    such that other agents can perceive the modification and decode
+    information from it.
+    \begin{itemize}
+        \item Direct Communication
+        \item Indirect Communication
+    \end{itemize}
+}
+\frame{
+    \frametitle{Cooperation and Coordination}
+}
+\frame{
+    \frametitle{Negotiation}
+}
+\frame{
+    \frametitle{Distributed Problem Solving}
+    The state space of a large, joint multi-agent task can be overwhelming. An obvious way to tackle this is to use domain
+knowledge to simplify the state space, often by providing a smaller set of
+more “powerful” actions customized for the problem domain. 
+
+An alternative has been to reduce complexity
+by heuristically decomposing the problem, and hence the joint behavior, into
+separate, simpler behaviors for the agents to learn. Such decomposition may be
+done at various levels (decomposing team behaviors into sub-behaviors for each
+agent; decomposing an agents’ behavior into sub-behaviors; etc.), and the
+behaviors may be learned independently, iteratively (each depending on the
+earlier one), or in a bottom-up fashion (learning simple behaviors, then
+grouping into “complex” behaviors).
+}
+\frame{
+    \frametitle{Multi-agent Learning}
+}
+\frame{
+    \frametitle{Fault Tolerance}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Detailed Research Literature}
 
 \frame{
     \frametitle{Social Learning}
@@ -338,13 +473,64 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Discussions}
+\frame{
+    \frametitle{Questions, Suggestions or Some Other Ideas?}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Our Research Project}
+\frame{
+    \frametitle{Our Research Project}
+    \begin{itemize}
+        \item Motivations
+        \item Mechanisms
+        \item Suggestions
+        \end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% REFERENCES
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{References}
+\section{Appendix}
+\setbeamertemplate{bibliography item}[book]
+\frame{
+    \frametitle{Further Readings: Books}
+    \begin{thebibliography}{9}
+        \bibitem{wooldridge2009introduction} W. Michael. {\it An introduction to
+            multiagent systems}. John Wiley \& Sons, 2009.
+       \bibitem{shoham2008multiagent} S. Yoav, and K. L. Brown. 
+       {\it Multiagent systems: Algorithmic, game-theoretic, and logical
+           foundations}. Cambridge University Press, 2008.
+       \bibitem{weiss1999multiagent} W, Gerhard, ed. {\it Multiagent systems:
+           a modern approach to distributed artificial intelligence}. MIT press, 1999.
+   \end{thebibliography}
+}
+\setbeamertemplate{bibliography item}[online]
+\frame{
+    \frametitle{Further Readings: Courses and Labs}
+    \begin{thebibliography}{9}
+        \bibitem{CS224Spr} Stanford CS224M: Multi Agent Systems (Spring 2013-14). 
+       \href{http://web.stanford.edu/class/cs224m/}{HERE}
+
+        \bibitem{CPSC689} MIT CPSC689: Special Topics in Multi-Agent Systems (Spring 2006). 
+       \href{http://web.stanford.edu/class/cs224m/}{HERE}
+        \bibitem{StanfordGroup} Stanford Multiagent Research Group. 
+       \href{http://multiagent.stanford.edu/}{HERE}
+       \bibitem{AARTLab} CMU Advanced Agent-Robotics Technology Lab. 
+       \href{http://www.cs.cmu.edu/~softagents/multi.html}{HERE}
+
+       \bibitem{MITLab} MIT Robust Open Multi-Agent Systems (ROMA) Research Group. 
+       \href{http://ccs.mit.edu/roma/}{HERE}
+    \end{thebibliography}
+}
+\setbeamertemplate{bibliography item}[text]
 \frame{
     \frametitle{References}
     \begin{thebibliography}{9}
-        \bibitem{ConcreteMath} Liu, Tie, et al. "Learning to detect a salient object."\textit{ Computer Vision and Pattern Recognition, 2007. CVPR'07. IEEE Conference on. IEEE, 2007. }
+        \bibitem{tan1993multi} Tan, Ming. "Multi-agent reinforcement learning:
+        Independent vs. cooperative agents." {\it Proceedings of the Tenth
+            International Conference on Machine Learning}. Vol. 337. 1993.
     \end{thebibliography}
 }
 \end{document}
