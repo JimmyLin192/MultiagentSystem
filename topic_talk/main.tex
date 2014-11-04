@@ -138,6 +138,13 @@
 % explain each multiagent behavior
 \frame{
     \frametitle{Communication}
+    {\bf Communication} is defined as altering the state of the environment
+    such that other agents can perceive the modification and decode
+    information from it.
+    \begin{itemize}
+        \item Direct Communication
+        \item Indirect Communication
+    \end{itemize}
 }
 \frame{
     \frametitle{Cooperation and Coordination}
@@ -147,6 +154,18 @@
 }
 \frame{
     \frametitle{Distributed Problem Solving}
+    The state space of a large, joint multi-agent task can be overwhelming. An obvious way to tackle this is to use domain
+knowledge to simplify the state space, often by providing a smaller set of
+more “powerful” actions customized for the problem domain. 
+
+An alternative has been to reduce complexity
+by heuristically decomposing the problem, and hence the joint behavior, into
+separate, simpler behaviors for the agents to learn. Such decomposition may be
+done at various levels (decomposing team behaviors into sub-behaviors for each
+agent; decomposing an agents’ behavior into sub-behaviors; etc.), and the
+behaviors may be learned independently, iteratively (each depending on the
+earlier one), or in a bottom-up fashion (learning simple behaviors, then
+grouping into “complex” behaviors).
 }
 \frame{
     \frametitle{Multi-agent Learning}
