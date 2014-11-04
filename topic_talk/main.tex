@@ -105,7 +105,34 @@
         \item \href{https://www.youtube.com/watch?v=azIOCFjDZWA&list=PL5Tiw7DXCdu2roBlpHvUzOMvR7WGXMoP6}{MATISSE: A Multi-Agent based Traffic Simulation System}
     \end{itemize}
 }
-% 
+\frame{
+    \frametitle{Main topics of M.A.S.}
+    Currently active research areas of M.A.S. are advanced Multiagent
+    Behaviors, as follows:
+    \begin{itemize}
+        \item Communication
+        \item Cooperation and Coordination
+        \item Negotiation
+        \item Distributed Problem Solving
+            %: The state space of a large, joint multi-agent task can be overwhelming. An obvious way to tackle this is to use domain knowledge to simplify the state space, often by providing a smaller set of more “powerful” actions customized for the problem domain.
+        \item Multi-agent Learning
+        \item Fault Tolerance
+    \end{itemize}
+}
+% communication
+\section{Communication}
+% explain each multiagent behavior
+\frame{
+    \frametitle{Communication}
+    {\bf Communication} is defined as altering the state of the environment
+    such that other agents can perceive the modification and decode
+    information from it.
+    \begin{itemize}
+        \item Direct Communication
+        \item Indirect Communication
+    \end{itemize}
+}
+
 \frame{
     \frametitle{Independent v.s. Cooperative Agents}
      Tang Ming (1993) \cite{1} studied the performance of cooperative agents,
@@ -120,61 +147,167 @@
             learn slowly in the beginning.
     \end{itemize}
 }
+% extend one more slide to show the 
+\frame{
+    \frametitle{Predator / Prey}
+    \begin{columns}[T] 
+        \begin{column}[T]{5cm}
+			Three different examples:
+		  	\begin{itemize}
+		  	\item Centralized network
+		  	\item Autonomous networks with communication
+		  	\item Autonomous networks \textit{without} communication
+		  	\end{itemize}
+		  	All are trained using ESP or \textbf{Multi-Agent ESP} 
+	  	\end{column}
+	  	\begin{column}[T]{6cm}
+			\includegraphics[width=5.5cm]{images/predator_prey/multiagent_esp.png}
+	  	\end{column}
+	\end{columns}
+}
 
 \frame{
-    \frametitle{Main topics of M.A.S.}
-    Currently active research areas of M.A.S. are advanced Multiagent
-    Behaviors, as follows:
-    \begin{itemize}
-        \item Communication
-        \item Cooperation and Coordination
-        \item Negotiation
-        \item Distributed Problem Solving
-        \item Multi-agent Learning
-        \item Fault Tolerance
-    \end{itemize}
+    \frametitle{Centralized Network}
+    \begin{center}
+    \includegraphics[width=9cm]{images/predator_prey/central_network.png}
+    \end{center}
 }
-% explain each multiagent behavior
-\frame{
-    \frametitle{Communication}
-    {\bf Communication} is defined as altering the state of the environment
-    such that other agents can perceive the modification and decode
-    information from it.
-    \begin{itemize}
-        \item Direct Communication
-        \item Indirect Communication
-    \end{itemize}
-}
-\frame{
-    \frametitle{Cooperation and Coordination}
-}
-\frame{
-    \frametitle{Negotiation}
-}
-\frame{
-    \frametitle{Distributed Problem Solving}
-    The state space of a large, joint multi-agent task can be overwhelming. An obvious way to tackle this is to use domain
-knowledge to simplify the state space, often by providing a smaller set of
-more “powerful” actions customized for the problem domain. 
 
-An alternative has been to reduce complexity
-by heuristically decomposing the problem, and hence the joint behavior, into
-separate, simpler behaviors for the agents to learn. Such decomposition may be
-done at various levels (decomposing team behaviors into sub-behaviors for each
-agent; decomposing an agents’ behavior into sub-behaviors; etc.), and the
-behaviors may be learned independently, iteratively (each depending on the
-earlier one), or in a bottom-up fashion (learning simple behaviors, then
-grouping into “complex” behaviors).
-}
 \frame{
-    \frametitle{Multi-agent Learning}
+    \frametitle{Communicating Network}
+    \begin{center}
+    \includegraphics[width=8cm]{images/predator_prey/communication_network.png}
+    \end{center}
 }
+
 \frame{
-    \frametitle{Fault Tolerance}
+    \frametitle{Non-communicating Network}
+    \begin{center}
+    \includegraphics[width=8cm]{images/predator_prey/noncommunication_network.png}
+    \end{center}
 }
+
+\frame{
+    \frametitle{Predator / Prey Results}
+    How long does it take these networks to become successful?
+    \begin{columns}[T] 
+         \begin{column}[T]{6cm} 
+         	\includegraphics[height=4.5cm]{images/predator_prey/results_line.png}
+         	\begin{center}
+         	\end{center}
+         \end{column}
+         \begin{column}[T]{6cm} 
+           	\includegraphics[height=4.5cm]{images/predator_prey/results_bar.png}
+           	\begin{center}
+           	\end{center}
+         \end{column}
+    \end{columns}
+    \textbf{Conclusion}: The predators are able to cooperate using \textbf{stigmergy} -- indirect coordination based on the environment
+    \begin{itemize}
+    \item What if the environment is more complicated?
+    \end{itemize}  
+}
+
+\frame{
+    \frametitle{Predator / Prey Conclusion}
+    \begin{itemize}
+    \item What happens if we use homogeneous networks? (All predators have the same network weights)
+    \item Communication becomes a necessity
+    \end{itemize}
+    \begin{center}
+    \includegraphics[width=9cm]{images/predator_prey/no_cooperation.png} 
+    \end{center}
+    \begin{itemize}
+    \item Even with communication, homogeneous networks do poorly, catching the prey only 3\% of the time
+    \end{itemize} 
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Multiagent behaviors in Neural Network}
+\section{Network Homogenity}
+\frame{
+    \frametitle{Homogeneous Networks}
+    \begin{itemize}
+    \item Thus far, all multi-agent solutions have used heterogeneous networks
+    \item In the predator prey, homogeneous networks performed very poorly
+    \item Can we evolve agents with identical networks, which nevertheless cooperate by adopting different strategies?
+    \end{itemize}
+}
 
+\frame{
+    \frametitle{Legion Game}
+    \begin{columns}[T] 
+         \begin{column}[T]{4cm} 
+         	The Legion game consists of:
+         	\begin{itemize}
+         	\item A hexagonal grid (the countryside)
+         	\item A number of randomly placed cities
+         	\item Several legions (defenders)
+         	\item Many barbarian attackers
+         	\end{itemize}
+         	At every game tick, legions are penalized for each barbarian on the board
+         \end{column}
+         \begin{column}[T]{7cm} 
+           	\includegraphics[height=6cm]{images/legion/setup.png}
+         \end{column}
+    \end{columns}
+}
+
+\frame{
+    \frametitle{Legion Network}
+    \begin{itemize}
+    \item Each legion has six sensors for each of the six directions
+    \item Can detect immediate adjacency as well as long-distance
+    \end{itemize}
+    \begin{columns}[T] 
+         \begin{column}[T]{5.5cm} 
+         	\includegraphics[width=6cm]{images/legion/inputs.png}
+         	
+         	\includegraphics[width=6cm]{images/legion/network.png}
+         \end{column}
+         \begin{column}[T]{4.5cm} 
+           	\includegraphics[width=5cm]{images/legion/sensors.png}
+         \end{column}
+    \end{columns}
+}
+
+\frame{
+    \frametitle{Legion Results}
+    \begin{itemize}
+    \item Legions were trained with ESP neuroevolution
+    \item Successfully learned to divide labor between "guard duty" and search and destroy" behavior
+    \end{itemize}
+    
+    \begin{columns}[T] 
+         \begin{column}[T]{5cm} 
+         	\includegraphics[width=5cm]{images/legion/before.png}
+         	\begin{center}
+         	Before training 
+         	\end{center}
+         \end{column}
+         \begin{column}[T]{5cm} 
+           	\includegraphics[width=5cm]{images/legion/after.png}
+           	\begin{center}
+           	After training 
+           	\end{center}
+         \end{column}
+    \end{columns}
+}
+\section{Social Learning}
+\frame{
+    \frametitle{Multiagent behaviors in Neural Network}
+    \begin{itemize}
+        \item Social Learning
+            \begin{itemize}
+                \item foraging
+                \item UAV examples
+            \end{itemize}
+        \item Communication
+            \begin{itemize}
+                \item Predator/Prey
+            \end{itemize}
+        \item Homogeneous Network
+    \end{itemize}
+}
 \frame{
     \frametitle{Social Learning}
     \begin{columns}[T] 
@@ -326,154 +459,7 @@ grouping into “complex” behaviors).
     \end{itemize}
 }
 
-\frame{
-    \frametitle{Communication}
-     
-}
 
-\frame{
-    \frametitle{Predator / Prey}
-    \begin{columns}[T] 
-        \begin{column}[T]{5cm}
-			Three different examples:
-		  	\begin{itemize}
-		  	\item Centralized network
-		  	\item Autonomous networks with communication
-		  	\item Autonomous networks \textit{without} communication
-		  	\end{itemize}
-		  	All are trained using ESP or \textbf{Multi-Agent ESP} 
-	  	\end{column}
-	  	\begin{column}[T]{6cm}
-			\includegraphics[width=5.5cm]{images/predator_prey/multiagent_esp.png}
-	  	\end{column}
-	\end{columns}
-}
-
-\frame{
-    \frametitle{Centralized Network}
-    \begin{center}
-    \includegraphics[width=9cm]{images/predator_prey/central_network.png}
-    \end{center}
-}
-
-\frame{
-    \frametitle{Communicating Network}
-    \begin{center}
-    \includegraphics[width=8cm]{images/predator_prey/communication_network.png}
-    \end{center}
-}
-
-\frame{
-    \frametitle{Non-communicating Network}
-    \begin{center}
-    \includegraphics[width=8cm]{images/predator_prey/noncommunication_network.png}
-    \end{center}
-}
-
-\frame{
-    \frametitle{Predator / Prey Results}
-    How long does it take these networks to become successful?
-    \begin{columns}[T] 
-         \begin{column}[T]{6cm} 
-         	\includegraphics[height=4.5cm]{images/predator_prey/results_line.png}
-         	\begin{center}
-         	\end{center}
-         \end{column}
-         \begin{column}[T]{6cm} 
-           	\includegraphics[height=4.5cm]{images/predator_prey/results_bar.png}
-           	\begin{center}
-           	\end{center}
-         \end{column}
-    \end{columns}
-    \textbf{Conclusion}: The predators are able to cooperate using \textbf{stigmergy} -- indirect coordination based on the environment
-    \begin{itemize}
-    \item What if the environment is more complicated?
-    \end{itemize}  
-}
-
->>>>>>> 92faa0a3d6de879025fc240229d497b1b7d51e21
-\frame{
-    \frametitle{Predator / Prey Conclusion}
-    \begin{itemize}
-    \item What happens if we use homogeneous networks? (All predators have the same network weights)
-    \item Communication becomes a necessity
-    \end{itemize}
-    \begin{center}
-    \includegraphics[width=9cm]{images/predator_prey/no_cooperation.png} 
-    \end{center}
-    \begin{itemize}
-    \item Even with communication, homogeneous networks do poorly, catching the prey only 3\% of the time
-    \end{itemize} 
-}
-
-\frame{
-    \frametitle{Homogeneous Networks}
-    \begin{itemize}
-    \item Thus far, all multi-agent solutions have used heterogeneous networks
-    \item In the predator prey, homogeneous networks performed very poorly
-    \item Can we evolve agents with identical networks, which nevertheless cooperate by adopting different strategies?
-    \end{itemize}
-}
-
-\frame{
-    \frametitle{Legion Game}
-    \begin{columns}[T] 
-         \begin{column}[T]{4cm} 
-         	The Legion game consists of:
-         	\begin{itemize}
-         	\item A hexagonal grid (the countryside)
-         	\item A number of randomly placed cities
-         	\item Several legions (defenders)
-         	\item Many barbarian attackers
-         	\end{itemize}
-         	At every game tick, legions are penalized for each barbarian on the board
-         \end{column}
-         \begin{column}[T]{7cm} 
-           	\includegraphics[height=6cm]{images/legion/setup.png}
-         \end{column}
-    \end{columns}
-}
-
-\frame{
-    \frametitle{Legion Network}
-    \begin{itemize}
-    \item Each legion has six sensors for each of the six directions
-    \item Can detect immediate adjacency as well as long-distance
-    \end{itemize}
-    \begin{columns}[T] 
-         \begin{column}[T]{5.5cm} 
-         	\includegraphics[width=6cm]{images/legion/inputs.png}
-         	
-         	\includegraphics[width=6cm]{images/legion/network.png}
-         \end{column}
-         \begin{column}[T]{4.5cm} 
-           	\includegraphics[width=5cm]{images/legion/sensors.png}
-         \end{column}
-    \end{columns}
-}
-
-\frame{
-    \frametitle{Legion Results}
-    \begin{itemize}
-    \item Legions were trained with ESP neuroevolution
-    \item Successfully learned to divide labor between "guard duty" and search and destroy" behavior
-    \end{itemize}
-    
-    \begin{columns}[T] 
-         \begin{column}[T]{5cm} 
-         	\includegraphics[width=5cm]{images/legion/before.png}
-         	\begin{center}
-         	Before training 
-         	\end{center}
-         \end{column}
-         \begin{column}[T]{5cm} 
-           	\includegraphics[width=5cm]{images/legion/after.png}
-           	\begin{center}
-           	After training 
-           	\end{center}
-         \end{column}
-    \end{columns}
-}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Discussions}
@@ -482,7 +468,7 @@ grouping into “complex” behaviors).
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Our Research Project}
+\section{Research Project}
 \frame{
     \frametitle{Our Research Project}
     \begin{itemize}
@@ -495,6 +481,7 @@ grouping into “complex” behaviors).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% REFERENCES
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendix
 \section{Appendix}
 \setbeamertemplate{bibliography item}[book]
 \frame{
