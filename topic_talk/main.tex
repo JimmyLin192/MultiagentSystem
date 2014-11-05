@@ -41,25 +41,16 @@
 \setbeamertemplate{itemize subitem}{$\int$}
 % recapture contents of previous topic talks
 \frame{
-    \frametitle{Recap}
-        What we currently have? 
-            \begin{itemize}
-                \item Commitee Machine 
-                \item Reinforcement Learning
-                \item Neuro-evolution
-                \item High-level Behaviors
-            \end{itemize}
-}
-\frame{
     \frametitle{Motivation}
     \begin{itemize}
-        \item Most of works so far has focused exclusively on single agents
-            we can extend reinforcement learning straightforwardly to multiple
-            agents if they are all independent. 
+        \item Most of works so far (i.e. reinforcement learning,
+            neuroevolution) focused exclusively on single agents we can extend
+            reinforcement learning straightforwardly to multiple agents if
+            they are all independent. 
         \item Intuitive idea: Multiple agents together will outperform
             any single agent due to the fact that they have more resources and
             a better chance of receiving rewards.
-        \item Today, we will touch a really broad area 
+        \item Today, we will touch a broad area 
             $$ \text{"Multiagent System" (M.A.S.).}
             $$
     \end{itemize}
@@ -107,16 +98,19 @@
 }
 \frame{
     \frametitle{Main topics of M.A.S.}
-    Currently active research areas of M.A.S. are advanced Multiagent
-    Behaviors, as follows:
+    Currently active research areas of M.A.S. are as follows:
     \begin{itemize}
-        \item Communication
+        \item {\bf Communication}%: how to share information between agents
         \item Cooperation and Coordination
-        \item Negotiation
+            %: given shared information, how does
+           % each individual agent make decisions 
+        \item Negotiation%: what if decisions are in conflict to one another?
         \item Distributed Problem Solving
+            %: how to simplify the large state
+            %space by providing smaller set of actions for the problem domian?
             %: The state space of a large, joint multi-agent task can be overwhelming. An obvious way to tackle this is to use domain knowledge to simplify the state space, often by providing a smaller set of more “powerful” actions customized for the problem domain.
-        \item Multi-agent Learning
-        \item Fault Tolerance
+        \item {\bf Multi-agent Learning}%: Social Learning
+        \item Fault Tolerance%: how M.A.S. responds to the failure of some agents?
     \end{itemize}
 }
 % communication
@@ -128,8 +122,10 @@
     such that other agents can perceive the modification and decode
     information from it.
     \begin{itemize}
-        \item Direct Communication
-        \item Indirect Communication
+        \item Direct Communication: share information with one another in
+            explicit way.
+        \item Indirect Communication: implicit transfer of information from agent to
+agent through modification of the world environment.
     \end{itemize}
 }
 
@@ -217,9 +213,8 @@
     \begin{center}
     \includegraphics[width=9cm]{images/predator_prey/no_cooperation.png} 
     \end{center}
-    \begin{itemize}
-    \item Even with communication, homogeneous networks do poorly, catching the prey only 3\% of the time
-    \end{itemize} 
+   
+    Even with communication, homogeneous networks do poorly, catching the prey only 3\% of the time
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -447,20 +442,29 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Discussions}
+\frame{
+    \frametitle{Questions, Suggestions or Some Other Ideas?}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Research Project}
 \frame{
     \frametitle{Our Research Project}
     \begin{itemize}
-        \item Motivations
-        \item Mechanisms
-        \item Suggestions
+        \item Motivations: Multiagent Learning
+            \begin{itemize} 
+                \item Faster Convergence
+                \item Flexible Architectures
+                \item Collectively Robust
+            \end{itemize}
+        \item Where to start?
+            \begin{itemize}
+                \item Begin from implementing ESP for Roombas in Opennero
+                    Platform
+            \end{itemize}
+        \item Suggestions?
         \end{itemize}
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Discussions}
-\frame{
-    \frametitle{Questions, Suggestions or Some Other Ideas?}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -519,5 +523,10 @@
         
         \bibitem{yong09} Yong, C.H.; Miikkulainen, R., "Coevolution of Role-Based Cooperation in Multiagent Systems," {\it Autonomous Mental Development, IEEE Transactions on}, vol.1, no.3, pp.170,186, Oct. 2009
     \end{thebibliography}
+}
+
+\frame{
+    \frametitle{Acknowledgement}
+    Thanks.
 }
 \end{document}
