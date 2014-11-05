@@ -223,7 +223,7 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Network Homogenity}
+\section{Homogeneous Networks}
 \frame{
     \frametitle{Homogeneous Networks}
     \begin{itemize}
@@ -239,10 +239,10 @@
          \begin{column}[T]{4cm} 
          	The Legion game consists of:
          	\begin{itemize}
-         	\item A hexagonal grid (the countryside)
-         	\item A number of randomly placed cities
-         	\item Several legions (defenders)
-         	\item Many barbarian attackers
+         	\item A hexagonal grid 
+         	\item Randomly placed cities
+         	\item Legions (defenders)
+         	\item Barbarian attackers
          	\end{itemize}
          	At every game tick, legions are penalized for each barbarian on the board
          \end{column}
@@ -256,7 +256,6 @@
     \frametitle{Legion Network}
     \begin{itemize}
     \item Each legion has six sensors for each of the six directions
-    \item Can detect immediate adjacency as well as long-distance
     \end{itemize}
     \begin{columns}[T] 
          \begin{column}[T]{5.5cm} 
@@ -293,21 +292,7 @@
     \end{columns}
 }
 \section{Social Learning}
-\frame{
-    \frametitle{Multiagent behaviors in Neural Network}
-    \begin{itemize}
-        \item Social Learning
-            \begin{itemize}
-                \item foraging
-                \item UAV examples
-            \end{itemize}
-        \item Communication
-            \begin{itemize}
-                \item Predator/Prey
-            \end{itemize}
-        \item Homogeneous Network
-    \end{itemize}
-}
+
 \frame{
     \frametitle{Social Learning}
     \begin{columns}[T] 
@@ -315,7 +300,7 @@
              \begin{itemize}
                  \item In \textbf{social learning}, agents improve their performance by learning from other members of the population
                  \item Traditionally, agents are partitioned into students and teachers, where teachers are chosen to be high fitness members of the population
-                 \item \textbf{Problem}: How to decide which agents should be teachers and which student?
+                 \item \textbf{Problem}: How to decide which agents should be teachers and which the students?
                  \end{itemize}
              \end{column}
              \begin{column}[T]{4cm} 
@@ -330,7 +315,7 @@
              \begin{column}[T]{4cm} 
              \begin{itemize}
                 \item In this example, agents are \textbf{Unmanned Aerial Vehicles} (\textbf{UAVs}) searching a grid of airspace 
-                \item Agents have limited communication and some mobility restrictions (such as slow turning)
+                %\item Agents have limited communication and some mobility restrictions (such as slow turning)
              \end{itemize}
              \end{column}
              \begin{column}[T]{6.5cm} 
@@ -360,9 +345,9 @@
     \begin{columns}[T] 
     	\begin{column}[T]{5cm} 
 		    \begin{itemize}
-		    \item Agents trained via Reinforcement Learning
+		    \item UAVs trained via Reinforcement Learning
 		    \item Each cell in the search space is given a \textit{certainty} value between 0 and 1 
-		    \item The uncertainty of a cell is reduced by half for each agent that enters that cell
+		    \item UAVs are rewarded for reducing uncertainty
 		    \end{itemize}
 		\end{column}
 		\begin{column}[T]{5cm}
@@ -374,10 +359,9 @@
 \frame{
     \frametitle{UAV Example}
     \begin{itemize}
-    \item Rewards equal the decrease in uncertainty in a given cell divided evenly among the entering agents 
-    \item Agents want to spread out and avoid entering the same cell
+    \item Diminishing returns for searching the same cell, as well as having multiple agents search the same cell
     \item At each time-step, an agent only has three options (turn left, turn right, keep straight)
-    \item Three neural networks are used to estimate the benefit of each course
+    \item Neural networks are used to estimate the benefit of each course
     \end{itemize}
     }
 \frame{
@@ -410,20 +394,26 @@
 
 \frame{
     \frametitle{ESL Example: Foraging}
-    \begin{itemize}
-    \item Agents move independently across a continuous world filled with several types of plants
-    \item Plants are automatically consumed when an agent draws close enough; some types of plant give positive reward, others negative reward
-    \item Agents have sensors for each type of plant, as well as a sensor for their own velocity
-    \item They cannot see other agents, or plants they have already consumed
-    \item Use backpropagation networks and train with NeuroEvolution of Augmenting Topologies (NEAT)
-    \end{itemize}
+    \begin{columns}[T] 
+    	\begin{column}[T]{5cm} 
+		  \begin{itemize}
+	      \item Agents move independently across a continuous world filled with several types of plants
+	      \item Plants are automatically consumed when an agent draws close enough; some types of plant give positive reward, others negative reward
+	      \end{itemize}
+		\end{column}
+		\begin{column}[T]{5cm}
+			\includegraphics[width=5.5cm]{images/foraging/overview.png}
+		\end{column}
+	\end{columns}
 }
+
 
 \frame{
     \frametitle{ESL Example: Foraging (Results)}
     \begin{columns}[T] % contents are top vertically aligned
          \begin{column}[T]{4cm} % each column can also be its own environment
          \begin{itemize}
+         	 \item Backpropagation networks trained with NEAT
              \item ESL without subcultures performs worse than plain neuroevolution
              \item Adding subcultures results in a significant improvement
          \end{itemize}
@@ -437,34 +427,23 @@
 
 \frame{
     \frametitle{ESL Example: Foraging (Results)}
-    Comparing ESL with student-teacher learning and plain neuroevolution
-    \begin{columns}[T] 
-         \begin{column}[T]{4.5cm} 
-         	\includegraphics[height=4.2cm]{images/foraging/student_teacher_simple.png}
-         	
-         	Simple environment (few plant types)
-         \end{column}
-         \begin{column}[T]{4.5cm} 
-           	\includegraphics[height=4.2cm]{images/foraging/student_teacher_complex.png}
-           	
-           	Complex environment (many plant types)
-         \end{column}
-    \end{columns}
+    \begin{center}
+    \includegraphics[height=7cm]{images/foraging/student_teacher_complex.png}
+    \end{center}
+    
 }
 
 \frame{
     \frametitle{ESL Example: Foraging (Conclusion)}
     \begin{itemize}
+    \item In the foraging example, ESL performed better than the Student-Teacher model
     \item ESL is advantageous because it promotes diversity and avoids premature convergence
     \end{itemize}
-}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Discussions}
-\frame{
-    \frametitle{Questions, Suggestions or Some Other Ideas?}
+    
+    \qquad
+    \begin{itemize}
+    \item \textbf{Takeaway}: Social learning techniques improve learning speed and performance
+    \end{itemize}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -476,6 +455,12 @@
         \item Mechanisms
         \item Suggestions
         \end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Discussions}
+\frame{
+    \frametitle{Questions, Suggestions or Some Other Ideas?}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -515,12 +500,24 @@
     \end{thebibliography}
 }
 \setbeamertemplate{bibliography item}[text]
-\frame{
+\frame[allowframebreaks]{
     \frametitle{References}
     \begin{thebibliography}{9}
+    	\bibitem{bryant03} Bobby D. Bryant and Risto Miikkulainen (2003). Neuroevolution for Adaptive Teams. {\it Proceedings of the 2003 Congress on Evolutionary Computation} 1:2194-2201. 
+    
         \bibitem{tan1993multi} Tan, Ming. "Multi-agent reinforcement learning:
         Independent vs. cooperative agents." {\it Proceedings of the Tenth
             International Conference on Machine Learning}. Vol. 337. 1993.
+        
+        \bibitem{rawar} Rawal, A.; Rajagopalan, P.; Miikkulainen, R., "Constructing competitive and cooperative agent behavior using coevolution," {\it Computational Intelligence and Games (CIG), 2010 IEEE Symposium on}, vol., no., pp.107,114, 18-21 Aug. 2010
+        
+        \bibitem{rajagopalan11} Rajagopalan, P.; Rawal, A.; Miikkulainen, R.; Wiseman, M.A.; Holekamp, K.E., "The role of reward structure, coordination mechanism and net return in the evolution of cooperation," {\it Computational Intelligence and Games (CIG), 2011 IEEE Conference on}, vol., no., pp.258,265, Aug. 31 2011-Sept. 3 2011
+        
+    	\bibitem{risto12} Risto Miikkulainen and Eliana Feasley and Leif Johnson and Igor Karpov and Padmini Rajagopalan and Aditya Rawal and Wesley Tansey (2012). {\it Multiagent Learning through Neuroevolution. Advances in Computational Intelligence} LNCS 7311:24-46.     
+        
+        \bibitem{yang02} Yanli Yang; Polycarpou, M.M.; Minai, A.A., "Opportunistically cooperative neural learning in mobile agents," {\it Neural Networks, 2002. IJCNN '02. Proceedings of the 2002 International Joint Conference on}, vol.3, no., pp.2638,2643, 2002
+        
+        \bibitem{yong09} Yong, C.H.; Miikkulainen, R., "Coevolution of Role-Based Cooperation in Multiagent Systems," {\it Autonomous Mental Development, IEEE Transactions on}, vol.1, no.3, pp.170,186, Oct. 2009
     \end{thebibliography}
 }
 \end{document}
