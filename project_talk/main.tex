@@ -61,7 +61,7 @@
 \item Objectives: 
     \begin{itemize}
         \item collect as many scrumbs as possible
-        \item make as fewer collision as possible
+        \item make as few collision as possible
     \end{itemize}
     \end{itemize}
 }
@@ -76,7 +76,8 @@
         \item  Global View: full observations over all scrumbs 
     \end{itemize}
     
-\item This can be formulated as an integer programming problem. 
+\item In this system, the crumb collection can be formulated as 
+    an integer programming problem. 
 \item No experiential learning is needed in this case.
 
 \end{itemize}
@@ -85,7 +86,7 @@
 \frame{
     \frametitle{A Slightly Realisitc Case}
     \begin{itemize}
-        \item Relax the "Centrailization" assumption and yield a decentralized system
+        \item Relax the "Centralization" assumption and yield a decentralized system
     with
     \begin{itemize}
         \item  Autonomy: all agents should decide on its own
@@ -94,10 +95,9 @@
     \end{itemize}
     \item  We need 
     \begin{itemize}
-        \item Local Optimizers that approximates the global optimizers 
-        \item A collision-free protocol between agents
+        \item Local policy optimizers that approximates the globally optimal policies
+        \item Collision-free or collision-tolerant protocol between agents
     \end{itemize}
-        
     \end{itemize}
 }
 
@@ -110,8 +110,15 @@
         \item  Autonomy: all agents should decide on its own
         \item  Local View: only local observation of scrumbs are available for
             agents
-        \item  Limited Sharing: 
+        \item  Limited Sharing: a small amount of information is shared between agents
     \end{itemize}
+\item The difficulty lies in 
+    \begin{itemize}
+        \item Communication: what information to share for the best performance?
+        \item 
+    \end{itemize}
+\item This can be appropriately solved using experiential learning:
+    reinforcement learning or neuroevolution.  
     \end{itemize}
     
 }
@@ -120,7 +127,10 @@
 \section{Approaches and Architectures}
 \frame{
     \frametitle{}
-
+    baseline: random agents, greedy agents \\
+    more: neuroevolution, Q Learning \\
+    fitness derived from given number of episodes (each episodes with fixed
+    number of actions).
 }
 
 \frame{
