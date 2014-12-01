@@ -3,7 +3,7 @@
 %%% 
 %%%  COPYRIGHT (C) JIMMY LIN, 2013, UT AUSTIN
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\documentclass[10pt]{beamer}
+\documentclass[11pt]{beamer}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%  PACKAGES USED IN THIS TEX SOURCE FILE
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -13,16 +13,21 @@
 \usepackage{color}
 \usepackage{JSPPT}
 \usepackage[style=ieee]{biblatex}
+\usepackage[utf8]{inputenc}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% PRESENTATION INFORMATION
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title{Project Talk: Multiagent Behaviors in Neural Network}
+\title{Multiagent Coordination in Roombas: \newline From a Neural Network Perspective}
 \author[Jimmy Lin and Barry Feigenbaum]{\bf Jimmy Lin \\Barry Feigenbaum}
 \institute{\bf Prof. Risto Miikkulainen\\[0.3cm] Department of Computer Science \\The University of Texas At Austin}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% TITLE PAGE
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\AtBeginSection{\frame{\sectionpage}}
+\setbeamertemplate{itemize item}[ball]
+\setbeamertemplate{itemize subitem}{--}
+
 \begin{document}
 \begin{large}
     \frame{\maketitle}%\titlepage
@@ -36,44 +41,139 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% DOCUMENTATION STARTS FROM HERE
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Overview of Multiagent System}
-\setbeamertemplate{itemize item}[ball]
-\setbeamertemplate{itemize subitem}{$\int$}
+
+\section{Problem Motivation}
 % recapture contents of previous topic talks
 \frame{
-    \frametitle{Motivation}
-   
+    \frametitle{Structure of the Roomba Environment}
+
+    \begin{itemize}
+        \item Objects: 
+
+    \begin{itemize}
+        \item Agent: dynamic dirt collectors (Black Disks)
+        \item Scrumb: static dirt to clean (Blue Dots)
+        \item Wall: static boundary of the world 
+    \item Chair/Desk: static decorations as hidden obstacles
+    \end{itemize}
+
+    Roomba pictures
+\item Objectives: 
+    \begin{itemize}
+        \item collect as many scrumbs as possible
+        \item make as fewer collision as possible
+    \end{itemize}
+    \end{itemize}
 }
-% introduce multiagent behavior
+
 \frame{
-    \frametitle{Introduction}
+    \frametitle{A Ideal Case}
+    \begin{itemize}
+        \item The most ideal case is to set up a system with 
+
+    \begin{itemize}
+        \item  Centrailization: full control over all agents 
+        \item  Global View: full observations over all scrumbs 
+    \end{itemize}
+    
+\item This can be formulated as an integer programming problem. 
+\item No experiential learning is needed in this case.
+
+\end{itemize}
+}
+
+\frame{
+    \frametitle{A Slightly Realisitc Case}
+    \begin{itemize}
+        \item Relax the "Centrailization" assumption and yield a decentralized system
+    with
+    \begin{itemize}
+        \item  Autonomy: all agents should decide on its own
+        \item  Global View: full observations over all scrumbs are still available
+            for all agents
+    \end{itemize}
+    \item  We need 
+    \begin{itemize}
+        \item Local Optimizers that approximates the global optimizers 
+        \item A collision-free protocol between agents
+    \end{itemize}
+        
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{A More Realisitc Case}
+    \begin{itemize}
+        \item Relax the "Global View" assumption, but allow limited information sharing
+    between agents. These yield a system with
+    \begin{itemize}
+        \item  Autonomy: all agents should decide on its own
+        \item  Local View: only local observation of scrumbs are available for
+            agents
+        \item  Limited Sharing: 
+    \end{itemize}
+    \end{itemize}
+    
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Approaches and Architectures}
+\frame{
+    \frametitle{}
+
+}
+
+\frame{
+    \frametitle{}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Experimental Results}
+\frame{
+    \frametitle{We compared the fitness derived from }
+
+}
+
+\section{Discussion}
+\frame{
+    \frametitle{Discussion Time}
+    \begin{itemize}
+        \item Any questions or suggestions?  \\
+            [insert pictures]
+        \item Or email us at 
+            \begin{itemize}
+                \item jimmylin at utexas dot edu
+                \item chevron8 at gmail dot com
+            \end{itemize}
+    \end{itemize}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% REFERENCES
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\appendix
-\section{Appendix}
-\frame[allowframebreaks]{
-    \frametitle{References}
-    \begin{thebibliography}{9}
-    	\bibitem{bryant03} Bobby D. Bryant and Risto Miikkulainen (2003). Neuroevolution for Adaptive Teams. {\it Proceedings of the 2003 Congress on Evolutionary Computation} 1:2194-2201. 
-    
-        \bibitem{tan1993multi} Tan, Ming. "Multi-agent reinforcement learning:
-        Independent vs. cooperative agents." {\it Proceedings of the Tenth
-            International Conference on Machine Learning}. Vol. 337. 1993.
-        
-        \bibitem{rawar} Rawal, A.; Rajagopalan, P.; Miikkulainen, R., "Constructing competitive and cooperative agent behavior using coevolution," {\it Computational Intelligence and Games (CIG), 2010 IEEE Symposium on}, vol., no., pp.107,114, 18-21 Aug. 2010
-        
-        \bibitem{rajagopalan11} Rajagopalan, P.; Rawal, A.; Miikkulainen, R.; Wiseman, M.A.; Holekamp, K.E., "The role of reward structure, coordination mechanism and net return in the evolution of cooperation," {\it Computational Intelligence and Games (CIG), 2011 IEEE Conference on}, vol., no., pp.258,265, Aug. 31 2011-Sept. 3 2011
-        
-    	\bibitem{risto12} Risto Miikkulainen and Eliana Feasley and Leif Johnson and Igor Karpov and Padmini Rajagopalan and Aditya Rawal and Wesley Tansey (2012). {\it Multiagent Learning through Neuroevolution. Advances in Computational Intelligence} LNCS 7311:24-46.     
-        
-        \bibitem{yang02} Yanli Yang; Polycarpou, M.M.; Minai, A.A., "Opportunistically cooperative neural learning in mobile agents," {\it Neural Networks, 2002. IJCNN '02. Proceedings of the 2002 International Joint Conference on}, vol.3, no., pp.2638,2643, 2002
-        
-        \bibitem{yong09} Yong, C.H.; Miikkulainen, R., "Coevolution of Role-Based Cooperation in Multiagent Systems," {\it Autonomous Mental Development, IEEE Transactions on}, vol.1, no.3, pp.170,186, Oct. 2009
-    \end{thebibliography}
-}
+%\appendix
+%\section{Appendix}
+%\frame[allowframebreaks]{
+%    \frametitle{References}
+%    \begin{thebibliography}{9}
+%    	\bibitem{bryant03} Bobby D. Bryant and Risto Miikkulainen (2003). Neuroevolution for Adaptive Teams. {\it Proceedings of the 2003 Congress on Evolutionary Computation} 1:2194-2201. 
+%    
+%        \bibitem{tan1993multi} Tan, Ming. "Multi-agent reinforcement learning:
+%        Independent vs. cooperative agents." {\it Proceedings of the Tenth
+%            International Conference on Machine Learning}. Vol. 337. 1993.
+%        
+%        \bibitem{rawar} Rawal, A.; Rajagopalan, P.; Miikkulainen, R., "Constructing competitive and cooperative agent behavior using coevolution," {\it Computational Intelligence and Games (CIG), 2010 IEEE Symposium on}, vol., no., pp.107,114, 18-21 Aug. 2010
+%        
+%        \bibitem{rajagopalan11} Rajagopalan, P.; Rawal, A.; Miikkulainen, R.; Wiseman, M.A.; Holekamp, K.E., "The role of reward structure, coordination mechanism and net return in the evolution of cooperation," {\it Computational Intelligence and Games (CIG), 2011 IEEE Conference on}, vol., no., pp.258,265, Aug. 31 2011-Sept. 3 2011
+%        
+%    	\bibitem{risto12} Risto Miikkulainen and Eliana Feasley and Leif Johnson and Igor Karpov and Padmini Rajagopalan and Aditya Rawal and Wesley Tansey (2012). {\it Multiagent Learning through Neuroevolution. Advances in Computational Intelligence} LNCS 7311:24-46.     
+%        
+%        \bibitem{yang02} Yanli Yang; Polycarpou, M.M.; Minai, A.A., "Opportunistically cooperative neural learning in mobile agents," {\it Neural Networks, 2002. IJCNN '02. Proceedings of the 2002 International Joint Conference on}, vol.3, no., pp.2638,2643, 2002
+%        
+%        \bibitem{yong09} Yong, C.H.; Miikkulainen, R., "Coevolution of Role-Based Cooperation in Multiagent Systems," {\it Autonomous Mental Development, IEEE Transactions on}, vol.1, no.3, pp.170,186, Oct. 2009
+%    \end{thebibliography}
+%}
 
 \frame{
     \frametitle{Acknowledgement}
