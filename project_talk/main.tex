@@ -140,28 +140,57 @@
 
 \frame{
     \frametitle{Approaches}
-    baseline: random agents, greedy agents \\
-    more: neuroevolution, Q Learning \\
-    fitness derived from given number of episodes (each episodes with fixed
-    number of actions).
+    \begin{itemize}
+    \item Learning mechanisms:
+    	\begin{itemize}
+    	\item Neroevolution (Real-time NEAT)
+    	\item Q-learning
+    	\end{itemize}
+    \item Techniques to support cooperation:
+    	\begin{itemize}
+        \item Communication between agents
+        \item Social learning
+        \item Centralized control / coordination
+        \end{itemize}
+    \item Compare against hardcoded behavior as a baseline:
+    	\begin{itemize}
+    	\item Random agents
+    	\item Purely greedy search
+    	\end{itemize}
+    \end{itemize}
 }
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Experimental Results}
+
 \frame{
     \frametitle{Results}
+	\begin{itemize}
+	\item Initial results are unexciting - agents don't learn
+	\item Roomba module needs considerable work just to be used as a baseline
+	\item Most of our effort has been spent getting the Roomba mod on track
+	\item A major issue is learning obstacle avoidance
+	\end{itemize}
+}
 
+\frame{
+    \frametitle{Unmodified Roomba Environment}
+	\begin{center}
+	    \includegraphics[height=7cm]{figs/roomba_learning_1000gen.png}
+	\end{center}
 }
 
 \frame{
     \frametitle{Conclusions}
-
+	\begin{itemize}
+	\item 
+	\end{itemize}
 }
 
-\frame{
-    \frametitle{Future Work}
-}
+%\frame{
+%    \frametitle{Future Work}
+%}
 
 \section{Discussion}
 \frame{
