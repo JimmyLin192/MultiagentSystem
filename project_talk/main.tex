@@ -59,7 +59,7 @@
         \item Objects: 
             \begin{itemize}
                 \item Agent: dynamic dirt collectors (Black Disks)
-                \item Scrumb: static dirt to clean (Blue Dots)
+                \item Crumb: static dirt to clean (Blue Dots)
                 \item Wall: static boundary of the world 
                 \item Chair/Desk: static decorations as salient/hidden obstacles
             \end{itemize}
@@ -80,7 +80,7 @@
 
     \begin{itemize}
         \item  Centrailization: full control over all agents 
-        \item  Global View: full observations over all scrumbs 
+        \item  Global View: full observations over all crumbs 
     \end{itemize}
     
 \item In this system, all distances between crumbs can be pre-computed and the
@@ -97,7 +97,7 @@
 %    with
 %    \begin{itemize}
 %        \item  Autonomy: all agents should decide on its own
-%        \item  Global View: full observations over all scrumbs are still available
+%        \item  Global View: full observations over all crumbs are still available
 %            for all agents
 %    \end{itemize}
 %    \item  We need 
@@ -175,28 +175,33 @@
 }
 
 \frame{
-    \frametitle{Plans}
-    In order, we plan to figure NE and/or RL solution that simulates
-    \begin{itemize}
-        \item \textbf{simple greedy agents}
-        \item \textbf{simple planning agents}
-        \item greedy agents with collision avoidance
-        \item planning agents with collision avoidance
-        \item greedy agents with advanced coordination and collision avoidance 
-        \item planning agents with advanced coordination and collision avoidance
-    \end{itemize}
+    \frametitle{Roomba Sensors}
+	\begin{center}
+	    \includegraphics[height=7cm]{figs/roomba_sensors.png}
+	\end{center}
+}
+
+\frame{
+    \frametitle{Training Plan}
+    We are incrementally training agents to solve more difficult problems:
+    \begin{enumerate}
+        \item Simple greedy search
+        \item Simple cooperative / coordinated search
+        \item Greedy search with collision avoidance
+        \item Cooperative search with collision avoidance
+        \item Social learning and other advanced multi-agent techniques
+    \end{enumerate}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Experimentation}
 
 \frame{
-    \frametitle{Results}
+    \frametitle{Progress Thus Far}
 	\begin{itemize}
 	\item Initial results are unexciting - agents don't learn
-	\item Roomba module needs considerable work just to be used as a baseline
+	\item Roomba module needs work just to be used as a baseline
 	\item Most of our effort has been spent getting the Roomba mod on track
-	\item A major issue is learning obstacle avoidance
 	\end{itemize}
 }
 
@@ -205,6 +210,24 @@
 	\begin{center}
 	    \includegraphics[height=7cm]{figs/roomba_learning_1000gen.png}
 	\end{center}
+}
+
+\frame{
+    \frametitle{Modified Enviroment}
+	\begin{center}
+	    \includegraphics[height=6.5cm]{figs/roomba_learning_mini_300gen.png}
+	\end{center}
+}
+
+\frame{
+    \frametitle{Conclusion / Future Work}
+	\begin{itemize}
+	\item Most of our effort has been spent getting the Roomba mod on track
+	\item A major issue is learning obstacle avoidance
+	\item We're experimenting with different sensor configurations
+	\item Exploring learning algorithms other than rtNEAT
+	\item And of course, there are exciting ideas like social learning, emergent communication / language, stigmergy, etc.
+	\end{itemize}
 }
 
 %\frame{
