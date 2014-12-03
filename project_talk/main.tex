@@ -18,7 +18,7 @@
 %%% PRESENTATION INFORMATION
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title{Multiagent Coordination in Roombas: \newline \ From a Neural Network Perspective}
-\author[Jimmy Xin Lin and Barry Feigenbaum]{\bf Jimmy Lin \\Barry Feigenbaum}
+\author[Jimmy Xin Lin and Barry Feigenbaum]{\bf Jimmy Xin Lin \\Barry Feigenbaum}
 \institute{\bf Prof. Risto Miikkulainen\\[0.3cm] Department of Computer Science \\The University of Texas At Austin}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -63,7 +63,7 @@
                 \item Wall: static boundary of the world 
                 \item Chair/Desk: static decorations as salient/hidden obstacles
             \end{itemize}
-        \item Goal: figure out the best dirt collection efficiency.
+        \item Goal: figure out the dirt collection policies with max efficiency.
         \item Objectives: within a given period,
             \begin{itemize}
                 \item collect as many crumbs as possible
@@ -84,7 +84,7 @@
     \end{itemize}
     
 \item In this system, all distances between crumbs can be pre-computed and the
-    crumb collection can be formulated as an integer programming problem. 
+    crumb collection can be formulated as an dynamic programming problem. 
 \item Little improvement can be achieved by experiential learning in this case.
 
 \end{itemize}
@@ -143,8 +143,8 @@
         \item Social Learning Policies that facilitate the learning process:
             \begin{itemize}
            %    \item Enforced SubPopulation (ESP).
-       \item Egalitarian Social Learning (ESL).
        \item Opportunistic Cooperative Learning (OCL).
+       \item Egalitarian Social Learning (ESL).
             \end{itemize}
 
     \end{itemize}
