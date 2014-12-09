@@ -18,7 +18,7 @@
 %%% PRESENTATION INFORMATION
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title{Multiagent Coordination in Roombas: \newline \ From a Neural Network Perspective}
-\author[Jimmy Lin and Barry Feigenbaum]{\bf Jimmy Lin \\Barry Feigenbaum}
+\author[Jimmy Xin Lin and Barry Feigenbaum]{\bf Jimmy Xin Lin \\Barry Feigenbaum}
 \institute{\bf Prof. Risto Miikkulainen\\[0.3cm] Department of Computer Science \\The University of Texas At Austin}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -42,30 +42,37 @@
 %%% DOCUMENTATION STARTS FROM HERE
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Problem Motivation}
+\section{Introduction to Roomba}
 % recapture contents of previous topic talks
 \frame{
-    \frametitle{Structure of the Roomba Environment}
+    \frametitle{The Roomba Environment}
+    \begin{figure}
+        \centering
+        \href{https://www.youtube.com/watch?v=fBitIWxtIUo}{
+            \includegraphics[width=7cm]{./roomba.png} }
+    \end{figure}
+}
 
+\frame{
+    \frametitle{The Roomba Environment: Cont.}
     \begin{itemize}
         \item Objects: 
-
-    \begin{itemize}
-        \item Agent: dynamic dirt collectors (Black Disks)
-        \item Scrumb: static dirt to clean (Blue Dots)
-        \item Wall: static boundary of the world 
-    \item Chair/Desk: static decorations as hidden obstacles
-    \end{itemize}
-
-    Roomba pictures
-\item Objectives: 
-    \begin{itemize}
-        \item collect as many scrumbs as possible
-        \item make as few collision as possible
-    \end{itemize}
+            \begin{itemize}
+                \item Agent: dynamic dirt collectors (Black Disks)
+                \item Crumb: static dirt to clean (Blue Dots)
+                \item Wall: static boundary of the world 
+                \item Chair/Desk: static decorations as salient/hidden obstacles
+            \end{itemize}
+        \item Goal: figure out the dirt collection policies with max efficiency.
+        \item Objectives: within a given period,
+            \begin{itemize}
+                \item collect as many crumbs as possible
+                \item make as few collisions as possible
+            \end{itemize}
     \end{itemize}
 }
 
+\section{Problem Formulation}
 \frame{
     \frametitle{A Ideal Case}
     \begin{itemize}
@@ -73,106 +80,182 @@
 
     \begin{itemize}
         \item  Centrailization: full control over all agents 
-        \item  Global View: full observations over all scrumbs 
+        \item  Global View: full observations over all crumbs 
     \end{itemize}
     
-\item In this system, the crumb collection can be formulated as 
-    an integer programming problem. 
-\item No experiential learning is needed in this case.
+\item In this system, all distances between crumbs can be pre-computed and the
+    crumb collection can be formulated as an dynamic programming problem. 
+\item Little improvement can be achieved by experiential learning in this case.
 
 \end{itemize}
 }
 
+%\frame{
+%    \frametitle{A Slightly Realisitc Case}
+%    \begin{itemize}
+%        \item Relax the "Centralization" assumption and yield a decentralized system
+%    with
+%    \begin{itemize}
+%        \item  Autonomy: all agents should decide on its own
+%        \item  Global View: full observations over all crumbs are still available
+%            for all agents
+%    \end{itemize}
+%    \item  We need 
+%    \begin{itemize}
+%        \item Local policy optimizers that approximates the globally optimal policies
+%        \item Collision-free or collision-tolerant protocol between agents
+%    \end{itemize}
+%    \end{itemize}
+%}
+
 \frame{
-    \frametitle{A Slightly Realisitc Case}
+    \frametitle{A Realisitc Case}
     \begin{itemize}
-        \item Relax the "Centralization" assumption and yield a decentralized system
-    with
+        \item Relax the "Centralization" and "Global View" constraints, but
+            allow limited communication between agents. These yield a
+            system with
     \begin{itemize}
         \item  Autonomy: all agents should decide on its own
-        \item  Global View: full observations over all scrumbs are still available
-            for all agents
+        \item  Local View: only local observation of crumbs are available for agents
+        \item  Limited communication: a limited amount of information can be shared between agents
     \end{itemize}
-    \item  We need 
-    \begin{itemize}
-        \item Local policy optimizers that approximates the globally optimal policies
-        \item Collision-free or collision-tolerant protocol between agents
-    \end{itemize}
+
+\item Target at 
+    learning some high-level multiagent behaviors by which efficiency of the
+    crumb collection is maximized.
     \end{itemize}
 }
 
 \frame{
-    \frametitle{A More Realisitc Case}
+    \frametitle{Challenges and Difficulties}
     \begin{itemize}
-        \item Relax the "Global View" assumption, but allow limited information sharing
-    between agents. These yield a system with
-    \begin{itemize}
-        \item  Autonomy: all agents should decide on its own
-        \item  Local View: only local observation of scrumbs are available for
-            agents
-        \item  Limited Sharing: a small amount of information is shared between agents
+        \item Expected Multi-agent Behaviors:
+            \begin{itemize}
+                \item Work Balance.
+                \item Collision Avoidance.
+                \item Competition Avoidance.
+            \end{itemize}
+        \item Efficient Coding for Sensors: 
+            \begin{itemize}
+                \item Sensation: what information does each individual agent perceive in its local view?
+                \item Communication: what information to share between agents?
+            \end{itemize}
+        \item Social Learning Policies that facilitate the learning process:
+            \begin{itemize}
+           %    \item Enforced SubPopulation (ESP).
+       \item Opportunistic Cooperative Learning (OCL).
+       \item Egalitarian Social Learning (ESL).
+            \end{itemize}
+
     \end{itemize}
-\item We are going to solve the maximum crumbs collection problem using
-    experiential learning.
-    \end{itemize}
-    
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Approaches and Architectures}
-\frame{
-    \frametitle{Challenges and Difficulties}
-
-    \begin{itemize}
-        \item Communication:  
-    \begin{itemize}
-        \item  what information to share?
-        \item  how to share it for the best performance?
-    \end{itemize}
-        \item Learning Mechanism: What learning policy makes the learning simplest and fastest? 
-    \begin{itemize}
-        \item Enforced SubPopulation (ESP).
-        \item Opportunistic Cooperative Learning (OCL).
-    \end{itemize}
-        \item Sensors: 
-    \end{itemize}
-}
+\section{Implementation}
 
 \frame{
     \frametitle{Approaches}
-    baseline: random agents, greedy agents \\
-    more: neuroevolution, Q Learning \\
-    fitness derived from given number of episodes (each episodes with fixed
-    number of actions).
+    \begin{itemize}
+    \item Learning mechanisms:
+    	\begin{itemize}
+    	\item Neroevolution (Real-time NEAT)
+    	\item Q-learning
+    	\end{itemize}
+    \item Techniques to support cooperation:
+    	\begin{itemize}
+        \item Communication between agents
+        \item Social learning
+        \item Centralized control / coordination
+        \end{itemize}
+    \item Compare against hardcoded behavior as a baseline:
+    	\begin{itemize}
+    	\item Random agents
+    	\item Purely greedy search
+    	\end{itemize}
+    \end{itemize}
 }
 
+\frame{
+    \frametitle{Roomba Sensors}
+	\begin{center}
+	    \includegraphics[height=7cm]{figs/roomba_sensors.png}
+	\end{center}
+}
+
+\frame{
+    \frametitle{Training Plan}
+    We are incrementally training agents to solve more difficult problems:
+    \begin{enumerate}
+        \item Simple greedy search
+        \item Simple cooperative / coordinated search
+        \item Greedy search with collision avoidance
+        \item Cooperative search with collision avoidance
+        \item Social learning and other advanced multi-agent techniques
+    \end{enumerate}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Experimental Results}
-\frame{
-    \frametitle{Results}
+\section{Experimentation}
 
+\frame{
+    \frametitle{Progress Thus Far}
+	\begin{itemize}
+	\item Initial results are unexciting - agents don't learn
+	\item Roomba module needs work just to be used as a baseline
+	\item Most of our effort has been spent getting the Roomba mod on track
+	\end{itemize}
 }
 
 \frame{
-    \frametitle{Conclusions}
-
+    \frametitle{Unmodified Roomba Environment}
+	\begin{center}
+	    \includegraphics[height=7cm]{figs/roomba_learning_1000gen.png}
+	\end{center}
 }
 
 \frame{
-    \frametitle{Future Work}
+    \frametitle{Modified Enviroment}
+	\begin{center}
+	    \includegraphics[height=6.5cm]{figs/roomba_learning_mini_300gen.png}
+	\end{center}
 }
+
+\frame{
+    \frametitle{Conclusion / Future Work}
+	\begin{itemize}
+	\item Most of our effort has been spent getting the Roomba mod on track
+	\item A major issue is learning obstacle avoidance
+	\item We're experimenting with different sensor configurations
+	\item Exploring learning algorithms other than rtNEAT
+	\item And of course, there are exciting ideas like social learning, emergent communication / language, stigmergy, etc.
+	\end{itemize}
+}
+
+%\frame{
+%    \frametitle{Conclusions}
+%	\begin{itemize}
+%	\item The formal conclusion has not been decided yet.
+%	\end{itemize}
+%}
+
+%\frame{
+%    \frametitle{Future Work}
+%}
 
 \section{Discussion}
 \frame{
     \frametitle{Discussion Time}
     \begin{itemize}
         \item Any questions or suggestions?  \\
-            [insert pictures]
+            \begin{figure}
+                \includegraphics[width=4.5cm]{./figs/roomba1.png}
+                %\includegraphics[width=5cm]{./figs/roomba2.png}
+                \includegraphics[width=4.5cm]{./figs/roomba3.png}
+            \end{figure}
         \item Or email us at 
             \begin{itemize}
                 \item jimmylin at utexas dot edu
-                \item chevron8 at gmail dot com
+                \item baf at cs dot utexas dot com
             \end{itemize}
     \end{itemize}
 }
