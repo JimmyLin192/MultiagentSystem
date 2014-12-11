@@ -2,6 +2,7 @@
 import sys
 import random
 import math
+import time
 
 # load C-side code #
 import OpenNero
@@ -18,6 +19,9 @@ from RTNEATAgent import RTNEATAgent
 from RLAgent import TabularRLAgent
 
 gREWARD = 0
+
+crumb_count = 0
+crumb_time = time.clock()
 
 # the world file that specifies position of pellets 
 # if a file path is not set, randomize the pellets and output to world_config.txt
@@ -138,7 +142,7 @@ class SandboxMod:
         # Create RTNEAT object
         rbound = OpenNero.FeatureVectorInfo()
         rbound.add_continuous(-sys.float_info.max, sys.float_info.max)
-        rtneat = OpenNero.RTNEAT("data/ai/neat-params.dat", 7, 2, pop_size, 1.0, rbound, False)
+        rtneat = OpenNero.RTNEAT("data/ai/neat-params.dat", 1, 1, pop_size, 1.0, rbound, False)
         rtneat.set_weight(0,1)
         OpenNero.set_ai("rtneat",rtneat)
         OpenNero.enable_ai()
@@ -192,6 +196,9 @@ class RoombaEnvironment(OpenNero.Environment):
         """
         Create the environment
         """
+	with open("barry.log", "w") as myfile:
+    	    myfile.write("")
+
         #self.Qlog = open("Qlog", "wb+")
         OpenNero.Environment.__init__(self) 
         OpenNero.getSimContext().delay = 0.0;
@@ -335,6 +342,23 @@ class RoombaEnvironment(OpenNero.Environment):
                                                                  gREWARD)
         global gREWARD
         gREWARD = 0
+
+        ## Barry's Logging
+	print "*******************************************"
+	global crumb_count
+        global crumb_time
+        if crumb_count > 0:
+	    print "Episode {} crumb count: {}".format(state.episode_count, crumb_count)
+	    with open("barry.log", "a") as myfile:
+                    if crumb_count < 200:
+                        myfile.write("Time to crumb 200: TIMEOUT \n")
+		    if crumb_count < 400:
+                        myfile.write("Time to crumb 400: TIMEOUT \n")
+    		    myfile.write("Episode {} crumb count: {}\n".format(state.episode_count, crumb_count))
+	    crumb_count = 0
+            crumb_time = time.clock()
+	    print "*******************************************"
+
         return True
 
     def get_agent_info(self, agent):
@@ -385,9 +409,12 @@ class RoombaEnvironment(OpenNero.Environment):
         rotation = agent.state.rotation
 
         # posteriori collision detection
-        rotation.z = common.wrap_degrees(rotation.z, delta_angle)
+	rotation.z = common.wrap_degrees(rotation.z, delta_angle)
         position.x += delta_dist*math.cos(math.radians(rotation.z))
         position.y += delta_dist*math.sin(math.radians(rotation.z))
+
+	with open("barry.log", "a") as myfile:
+    	    myfile.write("agent {} rotation: {}, rotation.z: {} \n".format(agent, agent.state.rotation, rotation.z))
 
         # check if one of 4 out-of-bound conditions applies
         # if yes, back-track to correct position
@@ -405,13 +432,14 @@ class RoombaEnvironment(OpenNero.Environment):
         elif position.x < self.XDIM * 0.174 and position.y > self.YDIM * (1.0 - 0.309):
             position.x -= 2 * delta_dist*math.cos(math.radians(rotation.z))
             position.y -= 2 * delta_dist*math.sin(math.radians(rotation.z))
-        elif furniture_collide_all(position.x, position.y):
-            position.x -= 2 * delta_dist*math.cos(math.radians(rotation.z))
-            position.y -= 2 * delta_dist*math.sin(math.radians(rotation.z))
-                
+	# Temp. disable collisions        
+	#elif furniture_collide_all(position.x, position.y):
+        #    position.x -= 2 * delta_dist*math.cos(math.radians(rotation.z))
+        #    position.y -= 2 * delta_dist*math.sin(math.radians(rotation.z))
+               
         # register new position
         state.position = position
-        state.rotation = rotation
+        #state.rotation = rotation
         agent.state.position = position
         agent.state.rotation = rotation
         
@@ -425,11 +453,19 @@ class RoombaEnvironment(OpenNero.Environment):
                 if distance < constants.ROOMBA_RAD:
                     getMod().unmark(crumb.x, crumb.y)
                     reward += crumb.reward
+                    with open("barry.log", "a") as myfile:
+    		        myfile.write("********* Crumb reward: {} \n".format(crumb.reward))
+		        global crumb_count
+		        crumb_count += 1
+                        if (crumb_count == 200):
+                            myfile.write("Time to crumb 200: {} \n".format(time.clock() - crumb_time))
+                        if (crumb_count == 400):
+                            myfile.write("Time to crumb 400: {} \n".format(time.clock() - crumb_time))
                 
         # check if agent has expended its step allowance
         if (self.max_steps != 0) and (state.step_count >= self.max_steps):
             state.is_out = True    # if yes, mark it to be removed
-        return reward            
+        return reward         
     
     def sense(self, agent, sensors):
         """ figure out what the agent should sense """
@@ -448,6 +484,7 @@ class RoombaEnvironment(OpenNero.Environment):
             
             # describe every other crumb on the field!
             self.sense_crumbs(sensors, constants.N_S_IN_BLOCK, constants.N_FIXED_SENSORS, agent)
+
         else:
             """ Copied over from creativeit branch """
             sensors[0] = constants.MAX_DISTANCE
@@ -464,49 +501,62 @@ class RoombaEnvironment(OpenNero.Environment):
             # distance between the agent and the nearest cubes detected by the other sensors.
             # All sensor readings are normalized to lie in [-1, 1].
             
+            min_dist = constants.MAX_DISTANCE
+            min_dist_angle = 0
             for cube_position in getMod().marker_map:
-                
                 distx = cube_position[0] - agent.state.position.x
                 disty = cube_position[1] - agent.state.position.y
                 dist = math.hypot(distx, disty)
-                angle = math.degrees(math.atan2(disty, distx)) - agent.state.rotation.z  # range [-360, 360]
-                if angle > 180: angle = angle - 360
-                if angle < -180: angle = angle + 360
-                angle = angle/180 # range [-1, 1]
-                if angle >= -1 and angle < -0.5:
-                    if dist < sensors[0]:
-                        sensors[0] = dist
-                        if math.fabs(angle) < math.fabs(sensors[4]): sensors[4] = angle
-                elif angle >= -0.5 and angle < 0:
-                    if dist < sensors[1]:
-                        sensors[1] = dist
-                        if math.fabs(angle) < math.fabs(sensors[4]): sensors[4] = angle
-                elif angle >= 0 and angle < 0.5:
-                    if dist < sensors[2]:
-                        sensors[2] = dist
-                        if math.fabs(angle) < math.fabs(sensors[4]): sensors[4] = angle
-                else:
-                    if dist < sensors[3]:
-                        sensors[3] = dist
-                        if math.fabs(angle) < math.fabs(sensors[4]): sensors[4] = angle
-                                
+                angle = math.atan2(disty, distx)
+                angle = angle # range -pi, pi]
+		if dist < min_dist:
+		    min_dist = dist
+                    min_dist_angle = angle
+
+            sensors[4] = min_dist_angle
+
+            min_dist = constants.MAX_DISTANCE
+            min_dist_angle = 0
+	    for other_agent in self.states:
+                distx = other_agent.state.position.x - agent.state.position.x
+                disty = other_agent.state.position.y - agent.state.position.y
+                dist = math.hypot(distx, disty)
+                angle = math.atan2(disty, distx)
+                angle = angle # range [-pi, pi]
+		if dist > 0 and dist < min_dist:
+		    min_dist = dist
+                    min_dist_angle = angle
+
+            sensors[5] = min_dist_angle
+
+
             # Any distance sensor that still has the value MAX_DISTANCE is set to -1.
             for i in range(0, 6):
                 if i != 4 and sensors[i] >= constants.MAX_DISTANCE:
                     sensors[i] = -1
+	   
+	    sensors[0] = 0
+	    sensors[1] = 0
+	    sensors[2] = 0
+	    sensors[3] = 0
+
+	    #sensors[5] = closest_furniture_angle(agent.state.position.x, agent.state.position.y)
 
             # Invert and normalize the remaining distance sensor values to [0, 1]
-            maxval = max(sensors[0], sensors[1], sensors[2], sensors[3], sensors[5])
-            if maxval > 0:
-                for i in range(0, 6):
-                    if i != 4 and sensors[i] > 0:
-                        sensors[i] = 1 - (sensors[i]/maxval)
+            #maxval = max(sensors[0], sensors[1], sensors[2], sensors[3], sensors[5])
+            #if maxval > 0:
+            #    for i in range(0, 6):
+            #        if i != 4 and sensors[i] > 0:
+            #            sensors[i] = 1 - (sensors[i]/maxval)
 
             # Now, sensors that do not detect any cubes/wall will have the value -1,
             # sensors that detect cubes/wall at maxval distance will have the value 0,
             # and sensors that detect cubes/wall at zero distance will have value 1.
-            #print sensors
-        return sensors
+        
+	## Barry's logging
+	with open("barry.log", "a") as myfile:
+    		myfile.write("Sensors: {} \n".format(sensors))
+	return sensors
 
     def sense_crumbs(self, sensors, num_sensors, start_sensor, agent):
         """

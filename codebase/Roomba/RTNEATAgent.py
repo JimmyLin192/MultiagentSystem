@@ -13,6 +13,8 @@ class RTNEATAgent(AgentBrain):
         # this line is crucial, otherwise the class is not recognized as an AgentBrainPtr by C++
         AgentBrain.__init__(self)
 
+        self.mirror = 1
+
     def initialize(self, init_info):
         """
         Initialize an agent brain with sensor information
@@ -25,16 +27,16 @@ class RTNEATAgent(AgentBrain):
         """
         start of an episode
         """
-        sensors = self.sensors.normalize(sensors)
+        #sensors = self.sensors.normalize(sensors)
         return self.network_action(sensors)
 
     def act(self, time, sensors, reward):
         """
         a state transition
         """
-        if reward >= 1:
-            sensors = self.sensors.normalize(sensors)
-        return self.network_action(sensors)
+        #if reward >= 1:
+        #    sensors = self.sensors.normalize(sensors)
+	return self.network_action(sensors)
 
     def end(self, time, reward):
         """
@@ -59,11 +61,12 @@ class RTNEATAgent(AgentBrain):
         # make sure we have the right number of sensors
         assert(len(sensors)==6)
         # convert the sensors into the [0.0, 1.0] range
-        sensors = self.sensors.normalize(sensors)
+        #sensors = self.sensors.normalize(sensors)
         # create the list of sensors
-        inputs = [sensor for sensor in sensors]        
+        inputs = [sensor for sensor in sensors[4:5]]        
         # add the bias value
-        inputs.append(0.3)
+        ## Barry: WTF is this bias thing for?
+        ##inputs.append(0.3)
 
         # get the rtNEAT organism we are assigned
         org = get_ai("rtneat").get_organism(self)
@@ -78,9 +81,19 @@ class RTNEATAgent(AgentBrain):
         outputs = net.get_outputs()
         # create a C++ vector for action values
         actions = self.actions.get_instance()
+
         # assign network outputs to action vector
         for i in range(0,len(self.actions.get_instance())):
             actions[i] = outputs[i]
+
+        #Barry's logging
+	with open("barry.log", "a") as myfile:
+            if (inputs[0] != 0):
+                ratio = self.actions.denormalize(actions)[0]/inputs[0]
+            else:
+                ratio = "NaN"
+    	    myfile.write("agent {}: \n\t inputs: {} ({})\n\t outputs: {}, \n\t actions: {} ({}) \n\t out/in: {} \n".format(self, inputs, self.sensors.denormalize(sensors)[4:5], outputs, actions, self.actions.denormalize(actions), ratio)) 
+
         # convert the action vector back from [0.0, 1.0] range
         actions = self.actions.denormalize(actions)
         #print "in:", inputs, "out:", outputs, "a:", actions
