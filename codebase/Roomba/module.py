@@ -23,6 +23,7 @@ gREWARD = 0
 # if a file path is not set, randomize the pellets and output to world_config.txt
 # if set, read the world configuration and use it
 WORLD_FILE = 'Roomba/world_manual.txt'
+#WORLD_FILE = None
 
 class SandboxMod:
 

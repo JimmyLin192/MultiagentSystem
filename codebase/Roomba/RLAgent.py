@@ -93,6 +93,7 @@ class TabularRLAgent(AgentBrain):
         aMax = self.action_info.max(0)
         actions = range(int(aMin), int(aMax+1))
         #actions = [-math.pi/2, 0, math.pi/2, math.pi]
+        actions = range(4)
         return actions
         
     def get_max_action(self, sensors):
@@ -166,7 +167,7 @@ class TabularRLAgent(AgentBrain):
         self.previous_sensors = sensors
         self.previous_action = action
         #print "myaction: ", action, "myreward: ", reward
-        return action
+        return (action-1)*(math.pi/2)
 
     def end(self, time, reward):
         """

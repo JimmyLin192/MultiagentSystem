@@ -23,6 +23,7 @@ class Pellet:
                     self.y = float(self.info[1])
                 else:
                     self.y = self.x
+            print self.x, self.y
         if (mode == "random"):
             # requires 4 values: size_x, size_y, offset_x, offset_y
             #if self.info == None or len(self.info) == 0:
@@ -43,6 +44,7 @@ class Pellet:
             spread_y = self.info[3]
             self.x = random.normalvariate(center_x, spread_x) 
             self.y = random.normalvariate(center_y, spread_y)
+            print "1\tmanual\t%f\t%f\t0.0" % (self.x, self.y)
 
     def __len__(self):
         return 2 # number of dimensions for kdtree
@@ -149,7 +151,7 @@ def read_world(file_name = world):
             reward = float(info[0])
             mode = info[1]
             other_info = info[2:len(info)-1]
-            print reward, mode, other_info
+            #print reward, mode, other_info
             pellet = Pellet(reward, mode, other_info)
             data['pellets'].append(pellet)            
         in_file.close()
