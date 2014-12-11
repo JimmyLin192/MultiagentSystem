@@ -38,15 +38,72 @@ The abstract goes here.
 
 \section{Related Works}
 \subsection{Coordinated Multiagent Reinforcement Learning}
-\cite{nguyen2014decentralized} ..
+\cite{nguyen2014decentralized} Existing work typically assumes that the prob- lem in each time step is decoupled from the problems in other time steps, which might not hold in some applications. Therefore, in this paper, we make the following contributions: (i) We introduce a new model, called Markovian Dynamic DCOPs (MD-DCOPs), where the DCOP in the next time step is a function of the value assignments in the current time step; (ii) We introduce two distributed reinforcement learning algo- rithms, the Distributed RVI Q-learning algorithm and the Dis- tributed R-learning algorithm, that balance exploration and exploitation to solve MD-DCOPs in an online manner; and (iii) We empirically evaluate them against an existing multi- arm bandit DCOP algorithm on dynamic DCOPs.
 
-\cite{zhang2011coordinated}
+\cite{zhang2011coordinated} This paper presents a
+model-free, scalable learning approach that synthesizes
+multi-agent reinforcement learning (MARL) and distributed
+constraint optimization (DCOP). By exploiting
+structured interaction in ND-POMDPs, our approach
+distributes the learning of the joint policy and employs
+DCOP techniques to coordinate distributed learning to
+ensure the global learning performance. Our approach
+can learn a globally optimal policy for ND-POMDPs
+with a property called groupwise observability. Experimental
+results show that, with communication during
+learning and execution, our approach significantly outperforms
+the nearly-optimal non-communication policies
+computed offline.
+
+SBDO: A New Robust Approach to Dynamic Distributed Constraint Optimisation
 
 \cite{zhang2013coordinating}
 
 \cite{banerjee2012sample}
 
 \cite{kraemer2012informed}
+
+\cite{}
+Complex problems involving multiple agents exhibit varying degrees of
+cooperation. The levels of cooperation might reflect both differences in
+information as well as differences in goals. In this research, we develop a
+general mathematical model for distributed, semi-cooperative planning and
+suggest a solution strategy which involves decomposing the system into
+subproblems, each of which is specified at a certain period in time and
+controlled by an agent. The agents communicate marginal values of resources to
+each other, possibly with distortion. We design experiments to demonstrate the
+benefits of communication between the agents and show that, with
+communication, the solution quality approaches that of the ideal situation
+where the entire problem is controlled by a single agent.
+
+\cite{sen1994learning}
+Researchers in the field of Distributed Artificial
+Intelligence (DAI) have been developing efficient
+mechanisms to coordinate the activities of multiple
+autonomous agents. The need for coordination
+arises because agents have to share resources
+and expertise required to achieve their goals.
+Previous work in the area includes using sophisticated
+information exchange protocols, investigating
+heuristics for negotiation, and developing
+formal models of possibilities of conflict and cooperation
+among agent interests. In order to handle
+the changing requirements of continuous and
+dynamic environments, we propose learning as a
+means to provide additional possibilities for effective
+coordination. We use reinforcement learning
+techniques on a block pushing problem to show
+that agents can learn complimentary policies to
+follow a desired path without any knowledge
+about each other. We theoretically analyze and
+experimentally verify the effects of learning rate
+on system convergence, and demonstrate benefits
+of using learned coordination knowledge on similar
+problems. Reinforcement learning based coordination
+can be achieved in both cooperative and
+non-cooperative domains, and in domains with
+noisy communication channels and other stochastic
+characteristics that present a formidable c
 \subsection{Coordinated Multiagent Neuroevolution}
 
 \section{Problem Formulation}
