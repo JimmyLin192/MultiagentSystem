@@ -35,6 +35,7 @@ The abstract goes here.
 
 
 \section{Introduction}
+Most of existing literatures about Roomba is qualitative.
 
 \section{Related Works}
 \subsection{Coordinated Multiagent Reinforcement Learning}
@@ -109,14 +110,64 @@ characteristics that present a formidable c
 \section{Problem Formulation}
 
 \subsection{Structure of Roomba Environment}
-Add description of Roomba module here...
+The Roomba environment, under the OpenNERO platform \cite{karpov2008opennero},
+is a virtual computer lab with crumbs distributed on the floor.
+In this virtual lab, there are four classes of objects: agents, crumbs, walls,
+decorations. 
+Vacuum cleaner agents (grey cylinders) are supposed to collect the static
+crumbs (blue cubes).  
+The agents will be rewarded if they move to a place covering any crumb. 
+Walls are also set up as the limits of the Roomba environment, such that
+agents are not allowed to move beyond the walls and no pellets can be put
+outside the walls.
+Other decorative objects within the computer lab include tables, chairs, and
+computers. For simplicity at the moment, these decorations only serve as
+physically transparent decorations, which means they do not block agents' movements.
+
+In the Roombas environment, the movements of vacuum cleaner agents are not
+constrained by four directions (left, right, forward, backward). Instead,
+agents are able to move towards all directions and each moving action is
+denoted as a continuous radius value.
+
+Three different modes (MANUAL, RANDOM, and CLUSTER) are employed to specify
+the placing position of each individual crumb.
+In the MANUAL mode,
+one pellet is deterministically placed at a user-specified position. In the
+RANDOM mode, the placement of one pellet is totally randomized; the
+environment will throw a rejection and repeat the random generation, if an
+invalid position is yielded. The last one is the CLUSTER mode, where the
+environment samples the position of one pellet from a gaussian distribution
+whose centers and spreads at $x$ and $y$ coordinates are specified. 
+% in our experiment
+It goes without any doubt that 
+
+Sensors of Agents. Initial sensors.
+
+Rewards/penalty design.
+
+
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=3.2in,height=2.1in]{./figures/roombas/roomba2.png}
+\caption{Overall Picture of the Roomba Environment}
+\label{fig_sim}
+\end{figure}
+
 
 \subsection{Multiagent Behaviors}
 
 \subsection{Difficulties and Challenges}
 
-
-\section{Implementation and Results}
+\section{Experiments: Initial Setup}
+This section will present some preliminary results coming from the simulation
+of greedy agents. Agents with greedy strategy simply approaches to the direction
+where the closest pellet to it is there.  These results may not be directly
+related to the multiagent behaviors, but 
+(i) demonstrate that we have set up the environment correctly from both
+reinforcement learning and neuroevolution. 
+(ii) illustrate intuitively the benchmark intelligence for the crumb
+collection.
 
 \subsection{Reinforcement Learning}
 Add implementation details of Q-Learning and variants here...
@@ -124,9 +175,7 @@ Add implementation details of Q-Learning and variants here...
 \subsection{Neuroevolution}
 Add implementation details of Neuroevolution here...
 
-
-
-\section{Results}
+\section{Experiments: Multiagent Coordination}
 
 %\begin{figure}[!t]
 %\centering
