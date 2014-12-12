@@ -10,13 +10,14 @@
 % paper title
 % can use linebreaks \\ within to get better formatting as desired
 % Do not put math or special symbols in the title.
-\title{Multiagent Coordination in Roombas: From a Neural Network Perspective}
+\title{Multiagent Coordination in Roombas: From the perspective of
+    Reinforcement Learning and Neuroevolution}
 
 
 % author names and affiliations
 % use a multiple column layout for up to three different
 % affiliations
-\author{\textbf{Jimmy Xin Lin} and \textbf{Barry Feigenbaum}}
+\author{\textbf{Jimmy Xin Lin}, \textbf{Barry Feigenbaum}, and \textbf{Risto Miikkulainen}}
 
 % use for special paper notices
 %\IEEEspecialpapernotice{(Invited Paper)}
@@ -27,7 +28,17 @@
 % As a general rule, do not put math, special symbols or citations
 % in the abstract
 \begin{abstract}
-The abstract goes here.
+    % aim of this paper
+    This paper presents our research about the reinforcement learning approach
+    and the neuroevolution approach, by which the crumb collection task can be
+    effectively solved with communication and coordination between multiple
+    agents under the simulated Roombas environment.
+    % results
+    The initial setup experimentation section presents our works about the
+    learned agents that simulate greedy strategies.
+    The key things ... are shown in the following multiagent experiments.
+    % important conclusion
+    It is observed from our experiments that .
 \end{abstract}
 
 \IEEEpeerreviewmaketitle
@@ -35,7 +46,11 @@ The abstract goes here.
 
 
 \section{Introduction}
-Most of existing literatures about Roomba is qualitative.
+% utility of roomba and some literatures about its usage in real world
+    Most of existing literatures about Roomba (iRobots) is qualitative, aiming
+    at talking about its utility on the domestic service.
+
+% 
 
 \section{Related Works}
 \subsection{Coordinated Multiagent Reinforcement Learning}
@@ -110,6 +125,9 @@ characteristics that present a formidable c
 \textbf{Barry:}
 Add literatures of Neuroevolution here...
 
+ATA: barbarian
+
+
 \section{Problem Formulation}
 
 \subsection{Structure of Roomba Environment}
@@ -164,7 +182,7 @@ from the starting CLUSTER-mode experiment and remained invariant by
 employing MANUAL mode in all experiments afterwards.
 
 % sensors (default setting for greedy agents)
-What each agent could perceive from the computer lab is limitless. 
+Agents are able to  perceive limitless information from the computer lab. 
 The implementation of Roomba environment allows each agent to sense all crumbs on
 the floor about their positions, existence status, and even rewards. In
 addition, the spatial information of other vacuum cleaner robots is available
@@ -195,8 +213,11 @@ movements around an area.
 
 
 \subsection{Expected Multiagent Behaviors}
+Work Balance / competition avoidance. 
 
-\subsection{Difficulties and Challenges}
+Collision avoidance. 
+
+\subsection{Practical Issues}
 
 \section{Experiments: Initial Setup}
 This section will present some preliminary results coming from the simulation
