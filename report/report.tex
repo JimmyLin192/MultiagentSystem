@@ -105,18 +105,23 @@ can be achieved in both cooperative and
 non-cooperative domains, and in domains with
 noisy communication channels and other stochastic
 characteristics that present a formidable c
+
 \subsection{Coordinated Multiagent Neuroevolution}
+\textbf{Barry:}
+Add literatures of Neuroevolution here...
 
 \section{Problem Formulation}
 
 \subsection{Structure of Roomba Environment}
+% intro to roomba
 The Roomba environment, under the OpenNERO platform \cite{karpov2008opennero},
 is a virtual computer lab with crumbs distributed on the floor.
 In this virtual lab, there are four classes of objects: agents, crumbs, walls,
 decorations. 
-Vacuum cleaner agents (grey cylinders) are supposed to collect the static
-crumbs (blue cubes).  
-The agents will be rewarded if they move to a place covering any crumb. 
+Vacuum cleaner agents, shown as grey cylinders in Fig. \ref{roomba:world}, are
+supposed to collect the static crumbs that are labelled as blue cubes.  
+The agents will be rewarded if they move to a place where there are some
+crumbs. 
 Walls are also set up as the limits of the Roomba environment, such that
 agents are not allowed to move beyond the walls and no pellets can be put
 outside the walls.
@@ -124,38 +129,72 @@ Other decorative objects within the computer lab include tables, chairs, and
 computers. For simplicity at the moment, these decorations only serve as
 physically transparent decorations, which means they do not block agents' movements.
 
+% controller
+As shown in the Fig. \ref{roomba:world}, the small window floating on the top right
+is the controller that masters the type of scripted AI agents to load in, the
+number of agents, and particular commands that impact the progress of the
+Roombas simulation (Pause/Resume, Add/Remove Robots, Exit). On each run of the
+simulation, only one particular type of AI agents are allowed to be loaded.
+Note also that the type of AI agents employed cannot be switched to the other
+one during the intermediate process of crumb collection task. 
+If one needs to switch to the other type of AI agents, the running agents have
+to be removed first and then the user can load the desired AI agents.
+
+%  movement of agents
 In the Roombas environment, the movements of vacuum cleaner agents are not
 constrained by four directions (left, right, forward, backward). Instead,
 agents are able to move towards all directions and each moving action is
-denoted as a continuous radius value.
+denoted as a continuous radius value. Besides, all agents move in a
+synchronous way. Agents are allowed to make their movements of the following
+step if and only if all agents have completed their movements in the last step.
 
+% placement of pellets 
 Three different modes (MANUAL, RANDOM, and CLUSTER) are employed to specify
 the placing position of each individual crumb.
-In the MANUAL mode,
-one pellet is deterministically placed at a user-specified position. In the
-RANDOM mode, the placement of one pellet is totally randomized; the
+In the MANUAL mode, one pellet is deterministically placed at a user-specified
+position. 
+In the RANDOM mode, the placement of one pellet is totally randomized; the
 environment will throw a rejection and repeat the random generation, if an
 invalid position is yielded. The last one is the CLUSTER mode, where the
+position of pellets are partially randomized. In this mode,
 environment samples the position of one pellet from a gaussian distribution
 whose centers and spreads at $x$ and $y$ coordinates are specified. 
-% in our experiment
-It goes without any doubt that 
+In this paper, the specifications for the placement of crumbs are generated
+from the starting CLUSTER-mode experiment and remained invariant by
+employing MANUAL mode in all experiments afterwards.
 
-Sensors of Agents. Initial sensors.
+% sensors (default setting for greedy agents)
+What each agent could perceive from the computer lab is limitless. 
+The implementation of Roomba environment allows each agent to sense all crumbs on
+the floor about their positions, existence status, and even rewards. In
+addition, the spatial information of other vacuum cleaner robots is available
+for each individual agent, as well as the user-defined working status of these 
+collaborated robots. Although the Roomba environment provides a large design
+space for sensors, it is a practical treatment to start from a small number of
+simple sensors. For example, a combination of the bumping status, the position of
+its own, and the location of closest crumb suffice for an agent to learn a
+greedy strategy, as illustrated in the initial setup experimentation .
 
-Rewards/penalty design.
-
-
+% rewards
+The reward design is another big issue for
+configuring the Roomba environment. By default, the only reward being set up
+for agents is when they successfully collect some pellets on the floor. In
+order to facilitate the learning of agents, an penalty for being alive is
+supposed to be incorporated to the reward system. That is, agents should
+receive some negative rewards, typically a very small quantity, for each step
+they move. Similarly, penalties can also be granted to the collisions between
+roombas, bumping of agents towards the world boundaries, and repetitive
+movements around an area.
 
 \begin{figure}[!t]
 \centering
 \includegraphics[width=3.2in,height=2.1in]{./figures/roombas/roomba2.png}
 \caption{Overall Picture of the Roomba Environment}
-\label{fig_sim}
+\label{roomba:world}
 \end{figure}
 
 
-\subsection{Multiagent Behaviors}
+\subsection{Expected Multiagent Behaviors}
 
 \subsection{Difficulties and Challenges}
 
@@ -173,9 +212,17 @@ collection.
 Add implementation details of Q-Learning and variants here...
 
 \subsection{Neuroevolution}
+\textbf{Barry:}
 Add implementation details of Neuroevolution here...
 
 \section{Experiments: Multiagent Coordination}
+After the experimentation for testing the initial setup of Roombas
+environment, the intention of this section is to investigate the problem of
+how to incorporate effective coordinations for this particular multiagent
+system.
+\subsection{Reinforcement Learning}
+
+\subsection{Neuroevolution}
 
 %\begin{figure}[!t]
 %\centering
