@@ -224,10 +224,10 @@ Vacuum cleaner agents, shown as grey cylinders in Fig. \ref{roomba:world}, are
 supposed to collect the static crumbs that are labelled as blue cubes.  
 The agents will be rewarded if they move to a place where there are some
 crumbs. 
-Walls are also set up as the limits of the Roomba environment, such that
-agents are not allowed to move beyond the walls and no pellets can be put
+Walls are also set up as the boundaries of the computer lab, such that
+agents are not allowed to move beyond the walls and no pellets can be placed
 outside the walls.
-Other decorative objects within the computer lab include tables, chairs, and
+Other decorative objects within the virtual environment include tables, chairs, and
 computers. For simplicity at the moment, these decorations only serve as
 physically transparent decorations, which means they do not block agents' movements.
 
@@ -240,7 +240,7 @@ simulation, only one particular type of AI agents are allowed to be loaded.
 Note also that the type of AI agents employed cannot be switched to the other
 one during the intermediate process of crumb collection task. 
 If one needs to switch to the other type of AI agents, the running agents have
-to be removed and then the user can load the desired AI agents.
+to be removed and then the user is able to effectively load the desired AI agents.
 
 %  movement of agents
 In the Roombas environment, the movements of vacuum cleaner agents are not
@@ -302,19 +302,22 @@ movements around an area.
 
 
 \subsection{Expected Multiagent Behaviors}
+TODO: add discussion about the Expected Multiagent Behaviors here...
+
 Work Balance / competition avoidance. 
 
 Collision avoidance. 
 
 \subsection{Our Approach: Reinforcement Learning} 
+TODO: any original idea goes here.
 
 \subsection{Our Approach: Neuroevolution} 
-
+TODO: any original idea goes here.
 
 
 \section{Experiments} \label{section:setup}
-We have two threads.
-
+This section presents our research investigation in two threads: the
+reinforcement learning thread and the neuroevolution thread.
 Each experimental thread will present some preliminary results coming from the
 simulation of greedy agents. Agents with greedy strategy simply approaches to
 the direction
@@ -325,25 +328,71 @@ corresponding technique (Q-Learning and Neuroevolution).
 (ii) illustrate intuitively the benchmark intelligence for the crumb
 collection.
 
-After testing the initial setup of each technique under the Roombas
-environment, we intend to investigate the problem of how to incorporate
-effective coordinations for this particular multiagent system.
+After the preliminary experiments, we intend to investigate the problem of how
+to incorporate effective coordinations for this particular multiagent system.
+
 \subsection{Reinforcement Learning}
 
-% preliminary results
-Before diving into the investigation of multiagent coordination, we present
-some preliminary results with regard to the impact of various simple sensors
-on the Q-learning outcome.
-
-\begin{figure}[t]
+\begin{figure}[!t]
 \centering
-\includegraphics[width=3.0in]{./figures/RL/inisetup.eps}
-\caption{Preliminary experiments of the Q-learning with various sensors}
+\includegraphics[width=3.0in]{./figures/RL/init_setup1.eps}
+\caption{Q-learning with various simple sensors. (i) Red: G-random curve
+    represents the greedy agent with $0.1$ probability to make random
+    decision, which serve as the benchmark agents. 
+    (ii) (iii) (iv) agents receive various sensors for the decision making of
+    each step.
+} 
 \label{fig:RL_init}
 \end{figure}
 
-% multiagent coordination
+% preliminary results
+Before diving into the investigation of multiagent coordination, we take 
+preliminary experiments with regard to the impact of various simple
+sensors and the effects of various discounting factors on the outcome of the
+tilted tabular Q-learning.
 
+The sensors designed for this experiment are as follows. 
+\begin{equation}
+    S_{default} = \left( \begin{array}{c}
+      bump \\     
+      position.x \\
+      position.y \\
+      closest.x \\
+      closest.y 
+  \end{array} \right)
+        \nonumber
+\end{equation}
+where .
+
+The results of the first experiments are indicated in the Fig. \ref{fig:RL_init}. 
+
+From the Fig. \ref{fig:RL_init}, it is observed that .
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=3.0in]{./figures/RL/init_setup2.eps}
+\caption{Q-learning with various discounting factors. (i) Red: G-random curve
+    represents the greedy agent with $0.1$ probability to make random
+    decision, which serve as the benchmark agents. 
+    (ii) (iii) (iv) the tilted tabular Q-learning with discounting factors
+    $\gamma = 0.1, 0.5, 0.8$ for Q-Discount-low, Q-Discount-med, and
+    Q-Discount-high respectively.}
+\label{fig:RL_init2}
+\end{figure}
+
+The Fig. \ref{fig:RL_init2} shows the effect of different discounting factors
+to the learning outcome. It turns out that the best learning outcome came from
+the discounting factor with $\gamma = 0.5$ under the given setting. On top of
+that, this chart also indicates the negative effects of too large or too small
+discounting factors, by which worse learning outcome arises. Nevertheless, it
+can be concluded that the team formed by tabular Q-learning agents cannot
+never outperform the team whose members employ the greedy strategy, regardless
+of how the discounting factor is set.
+
+% multiagent coordination
+No we turn to investigate .
+
+%#########################################################################
 \subsection{Neuroevolution}
 
 \textbf{Barry:}
