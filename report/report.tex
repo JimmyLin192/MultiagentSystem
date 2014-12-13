@@ -270,14 +270,15 @@ employing MANUAL mode in all experiments afterwards.
 % learning process
 The learning process designed in the Roomba environment is as follows. 
 The physically dynamic component, consisting of robots and pellets, will be
-reset to their original settings once one episode expires. 
-Except the spatial positions of agents, all other properties are allowed to
-preserve through two adjacent episodes. 
-This enables a simpler process of learning. 
-For example, the accumulated Q-knowledge from previous episodes. 
-Note that the default configuration for one episode is 100 steps. 
-That is, all agents will be placed back to their birth places after 100 steps
-no matter how many pellets they have collected. And . 
+reset to their initial status once one episode expires. 
+Except the spatial positions, all other properties of agents are allowed to
+preserve through two adjacent episodes, for example, the accumulated Q values
+from previous episodes. 
+Note that the default configuration for one episode is 100 steps. That is,
+for every 100 steps, all agents will be placed back to their birth places no
+matter how many pellets they have collected and all crumbs are set at
+their specified locations, regardless of whether these crumbs exist at the end
+of last episode. 
 
 \begin{figure}[!t]
 \centering
@@ -405,7 +406,7 @@ The sensors designed for the local perspective of each agent are as follows.
 Note that we discretize all continuous real-value sensors by using the tiling
 technique. 
 
-The learning outcomes derived from these various sensors are compared in the
+The learning outcomes derived from these sensors are compared in the
 Fig. \ref{fig:RL_init}. 
 It is observed that .
 
