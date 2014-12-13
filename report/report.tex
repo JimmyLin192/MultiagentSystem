@@ -17,8 +17,19 @@
 % author names and affiliations
 % use a multiple column layout for up to three different
 % affiliations
-\author{\textbf{Jimmy Xin Lin}, \textbf{Barry Feigenbaum}, and \textbf{Risto Miikkulainen}}
 
+\author{ 
+Jimmy Xin Lin \\
+Department of Computer Science\\
+the University of Texas at Austin\\
+Austin, TX 78712 \\
+\texttt{jimmylin@cs.utexas.edu} \\
+\and
+Barry Feigenbaum \\
+The University of Texas at Austin \\
+Address \\
+\texttt{email} \\
+}
 % use for special paper notices
 %\IEEEspecialpapernotice{(Invited Paper)}
 
@@ -59,7 +70,7 @@ efficacy of Roomba agents under a decentralized system.
 
 % Decentralized system
 The decentralized decision making has a long history, originated from the team
-thoery (\hspace*{-0.8mm} \cite{marschak1955elements, radner1962team,
+thoery (\hspace*{-0.85mm} \cite{marschak1955elements, radner1962team,
     radner1959application, ho1972team, tsitsiklis1985complexity}),
 where the decisions made by team members need to contribute to the fulfillment
 of global objectives. However, the individual members have only partial
@@ -68,8 +79,9 @@ and global states. This motivates the need for coordination because agents
 have to share resources and expertise required to achieve their goals.
 Researchers in the field of Distributed Artificial Intelligence (DAI) have
 been developing efficient mechanisms to coordinate the activities of multiple
-autonomous agents (\cite{weiss1999multiagent}).  Previous works for the coordinating mechanisms include
-using sophisticated information to exchange protocols, investigating
+autonomous agents (\hspace*{-1.7mm}\cite{weiss1999multiagent, huhns2012distributed}). 
+Specifically, previous works for the multiagent coordination 
+include using sophisticated information to exchange protocols, investigating
 heuristics for negotiation, and developing formal models of possibilities of
 conflict and cooperation among agent interests. 
 
@@ -90,9 +102,16 @@ Our contributions include:
 
 % outline of this paper
 The remained part of this paper is organized as follows. 
-In section II, a detailed presentation about related works of for the multi-agent system. In section III, we describe the various categories of information that can be communicated between the agents in a multi- agent system. We discuss the solution strategy and present the algorithm for solving the model in section IV. We summarize our
-conclusions and discuss some promising future works in the section
-\ref{conclusion}.
+In section \ref{section:literature}, a detailed presentation about the
+existing  reinforcement learning treatments and the neuroevolution treatments
+for multiagent systems.  
+Section \ref{section:environment} describes in detail the virtual Roomba
+environment, under which our experiments proceed, and the some expected
+multi-agent behaviors.  
+Preliminary simulations that verify the correct system setup are indicated in
+the section \ref{section:setup}. 
+We summarize our conclusions and discuss some promising future works in the
+section \ref{conclusion}.
 
 \begin{figure}[!t]
 \centering
@@ -102,7 +121,7 @@ conclusions and discuss some promising future works in the section
 \end{figure}
 
 
-\section{Technical Literatures}
+\section{Technical Literatures} \label{section:literature}
 This section focuses on the summary of previous works about how multiagent
 coordination can be incorporated in the reinforcement learning technique and the
 neuroevolution tehnique.
@@ -181,7 +200,7 @@ Add literatures of Neuroevolution here...
 ATA: barbarian
 
 
-\section{Simulation Environments}
+\section{Simulation Environments} \label{section:environment}
 The OpenNERO, an AI research and education platform
 \cite{karpov2008opennero}, will be employed for our experimentation.
 
@@ -278,7 +297,7 @@ Work Balance / competition avoidance.
 Collision avoidance. 
 
 
-\section{Experiments: Initial Setup}
+\section{Experiments: Initial Setup} \label{section:setup}
 This section will present some preliminary results coming from the simulation
 of greedy agents. Agents with greedy strategy simply approaches to the direction
 where the closest pellet to it is there.  These results may not be directly
