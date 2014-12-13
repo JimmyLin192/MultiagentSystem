@@ -6,7 +6,7 @@ bib:
 	pdflatex report.tex
 
 push:
-	git add report.tex report.pdf report.bib Makefile
+	git add report.tex report.pdf report.bib Makefile figures
 	git commit -m "report more"
 	git push
 
