@@ -59,7 +59,8 @@ efficacy of Roomba agents under a decentralized system.
 
 % Decentralized system
 The decentralized decision making has a long history, originated from the team
-thoery (\hspace*{-0.8mm} \cite{marschak1955elements}, \cite{radner1962team}),
+thoery (\hspace*{-0.8mm} \cite{marschak1955elements, radner1962team,
+    radner1959application, ho1972team, tsitsiklis1985complexity}),
 where the decisions made by team members need to contribute to the fulfillment
 of global objectives. However, the individual members have only partial
 information about the entire system, i.e. limited knowledge of common goals
@@ -67,27 +68,31 @@ and global states. This motivates the need for coordination because agents
 have to share resources and expertise required to achieve their goals.
 Researchers in the field of Distributed Artificial Intelligence (DAI) have
 been developing efficient mechanisms to coordinate the activities of multiple
-autonomous agents.  Previous works for the coordinating mechanisms include
+autonomous agents (\cite{weiss1999multiagent}).  Previous works for the coordinating mechanisms include
 using sophisticated information to exchange protocols, investigating
 heuristics for negotiation, and developing formal models of possibilities of
 conflict and cooperation among agent interests. 
 
 % Reinforcement learning
-Reinforcement learning has been widely recognized as
-the most useful techniques for autonomous game playing ( and even Angry Bird)
-and intelligent task fulfillment. 
+Reinforcement learning has been widely used as the most useful techniques for
+autonomous game playing ( and even Angry Bird) and intelligent task
+fulfillment either for single-agent or multi-agent environment. 
 
 % Neuroevolution
 Neuroevolution.
 
-% Our contribution in this paper
+% Our aim and contributions in this paper
 In this paper, we
 investigate various multiagent coordination techniques under the framework of
 reinforcemnet learning and neuroevolution could improve the working efficacy
-of Roomba in the task of cleaning the floor.
+of Roomba in the task of cleaning the floor. 
+Our contributions include: 
 
 % outline of this paper
 The remained part of this paper is organized as follows. 
+In section II, a detailed presentation about related works of for the multi-agent system. In section III, we describe the various categories of information that can be communicated between the agents in a multi- agent system. We discuss the solution strategy and present the algorithm for solving the model in section IV. We summarize our
+conclusions and discuss some promising future works in the section
+\ref{conclusion}.
 
 \begin{figure}[!t]
 \centering
@@ -239,7 +244,9 @@ employing MANUAL mode in all experiments afterwards.
 \end{figure}
 
 % sensors (default setting for greedy agents)
-Agents are able to  perceive limitless information from the computer lab. 
+The design and representations of sensors have significant impact on the
+learning outcome of agents.
+Agents are able to perceive limitless information from the computer lab. 
 The implementation of Roomba environment allows each agent to sense all crumbs on
 the floor about their positions, existence status, and even rewards. In
 addition, the spatial information of other vacuum cleaner robots is available
@@ -306,7 +313,7 @@ system.
 
 
 
-\section{Conclusions}
+\section{Conclusions} \label{conclusion}
 The conclusion goes here. 
 
 Future Works go here.
