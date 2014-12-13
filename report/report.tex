@@ -212,9 +212,9 @@ ATA: barbarian
 
 
 \section{The Roomba Environment} \label{section:environment}
-The OpenNERO, an AI research and education platform
-\cite{karpov2008opennero}, has a module and will be employed for our
-experimentation.
+The OpenNERO, an open-source platform for the artificial intelligence research
+and education \cite{karpov2008opennero}, has a module and will be employed for
+our experimentation.
 
 \subsection{Invariant Structures}
 % intro to roomba
@@ -244,7 +244,7 @@ one during the intermediate process of crumb collection task.
 If one needs to switch to the other type of AI agents, the running agents have
 to be removed and then the user is able to effectively load the desired AI agents.
 
-%  movement of agents (TODO: episodes)
+%  movement of agents 
 In the Roombas environment, the movements of vacuum cleaner agents are not
 constrained by four directions (left, right, forward, backward). Instead,
 agents are able to move towards all directions and each moving action is
@@ -268,7 +268,11 @@ from the starting CLUSTER-mode experiment and remained invariant by
 employing MANUAL mode in all experiments afterwards.
 
 % learning process
-TODO: learning process here..
+The learning process designed in the Roomba environment is as follows. 
+The entire virtual world, including robots and pellets, will be reset to its
+original setting after every episode. The default setting for one episode is
+100 steps. That is, all agents will be placed back to their birth places no
+matter how many pellets they have collected. 
 
 \begin{figure}[!t]
 \centering
@@ -279,8 +283,8 @@ TODO: learning process here..
 
 \subsection{Practical Issues}
 % sensors (default setting for greedy agents)
-What agents are allowed to perceive from their local perspectives is the
-practical issue that matters the most. 
+What agents are allowed to perceive from their local views is one practical
+issue that matters the most. 
 This is important because both of the design of sensors and their
 representations have significant impact on the learning outcome of a team. 
 The default implementation of Roomba environment allows each agent to sense
@@ -319,6 +323,10 @@ Work Balance / competition avoidance.
 Collision avoidance. 
 
 \section{Our Approaches}
+This section articulates, in a formal way, our original ideas or design
+priciples to advance the cleaning efficacy of the Roomba environment from the
+multiagent perspective.
+
 \subsection{Reinforcement Learning} 
 TODO: any original idea goes here.
 
