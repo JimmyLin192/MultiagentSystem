@@ -87,7 +87,7 @@ conflict and cooperation among agent interests.
 
 % Reinforcement learning
 Reinforcement learning has been widely used as the most useful techniques for
-autonomous game playing ( and even Angry Bird) and intelligent task
+autonomous game playing (Atari, Pacman, and Angry Bird) and intelligent task
 fulfillment either for single-agent or multi-agent environment. 
 
 % Neuroevolution
@@ -99,6 +99,14 @@ investigate various multiagent coordination techniques under the framework of
 reinforcemnet learning and neuroevolution could improve the working efficacy
 of Roomba in the task of cleaning the floor. 
 Our contributions include: 
+(i) set up the raw Roomba System. 
+(ii) implemented reinforcement learning mechanism and fixed up the default
+neuroevolution mechanism. 
+(iii) design sensors and their representations for multiagent
+communication and coordination. 
+(iv) compare performances of the agents learned through various approaches and
+settings.
+% TODO: set up 
 
 % outline of this paper
 The remained part of this paper is organized as follows. 
@@ -106,10 +114,12 @@ In section \ref{section:literature}, a detailed presentation about the
 existing  reinforcement learning treatments and the neuroevolution treatments
 for multiagent systems.  
 Section \ref{section:environment} describes in detail the virtual Roomba
-environment, under which our experiments proceed, and the some expected
-multi-agent behaviors.  
-Preliminary simulations that verify the correct system setup are indicated in
-the section \ref{section:setup}. 
+environment, under which our experiments proceed.  
+Preliminary simulations that both serve as baseline intelligent agents and
+verify the correct system setup are indicated in the section
+\ref{section:setup}. 
+The experiments that demonstrate our achievements on multiagent coordination
+are articulated in the section \ref{section:realexpo}.
 We summarize our conclusions and discuss some promising future works in the
 section \ref{conclusion}.
 
@@ -314,7 +324,7 @@ Add implementation details of Q-Learning and variants here...
 \textbf{Barry:}
 Add implementation details of Neuroevolution here...
 
-\section{Experiments: Multiagent Coordination}
+\section{Experiments: Multiagent Coordination} \label{section:realexpo}
 After the experimentation for testing the initial setup of Roombas
 environment, the intention of this section is to investigate the problem of
 how to incorporate effective coordinations for this particular multiagent
