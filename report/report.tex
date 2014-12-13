@@ -211,11 +211,12 @@ Add literatures of Neuroevolution here...
 ATA: barbarian
 
 
-\section{Problem Formulation} \label{section:environment}
+\section{The Roomba Environment} \label{section:environment}
 The OpenNERO, an AI research and education platform
-\cite{karpov2008opennero}, will be employed for our experimentation.
+\cite{karpov2008opennero}, has a module and will be employed for our
+experimentation.
 
-\subsection{Structure of the Roomba Environment}
+\subsection{Invariant Structures}
 % intro to roomba
 The Roomba environment is a virtual computer lab with crumbs distributed on
 the floor.
@@ -243,7 +244,7 @@ one during the intermediate process of crumb collection task.
 If one needs to switch to the other type of AI agents, the running agents have
 to be removed and then the user is able to effectively load the desired AI agents.
 
-%  movement of agents
+%  movement of agents (TODO: episodes)
 In the Roombas environment, the movements of vacuum cleaner agents are not
 constrained by four directions (left, right, forward, backward). Instead,
 agents are able to move towards all directions and each moving action is
@@ -266,6 +267,9 @@ In this paper, the specifications for the placement of crumbs are generated
 from the starting CLUSTER-mode experiment and remained invariant by
 employing MANUAL mode in all experiments afterwards.
 
+% learning process
+TODO: learning process here..
+
 \begin{figure}[!t]
 \centering
 \includegraphics[width=3.2in,height=2.1in]{./figures/roombas/roomba2.png}
@@ -273,22 +277,27 @@ employing MANUAL mode in all experiments afterwards.
 \label{roomba:world}
 \end{figure}
 
+\subsection{Practical Issues}
 % sensors (default setting for greedy agents)
-The design and representations of sensors have significant impact on the
-learning outcome of agents.
-Agents are able to perceive limitless information from the computer lab. 
-The implementation of Roomba environment allows each agent to sense all crumbs on
-the floor about their positions, existence status, and even rewards. In
-addition, the spatial information of other vacuum cleaner robots is available
-for each individual agent, as well as the user-defined working status of these 
-collaborated robots (e.g. a history of previous positions and movements).
-Although the Roomba environment provides a large design space for sensors, it
-is a practical treatment to start from a small number of
-simple sensors. For example, a combination of the bumping status, the position of
-its own, and the location of closest crumb suffice for an agent to learn a
-greedy strategy, as illustrated in the initial setup experimentation .
-A balance is struck between the amount of information available to each agent
-and the associated cost.
+What agents are allowed to perceive from their local perspectives is the
+practical issue that matters the most. 
+This is important because both of the design of sensors and their
+representations have significant impact on the learning outcome of a team. 
+The default implementation of Roomba environment allows each agent to sense
+all crumbs on the floor about their positions, existence status, and even
+rewards. 
+In this sense, agents are able to perceive limitless information from the
+computer lab. 
+In addition, the spatial information of other collaborated robots
+is available for each individual agent, as well as the user-defined working
+status of these teammates (e.g. a history of previous positions and
+movements).  Although the Roomba environment provides a large design space for
+sensors, it is a practical treatment to start from a small number of simple
+sensors. For example, a combination of the bumping status, the position of its
+own, and the location of closest crumb suffice for an agent to learn a greedy
+strategy, as illustrated in the initial setup experimentation.  A balance is
+struck between the amount of information available to each agent and the
+associated cost.
 
 % rewards
 The reward design is another big issue for
@@ -309,10 +318,11 @@ Work Balance / competition avoidance.
 
 Collision avoidance. 
 
-\subsection{Our Approach: Reinforcement Learning} 
+\section{Our Approaches}
+\subsection{Reinforcement Learning} 
 TODO: any original idea goes here.
 
-\subsection{Our Approach: Neuroevolution} 
+\subsection{Neuroevolution} 
 TODO: any original idea goes here.
 
 
