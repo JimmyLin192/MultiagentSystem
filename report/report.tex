@@ -337,7 +337,22 @@ This section articulates, in a formal way, our original ideas or design
 priciples to advance the cleaning efficacy of the Roomba environment from the
 multiagent perspective.
 
-\subsection{Reinforcement Learning} 
+\subsection{Baseline Agents} 
+Agents with greedy strategy simply approaches to the direction where the
+closest pellet to it is there.
+
+TODO: explain Random greedy
+
+\subsection{Tiled Tabular Q-learning} 
+TODO: description of TTQ
+
+The motives to use Tiled Tabular Q-learning include
+(i) verifying that we have set up the environment correctly for general
+reinforcement learning techniques. 
+(ii) illustrating the benchmark (reinforcement learning) intelligence for the
+crumb collection problem.
+
+\subsection{High-level Reinforcement Learning} 
 TODO: any original idea goes here.
 
 \subsection{Neuroevolution} 
@@ -347,18 +362,8 @@ TODO: any original idea goes here.
 \section{Experiments} \label{section:setup}
 This section presents our research investigation in two threads: the
 reinforcement learning thread and the neuroevolution thread.
-Each experimental thread will present some preliminary results coming from the
-simulation of greedy agents. Agents with greedy strategy simply approaches to
-the direction
-where the closest pellet to it is there.  These results may not be directly
-related to the multiagent behaviors, but 
-(i) demonstrate that we have set up the environment correctly for the
-corresponding technique (Q-Learning and Neuroevolution). 
-(ii) illustrate intuitively the benchmark intelligence for the crumb
-collection.
 
-After the preliminary experiments, we intend to investigate the problem of how
-to incorporate effective coordinations for this particular multiagent system.
+
 
 \subsection{Tiled Tabular Q-learning}
 
@@ -384,7 +389,6 @@ of the tiled tabular Q-learning.
 
 TODO: explain some other constans (Number of agents, pellets, )
 
-TODO: explain Random greedy
 
 The sensors designed for the local perspective of each agent are as follows. 
 \begin{align}
@@ -439,18 +443,20 @@ team with greedy strategies.
 \label{fig:RL_init2}
 \end{figure}
 
-The Fig. \ref{fig:RL_init2} shows the effect of different discounting factors
-to the learning outcome. It turns out that the best learning outcome came from
-the discounting factor $\gamma = 0.5$ under the given setting. On top of
-that, this chart also indicates the negative effects of too large or too small
-discounting factors, by which worse learning outcome arises. Nevertheless, it
-can be concluded that the team formed by tabular Q-learning agents cannot
-never outperform the team whose members employ the greedy strategy, regardless
-of how the discounting factor is set.
+The Fig. \ref{fig:RL_init2} shows the effects that various discounting factors
+will bring to the outcome of tilted tabular Q-learning. It turns out that the
+best learning outcome came from the discounting factor $\gamma = 0.5$ under
+the given setting. On top of that, this chart also indicates the negative
+effects of too large or too small discounting factors, by which worse learning
+outcome arises. Nevertheless, it can be concluded that the team formed by
+tabular Q-learning agents cannot never outperform the team whose members
+employ the greedy strategy, regardless of how the discounting factor is set.
 
 % multiagent coordination
 \subsection{High-level Reinforcement Learning}
-Now we turn to investigate .
+After the preliminary experiments, it is natural to investigate the problem of how
+to incorporate effective coordinations for this particular multiagent system.
+
 
 %#########################################################################
 \subsection{Neuroevolution}
