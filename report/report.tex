@@ -116,13 +116,13 @@ existing  reinforcement learning treatments and the neuroevolution treatments
 for multiagent systems.  
 Section \ref{section:environment} describes in detail the virtual Roomba
 environment, under which our experiments proceed.  
-Preliminary simulations that both serve as baseline intelligent agents and
+Preliminary experiments that both serve as baseline intelligent agents and
 verify the correct system setup are indicated in the section
 \ref{section:setup}. 
 The experiments that demonstrate our achievements on multiagent coordination
 are articulated in the section \ref{section:realexpo}.
 We summarize our conclusions and discuss some promising future works in the
-section \ref{conclusion}.
+section \ref{conclusion}. TODO: need to update!
 
 \begin{figure}[!t]
 \centering
@@ -136,7 +136,7 @@ section \ref{conclusion}.
 This section focuses on the summary of previous works about how multiagent
 coordination can be incorporated in the reinforcement learning technique and the
 neuroevolution tehnique.
-\subsection{Coordinated Multiagent Reinforcement Learning}
+\subsection{Reinforcement Learning for Multiagent Coordination}
 \cite{nguyen2014decentralized} Existing work typically assumes that the prob- lem in each time step is decoupled from the problems in other time steps, which might not hold in some applications. Therefore, in this paper, we make the following contributions: (i) We introduce a new model, called Markovian Dynamic DCOPs (MD-DCOPs), where the DCOP in the next time step is a function of the value assignments in the current time step; (ii) We introduce two distributed reinforcement learning algo- rithms, the Distributed RVI Q-learning algorithm and the Dis- tributed R-learning algorithm, that balance exploration and exploitation to solve MD-DCOPs in an online manner; and (iii) We empirically evaluate them against an existing multi- arm bandit DCOP algorithm on dynamic DCOPs.
 
 \cite{zhang2011coordinated} This paper presents a
@@ -204,7 +204,7 @@ non-cooperative domains, and in domains with
 noisy communication channels and other stochastic
 characteristics that present a formidable c
 
-\subsection{Coordinated Multiagent Neuroevolution}
+\subsection{Neuroevolution for Multiagent Coordination}
 \textbf{Barry:}
 Add literatures of Neuroevolution here...
 
@@ -212,9 +212,13 @@ ATA: barbarian
 
 
 \section{The Roomba Environment} \label{section:environment}
-The OpenNERO, an open-source platform for the artificial intelligence research
-and education \cite{karpov2008opennero}, has a module and will be employed for
-our experimentation.
+To the best of our knowledge, the OpenNERO platform is the best choice for
+cheap software simulations. 
+The OpenNERO is an open-source platform for artificial intelligence
+research and education \cite{karpov2008opennero}. 
+The public release of the OpenNERO contains an underdeveloped implementation
+of Roomba environment, which supports the communication and coordination of
+multiple robots.
 
 \subsection{Invariant Structures}
 % intro to roomba
@@ -356,7 +360,7 @@ collection.
 After the preliminary experiments, we intend to investigate the problem of how
 to incorporate effective coordinations for this particular multiagent system.
 
-\subsection{Reinforcement Learning}
+\subsection{Tiled Tabular Q-learning}
 
 \begin{figure}[!t]
 \centering
@@ -374,9 +378,13 @@ to incorporate effective coordinations for this particular multiagent system.
 
 % preliminary results
 Before diving into the investigation of multiagent coordination, we take 
-preliminary experiments with regard to the impact of various simple
-sensors and the effects of various discounting factors on the outcome of the
-tilted tabular Q-learning.
+preliminary experiments to investigate the impact of various collections of
+simple sensors and the effects of various discounting factors on the outcome
+of the tiled tabular Q-learning.
+
+TODO: explain some other constans (Number of agents, pellets, )
+
+TODO: explain Random greedy
 
 The sensors designed for the local perspective of each agent are as follows. 
 \begin{align}
@@ -398,8 +406,8 @@ The sensors designed for the local perspective of each agent are as follows.
       self.position.y \\
       closestCrumb.x \\
       closestCrumb.y  \\
-      closestMate.x \\
-      closestMate.y 
+      DistToClosestMate.x \\
+      DistToClosestMate.y 
   \end{array} \right)
         \nonumber
 \end{align}
@@ -408,7 +416,16 @@ technique.
 
 The learning outcomes derived from these sensors are compared in the
 Fig. \ref{fig:RL_init}. 
-It is observed that .
+Observations tell us that the positional information of the closest crumb
+tremendously contributes to the quality of agents' learned policies. 
+In addition to that, the relative position to the closest collaborated agent
+indeed hinder the Q-learning process, such that the communicative agents (black
+curve) performs worse than the team that do not monitor collaborators'
+positions (light-blue curve) during the observed episodes. One exciting
+discovery behind the figure is the narrow performance gap between the team of
+tiled tabular Q-learning agents and that of greedy-random agents. It turns out
+that the collective works made by naive Q-learning agents even outperform the
+team with greedy strategies.
 
 \begin{figure}[!t]
 \centering
@@ -424,7 +441,7 @@ It is observed that .
 
 The Fig. \ref{fig:RL_init2} shows the effect of different discounting factors
 to the learning outcome. It turns out that the best learning outcome came from
-the discounting factor with $\gamma = 0.5$ under the given setting. On top of
+the discounting factor $\gamma = 0.5$ under the given setting. On top of
 that, this chart also indicates the negative effects of too large or too small
 discounting factors, by which worse learning outcome arises. Nevertheless, it
 can be concluded that the team formed by tabular Q-learning agents cannot
@@ -432,7 +449,8 @@ never outperform the team whose members employ the greedy strategy, regardless
 of how the discounting factor is set.
 
 % multiagent coordination
-No we turn to investigate .
+\subsection{High-level Reinforcement Learning}
+Now we turn to investigate .
 
 %#########################################################################
 \subsection{Neuroevolution}
