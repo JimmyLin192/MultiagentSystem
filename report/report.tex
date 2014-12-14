@@ -11,7 +11,7 @@
 % paper title
 % can use linebreaks \\ within to get better formatting as desired
 % Do not put math or special symbols in the title.
-\title{Multiagent Coordination in Roombas: From the perspective of
+\title{Multiagent Coordination in the Roomba: From the Perspectives of
     Reinforcement Learning and Neuroevolution}
 
 
@@ -62,17 +62,19 @@ Address \\
 
 
 \section{Introduction}
+% TODO: why we investigate Roomba
 % utility of roomba and some literatures about its usage in real world
 In the past years, Roomba Vacuum has gained its popularity in the industry of
 domestic services.  Most of existing studies about Roomba (iRobots) is to 
 qualitatively investigate its utility in the home as a single autonomous
 domestic service provider. In the contrast, our interests focus on the working
-efficacy of Roomba agents under a decentralized system.
+efficacy of Roomba agents under a decentralized system. 
+\textbf{TODO: improve this section}
 
 % Decentralized system
 The decentralized decision making has a long history, originated from the team
-thoery (\hspace*{-0.85mm} \cite{marschak1955elements, radner1962team,
-    radner1959application, ho1972team, tsitsiklis1985complexity}),
+thoery \cite{marschak1955elements, radner1962team,
+    radner1959application, ho1972team, tsitsiklis1985complexity},
 where the decisions made by team members need to contribute to the fulfillment
 of global objectives. However, the individual members have only partial
 information about the entire system, i.e. limited knowledge of common goals
@@ -80,18 +82,25 @@ and global states. This motivates the need for coordination because agents
 have to share resources and expertise required to achieve their goals.
 Researchers in the field of Distributed Artificial Intelligence (DAI) have
 been developing efficient mechanisms to coordinate the activities of multiple
-autonomous agents (\hspace*{-1.7mm}\cite{weiss1999multiagent, huhns2012distributed}). 
+autonomous agents \cite{weiss1999multiagent, huhns2012distributed}. 
 Specifically, previous works for the multiagent coordination 
 include using sophisticated information to exchange protocols, investigating
 heuristics for negotiation, and developing formal models of possibilities of
 conflict and cooperation among agent interests. 
 
 % Reinforcement learning
-Reinforcement learning has been widely used as the most useful techniques for
-autonomous game playing (Atari, Pacman, and Angry Bird) and intelligent task
-fulfillment either for single-agent or multi-agent environment. 
+Reinforcement learning has been widely used as an effective techniques for
+autonomous game playing (Atari, Pacman, and Angry Bird) for either
+single-agent or multi-agent environment. 
+An early study \cite{tan1993multi} shows that under the reinforcement learning
+framework, additional sensation from another agent is benefial if it
+can be used effiently. The benefits lie in the faster learning process at the
+cost of communication and the better performance for joint tasks.  
+Based on this investigative study, we consider to explore the Roomba
+multiagent system through reinforcement learning approaches.
 
-% Neuroevolution
+% Neuroevolution: intro & motivation
+\textbf{TODO: make the intro here..}
 Neuroevolution.
 
 % Our aim and contributions in this paper
@@ -115,44 +124,56 @@ In section \ref{section:literature}, a detailed presentation about the
 existing  reinforcement learning treatments and the neuroevolution treatments
 for multiagent systems.  
 Section \ref{section:environment} describes in detail the virtual Roomba
-environment, under which our experiments proceed.  
-Preliminary experiments that both serve as baseline intelligent agents and
-verify the correct system setup are indicated in the section
-\ref{section:setup}. 
-The experiments that demonstrate our achievements on multiagent coordination
-are articulated in the section \ref{section:realexpo}.
-We summarize our conclusions and discuss some promising future works in the
-section \ref{conclusion}. TODO: need to update!
+environment, as well as the practical issues encountered, and the multiagent
+behaviors we expected to see in the following experiments.  
+\textbf{TODO: Our approach..}
+The experiments that demonstrate our attempts and achievements on multiagent
+coordination are articulated in the section \ref{section:realexpo}.  
+We summarize our conclusions and discuss some promising future
+works in the section \ref{conclusion}. 
 
+
+% TODO: to remove this graph
 \begin{figure}[!t]
 \centering
-\includegraphics[width=2.1in,height=2.1in]{./figures/irobot_roomba.jpg}
+\includegraphics[width=3in,height=2.1in]{./figures/roombas/roomba3.png}
 \caption{A exemplar Roomba robot in the real world.}
 \label{roomba:world}
 \end{figure}
 
-
 \section{Technical Literatures} \label{section:literature}
 This section focuses on the summary of previous works about how multiagent
-coordination can be incorporated in the reinforcement learning technique and the
-neuroevolution tehnique.
+planning can be formulated as optimization problems, and how the coordinative
+behaviors can be figured out by the reinforcement learning technique and the
+neuroevolution technique.
 
 \subsection{Multiagent Planning as Optimization}
-Distributed Constraint Optimization Problems (DCOPs) are problems where agents
-need to coordinate their value as- signments to maximize the sum of the
-resulting constraint utilities.
+% DCOP
+The Distributed Constraint Optimization Problem (DCOP) is a promising approach
+for modeling distributed reasoning tasks that arise in multiagent systems.
+\textbf{Within the DCOP framework...}
+Agents need to coordinate their value assignments
+to maximize the sum of the resulting constraint utilities.  
+An utility-propagation method was proposed to address the large-scale multiagent
+constraint optimization problem \cite{petcu2005scalable}.
+One recent study \cite{boyd2011distributed} employed alternating direction
+method of multipliers (ADMM) to derive solutions for the DCOP.
 
-Dynamic Distributed Constraint Optimization Problems (Dynamic DCOPs) are
-introduced to model dynamically changing multiagent coordination problems,
-where a dynamic DCOP is a sequence of static DCOPs, each of which partially
+% Dyn-DCOP
+Dynamic Distributed Constraint Optimization Problem (Dynamic DCOP) was
+proposed to model dynamically changing multiagent coordination problems.
+A dynamic DCOP is a sequence of static DCOPs, each of which partially
 different from the DCOP preceding it.
-The formulation of Dynamic DCOPs allow us to model problems that can not be assumed
-to be static. Dynamic DCOPs are especially advantageous for those problems
-that change so frequently that by the time a DCOP solver has found a solution
-it is already obsolete. A series of asynchronous algorithms have been proposed
-to solve the Dynamic DCOP: Abstract Distributed Constraint Optimization
-(DCOP) \cite{maheswaran2004taking}, ADOPT \cite{modi2005adopt}, Support-Based Distributed
-Optimisation (SBDO) \cite{billiau2012sbdo}, 
+The formulation of Dynamic DCOPs allows us to model problems that
+can not be assumed to be static, with particular advantages when the problems
+change so frequently that by the time a DCOP solver has found a solution
+it is already obsolete. 
+A series of asynchronous algorithms have been proposed to approximately solve
+the Dynamic DCOP. 
+For example, the ADOPT method provides an available solver with theoretical
+guarantees on the global solution \cite{modi2005adopt}. 
+Also, Support-Based Distributed Optimization (SBDO) serves as a robust
+alternative for solving the Dynamic DCOPs problems \cite{billiau2012sbdo}.
 
 \subsection{Reinforcement Learning Based Coordination}
 %######################################################################
@@ -250,22 +271,22 @@ The public release of the OpenNERO contains an underdeveloped implementation
 of Roomba environment, which supports the communication and coordination of
 multiple robots.
 
-\subsection{Invariant Structures}
+\subsection{Structures}
 % intro to roomba
 The Roomba environment is a virtual computer lab with crumbs distributed on
 the floor.
 In this virtual lab, there are four classes of objects: agents, crumbs, walls,
 decorations. 
 Vacuum cleaner agents, shown as grey cylinders in Fig. \ref{roomba:world}, are
-supposed to collect the static crumbs that are labelled as blue cubes.  
-The agents will be rewarded if they move to a place where there are some
-crumbs. 
+supposed to collect the static crumbs that are labelled as blue cubes.  The
+agents will be rewarded if they move to a place where there are some crumbs. 
 Walls are also set up as the boundaries of the computer lab, such that
 agents are not allowed to move beyond the walls and no pellets can be placed
 outside the walls.
 Other decorative objects within the virtual environment include tables, chairs, and
 computers. For simplicity at the moment, these decorations only serve as
-physically transparent decorations, which means they do not block agents' movements.
+physically transparent decorations, which means they do not block agents'
+movements.
 
 % controller
 As shown in the Fig. \ref{roomba:world}, the small window floating on the top right
@@ -305,9 +326,9 @@ employing MANUAL mode in all experiments afterwards.
 The learning process designed in the Roomba environment is as follows. 
 The physically dynamic component, consisting of robots and pellets, will be
 reset to their initial status once one episode expires. 
-Except the spatial positions, all other properties of agents are allowed to
-preserve through two adjacent episodes, for example, the accumulated Q values
-from previous episodes. 
+Except the spatial positions, all episodic experience and learned knowledge
+(i.e. the accumulated Q values from previous episodes) are allowed to preserve
+through two adjacent episodes.  
 Note that the default configuration for one episode is 100 steps. That is,
 for every 100 steps, all agents will be placed back to their birth places no
 matter how many pellets they have collected and all crumbs are set at
@@ -323,13 +344,12 @@ of last episode.
 
 \subsection{Practical Issues}
 % sensors (default setting for greedy agents)
-What agents are allowed to perceive from their local views is one practical
+What agents are allowed to perceive from their local views is the practical
 issue that matters the most. 
 This is important because both of the design of sensors and their
 representations have significant impact on the learning outcome of a team. 
 The default implementation of Roomba environment allows each agent to sense
-all crumbs on the floor about their positions, existence status, and even
-rewards. 
+all crumbs on the floor about their positions, existing status, and even rewards. 
 In this sense, agents are able to perceive limitless information from the
 computer lab. 
 In addition, the spatial information of other collaborated robots
@@ -339,9 +359,7 @@ movements).  Although the Roomba environment provides a large design space for
 sensors, it is a practical treatment to start from a small number of simple
 sensors. For example, a combination of the bumping status, the position of its
 own, and the location of closest crumb suffice for an agent to learn a greedy
-strategy, as illustrated in the initial setup experimentation.  A balance is
-struck between the amount of information available to each agent and the
-associated cost.
+strategy, as illustrated in the initial setup experimentation.  
 
 % rewards
 The reward design is another big issue for
@@ -354,24 +372,20 @@ they move. Similarly, penalties can also be granted to the collisions between
 roombas, bumping of agents towards the world boundaries, and repetitive
 movements around an area.
 
-
 \subsection{Expected Multiagent Behaviors}
-TODO: add discussion about the Expected Multiagent Behaviors here...
 
-Work Balance / competition avoidance. 
+Workload balance is the foremost coordinative behaviors the
+agents should reflect in the Roomba System. This is also known as competition
+avoidance. If the workload can be evenly distributed to each agent, in terms of
+local perceptions and limited amount of communicative information, the team is
+more likely to yield the globally optimal performance.
 
-Collision avoidance. 
+Another Collision avoidance. 
 
 \section{Our Approaches}
 This section articulates, in a formal way, our original ideas or design
 priciples to advance the cleaning efficacy of the Roomba environment from the
 multiagent perspective.
-
-\subsection{Baseline Agents} 
-Agents with greedy strategy simply approaches to the direction where the
-closest pellet to it is there.
-
-TODO: explain Random greedy
 
 \subsection{Tiled Tabular Q-learning} 
 TODO: description of TTQ
@@ -389,11 +403,16 @@ TODO: any original idea goes here.
 TODO: any original idea goes here.
 
 
-\section{Experiments} \label{section:setup}
+\section{Experiments} \label{section:realexpo}
 This section presents our research investigation in two threads: the
 reinforcement learning thread and the neuroevolution thread.
 
 
+\subsection{Baseline Agents} 
+Agents with greedy strategy simply approaches to the direction where the
+closest pellet to it is there.
+
+TODO: explain Random greedy
 
 \subsection{Tiled Tabular Q-learning}
 
