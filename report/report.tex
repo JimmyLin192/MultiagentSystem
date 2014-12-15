@@ -262,10 +262,26 @@ where the entire problem is controlled by a single agent.
 \cite{sen1994learning}
 
 \subsection{Neuroevolution for Multiagent Coordination}
-\textbf{Barry:}
-Add literatures of Neuroevolution here...
 
-ATA: barbarian
+% Predator prey domain
+
+% Centralized vs decentralized \cite{yong2001cooperative}
+
+% Communication vs stigmegy (simple) \cite{yong2001cooperative}
+
+% Communciation vs stigmergy (complex) \cite{rajagopalan2011role}
+
+
+
+%  Heterogenious vs homogoenous
+Work by \cite{bryant2003neuroevolution} shows that multiagent cooperation be achieved with homogeneous networks. Furthermore these networks can be trained such that agents adopt completely distinct strategies despite having identical networks.
+
+Another method for multiagent training is \textit{social learning}. Social learning allows an agent to leverage the knowledge of other networks to enhance the learning process.
+In many social learning techniques, agents select a teacher or model, from which they attempt to learn information or behavior \cite{acerbi2006cultural}. This is called the \textit{student-teacher model}, and the success of these methods depends highly on the mechanism by which teachers are selected.
+
+Other social learning approaches do not use the student-teacher method. \textit{Opportunistic Cooperative Learning} (OCL) is a social learning technique designed for multiagent search problems \cite{yang2002ocl}. In OCL, nearby agents can learn from each other, with less successful agents adopting network weights from more successful teammates. 
+
+In another method, called \textit{Egalitarian Social Learning} (ESL), agents also learn from each other without designated teachers \cite{miikkulainen2012multiagent}. In ESL, the population is partitioned into subcultures, with agents free to learn from any member of their subculture. This method helps improve diversity and avoid premature convergence.
 
 
 \section{The Roomba Environment} \label{section:environment}
@@ -279,20 +295,13 @@ multiple robots.
 
 \subsection{Structures}
 % intro to roomba
-The Roomba environment is a virtual computer lab with crumbs distributed on
+The Roomba environment is a virtual office space with crumbs distributed on
 the floor.
 In this virtual lab, there are four classes of objects: agents, crumbs, walls,
-decorations. 
-Vacuum cleaner agents, shown as grey cylinders in Fig. \ref{roomba:world}, are
-supposed to collect the static crumbs that are labelled as blue cubes.  The
-agents will be rewarded if they move to a place where there are some crumbs. 
-Walls are also set up as the boundaries of the computer lab, such that
-agents are not allowed to move beyond the walls and no pellets can be placed
-outside the walls.
-Other decorative objects within the virtual environment include tables, chairs, and
-computers. For simplicity at the moment, these decorations only serve as
-physically transparent decorations, which means they do not block agents'
-movements.
+and obstacles. 
+Roomba agents, shown as grey cylinders in Fig. \ref{roomba:world}, collect the static crumbs that are depicted as blue cubes.  The
+agents automatically pick up all crumbs within a certain radius. 
+Walls indicate boundaries of the environment, and other obstacles objects within the virtual environment include tables and chairs. Collision detection for these obstacles can be enabled or disabled in order to vary the complexity of the experiment. For our purposes, only collisions with walls are enabled.
 
 % controller
 As shown in the Fig. \ref{roomba:world}, the small window floating on the top right
@@ -306,12 +315,10 @@ If one needs to switch to the other type of AI agents, the running agents have
 to be removed and then the user is able to effectively load the desired AI agents.
 
 %  movement of agents 
-In the Roombas environment, the movements of vacuum cleaner agents are not
-constrained by four directions (left, right, forward, backward). Instead,
-agents are able to move towards all directions and each moving action is
-denoted as a continuous radius value. Besides, all agents move in a
-synchronous way. Agents are allowed to make their movements of the following
-step if and only if all agents have completed their movements in the previous step.
+
+In the Roombas environment, agents have a full $360^\circ$ movement; each action is
+denoted as a continuous radius value. All movement is simultaneous, and agent actions are synchronized. 
+
 
 % placement of pellets 
 Three different modes (MANUAL, RANDOM, and CLUSTER) are employed to specify
@@ -327,6 +334,7 @@ whose centers and spreads at $x$ and $y$ coordinates are specified.
 In this paper, the specifications for the placement of crumbs are generated
 from the starting CLUSTER-mode experiment and remained invariant by
 employing MANUAL mode in all experiments afterwards.
+Note that in any of the three modes, crumb placement does not change when the environment is reset, so agents will train on the same crumb distribution for the lifetime of the environment.
 
 % learning process
 The learning process designed in the Roomba environment is as follows. 
@@ -574,6 +582,10 @@ As a starting point, we try to match the behavior of the greedy algorithm using 
 In order to improve over the greedy algorithm, it suffices to add just one more sensor. This sensor detects the distance to the nearest crumb. Equipped with both an angle and distance to the crumb, the network now learns behavior superior to the greedy algorithm. (Fig \ref{neroevolution:initial_results})
 
 This makes sense, as agents can now leverage the information of how far away a crumb is. When a crumb is close by, it is likely that an agent will be able to capture it, improving the agent's fitness. When the crumb is further away, however, it is more likely that another agent will reach that crumb first. 
+
+% % % % mention more crumb sensors result in slower learning, but not better results
+
+\subsection{Communication}
 
 %Communication
 
