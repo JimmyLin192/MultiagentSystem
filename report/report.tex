@@ -119,6 +119,7 @@ neuroevolution mechanism.
 communication and coordination. 
 (iv) compare performances of the agents learned through various approaches and
 settings.
+\textbf{TODO: update and check the contributions}
 % TODO: more contribution or more specific descriptions
 
 % outline of this paper
@@ -128,12 +129,13 @@ existing  reinforcement learning treatments and the neuroevolution treatments
 for multiagent systems.  
 Section \ref{section:environment} describes in detail the virtual Roomba
 environment, as well as the practical issues encountered, and the multiagent
-behaviors we expected to see in the following experiments.  
-\textbf{TODO: Our approach..}
+behaviors we expected to observe in our experiments.  
 The experiments that demonstrate our attempts and achievements on multiagent
-coordination are articulated in the section \ref{section:realexpo}.  
-We summarize our conclusions and discuss some promising future
-works in the section \ref{conclusion}. 
+coordination are articulated in the section \ref{section:rlexpo}  and the
+section \ref{section:neuro} with the Reinforcement Learning thread and the
+Neuroevolution thread respectively.  
+We summarize our conclusions and discuss some of promising future works in the
+section \ref{conclusion}. 
 
 
 % TODO: to remove this graph
@@ -150,21 +152,32 @@ coordination using reinforcement learning and
 neuroevolution techniques.
 
 \subsection{Multiagent Planning as Optimization}
-Distributed Constraint Optimization Problems (DCOPs) are problems where agents
-need to coordinate their value as- signments to maximize the sum of the
-resulting constraint utilities.
+% DCOP
+The Distributed Constraint Optimization Problem (DCOP) is a promising approach
+for modeling distributed reasoning tasks that arise in multiagent systems.
+\textbf{Within the DCOP framework...}
+Agents need to coordinate their value assignments
+to maximize the sum of the resulting constraint utilities.  
+An utility-propagation method was proposed to address the large-scale multiagent
+constraint optimization problem \cite{petcu2005scalable}.
+One recent study \cite{boyd2011distributed} employed alternating direction
+method of multipliers (ADMM) to derive solutions for the DCOP.
 
-Dynamic Distributed Constraint Optimization Problems (Dynamic DCOPs) are
-introduced to model dynamically changing multiagent coordination problems,
-where a dynamic DCOP is a sequence of static DCOPs, each of which is partially
+% Dyn-DCOP
+Dynamic Distributed Constraint Optimization Problem (Dynamic DCOP) was
+proposed to model dynamically changing multiagent coordination problems.
+A dynamic DCOP is a sequence of static DCOPs, each of which partially
 different from the DCOP preceding it.
-The formulation of Dynamic DCOPs allow us to model problems that can not be assumed
-to be static. Dynamic DCOPs are especially advantageous for those problems
-that change so frequently that by the time a DCOP solver has found a solution
-it is already obsolete. A series of asynchronous algorithms have been proposed
-to solve the Dynamic DCOP: Abstract Distributed Constraint Optimization
-(DCOP) \cite{maheswaran2004taking}, ADOPT \cite{modi2005adopt}, and Support-Based Distributed
-Optimisation (SBDO) \cite{billiau2012sbdo.
+The formulation of Dynamic DCOPs allows us to model problems that
+can not be assumed to be static, with particular advantages when the problems
+change so frequently that by the time a DCOP solver has found a solution
+it is already obsolete. 
+A series of asynchronous algorithms have been proposed to approximately solve
+the Dynamic DCOP. 
+For example, the ADOPT method provides an available solver with theoretical
+guarantees on the global solution \cite{modi2005adopt}. 
+Also, Support-Based Distributed Optimization (SBDO) serves as a robust
+alternative for solving the Dynamic DCOPs problems \cite{billiau2012sbdo}.
 
 \subsection{Reinforcement Learning Based Coordination}
 %######################################################################
@@ -373,38 +386,40 @@ more likely to yield the globally optimal performance.
 
 Another Collision avoidance. 
 
-\section{Our Approaches}
-This section articulates, in a formal way, our original ideas or design
-priciples to advance the cleaning efficacy of the Roomba environment from the
-multiagent perspective.
+%\section{Our Approaches}
+%This section articulates, in a formal way, our original ideas or design
+%priciples to advance the cleaning efficacy of the Roomba environment from the
+%multiagent perspective.
+%
+%\subsection{Tiled Tabular Q-learning} 
+%TODO: description of TTQ
+%
+%\subsection{High-level Reinforcement Learning} 
+%TODO: any original idea goes here.
+%
+%\subsection{Neuroevolution} 
 
-\subsection{Tiled Tabular Q-learning} 
-TODO: description of TTQ
+\section{Reinforcement Learning Experiments}
+\label{section:rlexpo} 
 
+This section presents our experimental investigation in the thread of reinforcement
+learning based agents.
+
+\subsection{Greedy-Random Agents} 
+Greedy-random Agents serve as the benchmark for our reinforcement
+learning based agents.
+Agents with greedy strategy simply approaches to the direction where the
+closest pellet to it is there.
+The greedy-random agents basically follow such greedy strategy but they make
+their final decisions with some probability to make random movements. 
+We incorporate such randomness because we need to .
+
+\subsection{Tiled Tabular Q-learning Agents}
 The motives to use Tiled Tabular Q-learning include
 (i) verifying that we have set up the environment correctly for general
 reinforcement learning techniques. 
 (ii) illustrating the benchmark (reinforcement learning) intelligence for the
 crumb collection problem.
-
-\subsection{High-level Reinforcement Learning} 
-TODO: any original idea goes here.
-
-\subsection{Neuroevolution} 
-
-\section{Reinforcement Learning Experiments} \label{section:realexpo}
-
-This section presents our research investigation in two threads: the
-reinforcement learning thread and the neuroevolution thread.
-
-
-\subsection{Baseline Agents} 
-Agents with greedy strategy simply approaches to the direction where the
-closest pellet to it is there.
-
-TODO: explain Random greedy
-
-\subsection{Tiled Tabular Q-learning}
 
 \begin{figure}[!t]
 \centering
@@ -500,6 +515,7 @@ to incorporate effective coordinations for this particular multiagent system.
 %#########################################################################
 
 \section{Neuroevolution Experiments}
+\label{section:neuro}
 %\subsection{Methodology}
 
 In the following experiments, agents were controlled by neural networks trained using NeuroEvolution of Augmenting Topologies (NEAT).
