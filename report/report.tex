@@ -13,7 +13,7 @@
 % paper title
 % can use linebreaks \\ within to get better formatting as desired
 % Do not put math or special symbols in the title.
-\title{Multiagent Coordination in the Roomba: From the Perspectives of
+\title{Multiagent Coordination in the Roomba: Using
     Reinforcement Learning and Neuroevolution}
 
 
@@ -105,6 +105,8 @@ multiagent system through reinforcement learning approaches.
 % Neuroevolution: intro & motivation
 \textbf{TODO: make the intro here..}
 Neuroevolution.
+
+\cite{stanley2005real} Real time neuroevolution for NERO game. 
 
 % Our aim and contributions in this paper
 In this paper, we
@@ -309,7 +311,7 @@ constrained by four directions (left, right, forward, backward). Instead,
 agents are able to move towards all directions and each moving action is
 denoted as a continuous radius value. Besides, all agents move in a
 synchronous way. Agents are allowed to make their movements of the following
-step if and only if all agents have completed their movements in the last step.
+step if and only if all agents have completed their movements in the previous step.
 
 % placement of pellets 
 Three different modes (MANUAL, RANDOM, and CLUSTER) are employed to specify
@@ -435,6 +437,18 @@ crumb collection problem.
 \label{fig:RL_init}
 \end{figure}
 
+\begin{figure}[!t]
+\centering
+\includegraphics[width=3.0in]{./figures/RL/init_setup2.eps}
+\caption{Q-learning with various discounting factors. (i) Red: G-random curve
+    represents the greedy agent with $0.1$ probability to make a random
+    decision, which serve as the benchmark agents. 
+    (ii) (iii) (iv) the tilted tabular Q-learning with discounting factors
+    $\gamma = 0.1, 0.5, 0.8$ for Q-Discount-low, Q-Discount-med, and
+    Q-Discount-high respectively.}
+\label{fig:RL_init2}
+\end{figure}
+
 % preliminary results
 Before diving into the investigation of multiagent coordination, we take 
 preliminary experiments to investigate the impact of various collections of
@@ -485,17 +499,7 @@ tiled tabular Q-learning agents and that of greedy-random agents. It turns out
 that the collective works made by naive Q-learning agents even outperform the
 team with greedy strategies.
 
-\begin{figure}[!t]
-\centering
-\includegraphics[width=3.0in]{./figures/RL/init_setup2.eps}
-\caption{Q-learning with various discounting factors. (i) Red: G-random curve
-    represents the greedy agent with $0.1$ probability to make a random
-    decision, which serve as the benchmark agents. 
-    (ii) (iii) (iv) the tilted tabular Q-learning with discounting factors
-    $\gamma = 0.1, 0.5, 0.8$ for Q-Discount-low, Q-Discount-med, and
-    Q-Discount-high respectively.}
-\label{fig:RL_init2}
-\end{figure}
+
 
 The Fig. \ref{fig:RL_init2} shows the effects that various discounting factors
 will bring to the outcome of tilted tabular Q-learning. It turns out that the
@@ -518,7 +522,8 @@ to incorporate effective coordinations for this particular multiagent system.
 \label{section:neuro}
 %\subsection{Methodology}
 
-In the following experiments, agents were controlled by neural networks trained using NeuroEvolution of Augmenting Topologies (NEAT).
+In the following experiments, agents were controlled by neural networks
+trained using NeuroEvolution of Augmenting Topologies (NEAT) \cite{stanley2002evolving}.
 In particular, we evolved these networks with real-time NEAT, which does not use generations - instead replacing agent's networks without halting the simulation. However, the search space is eventually depleted of crumbs and must be reset. Simulations are therefore divided into \textit{episodes} which last a fixed interval, and  each episode begins by distributing agents and crumbs around the environment. Agents' networks are continually swapped out throughout an episode according to the rtNEAT algorithm.
 
 Experiments using the original configuration of the Roomba module yielded poor results. Agents performance did not increase over time.  Even after hundred of episodes, no evidence of learning occurred. This section discusses the steps necessary to enable even basic training of the Roomba agent. These results serve as a yardstick for later experiments on multiagent coordination.
@@ -530,7 +535,7 @@ all of the available crumbs before time expires, making it difficult to compare 
 
 \begin{figure}[!t]
 \centering
-\includegraphics[width=3.0in,height=2.0in]{./figures/neroevolution/pop_size.png}
+\includegraphics[width=3.0in]{./figures/neroevolution/pop_size.eps}
 \caption{Effect of population size on learning}
 \label{neroevolution:pop_size}
 \end{figure}
@@ -552,7 +557,7 @@ Experimentally derived results show $\phi = 1, \psi = 0.05$ as good choices (Fig
 % % % unnecessary????
 \begin{figure}[!t]
 \centering
-\includegraphics[width=3.0in,height=2.0in]{./figures/neroevolution/reward.png}
+\includegraphics[width=3.3in]{./figures/neroevolution/reward.eps}
 \caption{Comparison of fitness functions}
 \label{neroevolution:fitness}
 \end{figure}
@@ -570,17 +575,6 @@ In order to improve over the greedy algorithm, it suffices to add just one more 
 
 This makes sense, as agents can now leverage the information of how far away a crumb is. When a crumb is close by, it is likely that an agent will be able to capture it, improving the agent's fitness. When the crumb is further away, however, it is more likely that another agent will reach that crumb first. 
 
-% % % % mention more crumb sensors result in slower learning, but not better results
-
-\begin{figure}[!t]
-\centering
-\includegraphics[width=3.0in,height=2.0in]{./figures/neroevolution/times_5_.png}
-\caption{Comparison of one and two-input networks to baseline greedy algorithm}
-\label{neroevolution:initial_results}
-\end{figure}
-
-\subsection{Communication}
-
 %Communication
 
 We have establishes that training with rtNEAT can outperform the hardcoded greedy algorithm. However, agents are still entirely independent, not directly sharing information. An argument can be made that they are indirectly coordinating through the position of crumbs in the environment, but one wonders if better results can be achieved through direct communication.
@@ -589,7 +583,7 @@ The network design, shown in Fig. \ref{neroevolution:communication}, is straight
 
 We compare results for different choices $n$. 
 
-\begin{figure}[!t]
+\begin{figure}[t]
 \centering
 \includegraphics[width=3.0in]{./figures/neroevolution/comm_network.png}
 \caption{Communicating network.}
@@ -598,10 +592,10 @@ We compare results for different choices $n$.
 
 As seen in Fig. \ref{neroevolution:communication_results}, the more neighbors the agent communicates with, the longer it takes to learn. After these networks were left to train for 500 generation, only the network with $n=1$ managed to equal the performance of the $n=0$ network. Fig. \ref{neroevolution:communication_results} shows that the one neighbor network catches up after about 20 episodes. Note that what both of these networks cap out at aproximately 400 crumbs per episode, there are still crumbs remaining at this time. (The total number of crumbs is about 435.) So while there is still room for improvement over the $n=0$ network, none of the communicating networks achieve better results. In fact the networks with higher $n$-values do \textit{worse} than the non-communicating network, plateauing at significantly lower crumb counts.
 
-\begin{figure}[!t]
+\begin{figure}[t]
 \centering
 % % NOTE TO SELF: this spreadsheet doesnt exist yet, it was the latest experiment
-\includegraphics[width=3.0in,height=2.0in]{./figures/neroevolution/comm_results.png}
+\includegraphics[width=3.0in]{./figures/neroevolution/comm_result.eps}
 \caption{Communicating network results}
 \label{neroevolution:communication_results}
 \end{figure}
@@ -623,7 +617,7 @@ One way to test this is to have the network evolve its own communication (Fig. \
 In order for communication to be valuable, agents must have information to share. 
 Each agent is equipped with a sensor which detects how many crumbs are within a small radius. A radius of 1/8 of the length of the environment was chosen through experimentation - a larger radius rendered the sensor useless.
 
-\begin{figure}[!t]
+\begin{figure}[t]
 \centering
 \includegraphics[width=3.0in]{./figures/neroevolution/emerg_comm_network.png}
 \caption{Communicating network with evolved signals.}
@@ -634,9 +628,9 @@ The hope was that agents would learn to communicate their short range observatio
 Unfortunately, results were little better than with the simple communicating network (Fig. \ref{neroevolution:evolved_comunication_results}). 
 Again, the more neighbors communicated with, the longer it took a network to learn. Ultimately, the heigher $n$-value networks did reach the same performance as the 0-neighbor network, but not until over 500 episodes. Whereas the 0-neighbor network peeked within 10 episodes, and the 1-neighbor in about 25. At no point did any of the communicating networks consistently outperform the $n=0$ network. 
 
-\begin{figure}[!t]
+\begin{figure}[t]
 \centering
-\includegraphics[width=3.0in, height=2.0in]{./figures/neroevolution/emerg_comm_results.png}
+\includegraphics[width=3.0in]{./figures/neroevolution/emerg.eps}
 \caption{Comparison of evolved communication at different $n$-values. }
 \label{neroevolution:evolved_comunication_results}
 \end{figure}
