@@ -13,7 +13,7 @@
 % paper title
 % can use linebreaks \\ within to get better formatting as desired
 % Do not put math or special symbols in the title.
-\title{Multiagent Coordination in the Roomba: From the Perspectives of
+\title{Multiagent Coordination in the Roomba: Using
     Reinforcement Learning and Neuroevolution}
 
 
@@ -106,6 +106,8 @@ multiagent system through reinforcement learning approaches.
 \textbf{TODO: make the intro here..}
 Neuroevolution.
 
+\cite{stanley2005real} Real time neuroevolution for NERO game. 
+
 % Our aim and contributions in this paper
 In this paper, we
 investigate various multiagent coordination techniques under the framework of
@@ -119,6 +121,7 @@ neuroevolution mechanism.
 communication and coordination. 
 (iv) compare performances of the agents learned through various approaches and
 settings.
+\textbf{TODO: update and check the contributions}
 % TODO: more contribution or more specific descriptions
 
 % outline of this paper
@@ -128,12 +131,13 @@ existing  reinforcement learning treatments and the neuroevolution treatments
 for multiagent systems.  
 Section \ref{section:environment} describes in detail the virtual Roomba
 environment, as well as the practical issues encountered, and the multiagent
-behaviors we expected to see in the following experiments.  
-\textbf{TODO: Our approach..}
+behaviors we expected to observe in our experiments.  
 The experiments that demonstrate our attempts and achievements on multiagent
-coordination are articulated in the section \ref{section:realexpo}.  
-We summarize our conclusions and discuss some promising future
-works in the section \ref{conclusion}. 
+coordination are articulated in the section \ref{section:rlexpo}  and the
+section \ref{section:neuro} with the Reinforcement Learning thread and the
+Neuroevolution thread respectively.  
+We summarize our conclusions and discuss some of promising future works in the
+section \ref{conclusion}. 
 
 
 % TODO: to remove this graph
@@ -150,21 +154,32 @@ coordination using reinforcement learning and
 neuroevolution techniques.
 
 \subsection{Multiagent Planning as Optimization}
-Distributed Constraint Optimization Problems (DCOPs) are problems where agents
-need to coordinate their value as- signments to maximize the sum of the
-resulting constraint utilities.
+% DCOP
+The Distributed Constraint Optimization Problem (DCOP) is a promising approach
+for modeling distributed reasoning tasks that arise in multiagent systems.
+\textbf{Within the DCOP framework...}
+Agents need to coordinate their value assignments
+to maximize the sum of the resulting constraint utilities.  
+An utility-propagation method was proposed to address the large-scale multiagent
+constraint optimization problem \cite{petcu2005scalable}.
+One recent study \cite{boyd2011distributed} employed alternating direction
+method of multipliers (ADMM) to derive solutions for the DCOP.
 
-Dynamic Distributed Constraint Optimization Problems (Dynamic DCOPs) are
-introduced to model dynamically changing multiagent coordination problems,
-where a dynamic DCOP is a sequence of static DCOPs, each of which is partially
+% Dyn-DCOP
+Dynamic Distributed Constraint Optimization Problem (Dynamic DCOP) was
+proposed to model dynamically changing multiagent coordination problems.
+A dynamic DCOP is a sequence of static DCOPs, each of which partially
 different from the DCOP preceding it.
-The formulation of Dynamic DCOPs allow us to model problems that can not be assumed
-to be static. Dynamic DCOPs are especially advantageous for those problems
-that change so frequently that by the time a DCOP solver has found a solution
-it is already obsolete. A series of asynchronous algorithms have been proposed
-to solve the Dynamic DCOP: Abstract Distributed Constraint Optimization
-(DCOP) \cite{maheswaran2004taking}, ADOPT \cite{modi2005adopt}, and Support-Based Distributed
-Optimisation (SBDO) \cite{billiau2012sbdo.
+The formulation of Dynamic DCOPs allows us to model problems that
+can not be assumed to be static, with particular advantages when the problems
+change so frequently that by the time a DCOP solver has found a solution
+it is already obsolete. 
+A series of asynchronous algorithms have been proposed to approximately solve
+the Dynamic DCOP. 
+For example, the ADOPT method provides an available solver with theoretical
+guarantees on the global solution \cite{modi2005adopt}. 
+Also, Support-Based Distributed Optimization (SBDO) serves as a robust
+alternative for solving the Dynamic DCOPs problems \cite{billiau2012sbdo}.
 
 \subsection{Reinforcement Learning Based Coordination}
 %######################################################################
@@ -300,8 +315,10 @@ If one needs to switch to the other type of AI agents, the running agents have
 to be removed and then the user is able to effectively load the desired AI agents.
 
 %  movement of agents 
+
 In the Roombas environment, agents have a full $360^\circ$ movement; each action is
 denoted as a continuous radius value. All movement is simultaneous, and agent actions are synchronized. 
+
 
 % placement of pellets 
 Three different modes (MANUAL, RANDOM, and CLUSTER) are employed to specify
@@ -379,38 +396,40 @@ more likely to yield the globally optimal performance.
 
 Another Collision avoidance. 
 
-\section{Our Approaches}
-This section articulates, in a formal way, our original ideas or design
-priciples to advance the cleaning efficacy of the Roomba environment from the
-multiagent perspective.
+%\section{Our Approaches}
+%This section articulates, in a formal way, our original ideas or design
+%priciples to advance the cleaning efficacy of the Roomba environment from the
+%multiagent perspective.
+%
+%\subsection{Tiled Tabular Q-learning} 
+%TODO: description of TTQ
+%
+%\subsection{High-level Reinforcement Learning} 
+%TODO: any original idea goes here.
+%
+%\subsection{Neuroevolution} 
 
-\subsection{Tiled Tabular Q-learning} 
-TODO: description of TTQ
+\section{Reinforcement Learning Experiments}
+\label{section:rlexpo} 
 
+This section presents our experimental investigation in the thread of reinforcement
+learning based agents.
+
+\subsection{Greedy-Random Agents} 
+Greedy-random Agents serve as the benchmark for our reinforcement
+learning based agents.
+Agents with greedy strategy simply approaches to the direction where the
+closest pellet to it is there.
+The greedy-random agents basically follow such greedy strategy but they make
+their final decisions with some probability to make random movements. 
+We incorporate such randomness because we need to .
+
+\subsection{Tiled Tabular Q-learning Agents}
 The motives to use Tiled Tabular Q-learning include
 (i) verifying that we have set up the environment correctly for general
 reinforcement learning techniques. 
 (ii) illustrating the benchmark (reinforcement learning) intelligence for the
 crumb collection problem.
-
-\subsection{High-level Reinforcement Learning} 
-TODO: any original idea goes here.
-
-\subsection{Neuroevolution} 
-
-\section{Reinforcement Learning Experiments} \label{section:realexpo}
-
-This section presents our research investigation in two threads: the
-reinforcement learning thread and the neuroevolution thread.
-
-
-\subsection{Baseline Agents} 
-Agents with greedy strategy simply approaches to the direction where the
-closest pellet to it is there.
-
-TODO: explain Random greedy
-
-\subsection{Tiled Tabular Q-learning}
 
 \begin{figure}[!t]
 \centering
@@ -424,6 +443,18 @@ TODO: explain Random greedy
     $S_{d}$, and $S_{om}$ respectively.
 } 
 \label{fig:RL_init}
+\end{figure}
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=3.0in]{./figures/RL/init_setup2.eps}
+\caption{Q-learning with various discounting factors. (i) Red: G-random curve
+    represents the greedy agent with $0.1$ probability to make a random
+    decision, which serve as the benchmark agents. 
+    (ii) (iii) (iv) the tilted tabular Q-learning with discounting factors
+    $\gamma = 0.1, 0.5, 0.8$ for Q-Discount-low, Q-Discount-med, and
+    Q-Discount-high respectively.}
+\label{fig:RL_init2}
 \end{figure}
 
 % preliminary results
@@ -476,17 +507,7 @@ tiled tabular Q-learning agents and that of greedy-random agents. It turns out
 that the collective works made by naive Q-learning agents even outperform the
 team with greedy strategies.
 
-\begin{figure}[!t]
-\centering
-\includegraphics[width=3.0in]{./figures/RL/init_setup2.eps}
-\caption{Q-learning with various discounting factors. (i) Red: G-random curve
-    represents the greedy agent with $0.1$ probability to make a random
-    decision, which serve as the benchmark agents. 
-    (ii) (iii) (iv) the tilted tabular Q-learning with discounting factors
-    $\gamma = 0.1, 0.5, 0.8$ for Q-Discount-low, Q-Discount-med, and
-    Q-Discount-high respectively.}
-\label{fig:RL_init2}
-\end{figure}
+
 
 The Fig. \ref{fig:RL_init2} shows the effects that various discounting factors
 will bring to the outcome of tilted tabular Q-learning. It turns out that the
@@ -506,9 +527,11 @@ to incorporate effective coordinations for this particular multiagent system.
 %#########################################################################
 
 \section{Neuroevolution Experiments}
+\label{section:neuro}
 %\subsection{Methodology}
 
-In the following experiments, agents were controlled by neural networks trained using NeuroEvolution of Augmenting Topologies (NEAT).
+In the following experiments, agents were controlled by neural networks
+trained using NeuroEvolution of Augmenting Topologies (NEAT) \cite{stanley2002evolving}.
 In particular, we evolved these networks with real-time NEAT, which does not use generations - instead replacing agent's networks without halting the simulation. However, the search space is eventually depleted of crumbs and must be reset. Simulations are therefore divided into \textit{episodes} which last a fixed interval, and  each episode begins by distributing agents and crumbs around the environment. Agents' networks are continually swapped out throughout an episode according to the rtNEAT algorithm.
 
 Experiments using the original configuration of the Roomba module yielded poor results. Agents performance did not increase over time.  Even after hundred of episodes, no evidence of learning occurred. This section discusses the steps necessary to enable even basic training of the Roomba agent. These results serve as a yardstick for later experiments on multiagent coordination.
@@ -520,7 +543,7 @@ all of the available crumbs before time expires, making it difficult to compare 
 
 \begin{figure}[!t]
 \centering
-\includegraphics[width=3.0in,height=2.0in]{./figures/neroevolution/pop_size.png}
+\includegraphics[width=3.0in]{./figures/neroevolution/pop_size.eps}
 \caption{Effect of population size on learning}
 \label{neroevolution:pop_size}
 \end{figure}
@@ -542,7 +565,7 @@ Experimentally derived results show $\phi = 1, \psi = 0.05$ as good choices (Fig
 % % % unnecessary????
 \begin{figure}[!t]
 \centering
-\includegraphics[width=3.0in,height=2.0in]{./figures/neroevolution/reward.png}
+\includegraphics[width=3.3in]{./figures/neroevolution/reward.eps}
 \caption{Comparison of fitness functions}
 \label{neroevolution:fitness}
 \end{figure}
@@ -572,7 +595,7 @@ The network design, shown in Fig. \ref{neroevolution:communication}, is straight
 
 We compare results for different choices $n$. 
 
-\begin{figure}[!t]
+\begin{figure}[t]
 \centering
 \includegraphics[width=3.0in]{./figures/neroevolution/comm_network.png}
 \caption{Communicating network.}
@@ -581,10 +604,10 @@ We compare results for different choices $n$.
 
 As seen in Fig. \ref{neroevolution:communication_results}, the more neighbors the agent communicates with, the longer it takes to learn. After these networks were left to train for 500 generation, only the network with $n=1$ managed to equal the performance of the $n=0$ network. Fig. \ref{neroevolution:communication_results} shows that the one neighbor network catches up after about 20 episodes. Note that what both of these networks cap out at aproximately 400 crumbs per episode, there are still crumbs remaining at this time. (The total number of crumbs is about 435.) So while there is still room for improvement over the $n=0$ network, none of the communicating networks achieve better results. In fact the networks with higher $n$-values do \textit{worse} than the non-communicating network, plateauing at significantly lower crumb counts.
 
-\begin{figure}[!t]
+\begin{figure}[t]
 \centering
 % % NOTE TO SELF: this spreadsheet doesnt exist yet, it was the latest experiment
-\includegraphics[width=3.0in,height=2.0in]{./figures/neroevolution/comm_results.png}
+\includegraphics[width=3.0in]{./figures/neroevolution/comm_result.eps}
 \caption{Communicating network results}
 \label{neroevolution:communication_results}
 \end{figure}
@@ -606,7 +629,7 @@ One way to test this is to have the network evolve its own communication (Fig. \
 In order for communication to be valuable, agents must have information to share. 
 Each agent is equipped with a sensor which detects how many crumbs are within a small radius. A radius of 1/8 of the length of the environment was chosen through experimentation - a larger radius rendered the sensor useless.
 
-\begin{figure}[!t]
+\begin{figure}[t]
 \centering
 \includegraphics[width=3.0in]{./figures/neroevolution/emerg_comm_network.png}
 \caption{Communicating network with evolved signals.}
@@ -617,9 +640,9 @@ The hope was that agents would learn to communicate their short range observatio
 Unfortunately, results were little better than with the simple communicating network (Fig. \ref{neroevolution:evolved_comunication_results}). 
 Again, the more neighbors communicated with, the longer it took a network to learn. Ultimately, the heigher $n$-value networks did reach the same performance as the 0-neighbor network, but not until over 500 episodes. Whereas the 0-neighbor network peeked within 10 episodes, and the 1-neighbor in about 25. At no point did any of the communicating networks consistently outperform the $n=0$ network. 
 
-\begin{figure}[!t]
+\begin{figure}[t]
 \centering
-\includegraphics[width=3.0in, height=2.0in]{./figures/neroevolution/emerg_comm_results.png}
+\includegraphics[width=3.0in]{./figures/neroevolution/emerg.eps}
 \caption{Comparison of evolved communication at different $n$-values. }
 \label{neroevolution:evolved_comunication_results}
 \end{figure}
