@@ -264,14 +264,15 @@ where the entire problem is controlled by a single agent.
 \subsection{Neuroevolution for Multiagent Coordination}
 
 % Predator prey domain
+The \textit{predator-prey problem} has been studied as an application fo neruoevolution. In this problem, several predator agents attempt to capture a fleeing prey. Since the prey is faster than the predators, the agents must learn to cooperate in order to succeed.
 
 % Centralized vs decentralized \cite{yong2001cooperative}
-
-% Communication vs stigmegy (simple) \cite{yong2001cooperative}
+Research by \cite{yong2001cooperative} found that learning is faster in a distributed model where each agent has it's own network, rather than using a single centralized network to coordinate agents' actions.
+A more surprising discovery was that communication can actually detract from agents' ability to coordinate. 
+Without direct communication, agents were able to coordinate simply by observing each others' changes to the environment. This form of indirect communication is referred to as \textit{stigmergy}, and agents proved to learn faster using stigmergy than direct communication. 
 
 % Communciation vs stigmergy (complex) \cite{rajagopalan2011role}
-
-
+In a follow up work, \cite{rajagopalan2011role} compared communication and stigmergy in more complicated environments with multiple prey. They discovered that in more complicated environments communicating networks outperform noncomunicating ones. This indicates that while stigmergy is effective when changes to the enviroment are obvious, it becomes increasingly difficult as the enviroment becomes more complicated.
 
 %  Heterogenious vs homogoenous
 Work by \cite{bryant2003neuroevolution} shows that multiagent cooperation be achieved with homogeneous networks. Furthermore these networks can be trained such that agents adopt completely distinct strategies despite having identical networks.
