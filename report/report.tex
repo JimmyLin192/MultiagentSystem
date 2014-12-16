@@ -390,11 +390,16 @@ more likely to yield the globally optimal performance.
 This section presents our experimental investigation on the thread of reinforcement
 learning based agents.
 
-\subsection{Default Settings}
-
-\textbf{TODO: explain some other constants} (
+\subsection{Experimental Settings}
+The default settings are set for fair performance comparison between all
+experimented agents. A detailed list is as follows:
 \begin{itemize}
-    \item Number of agents, pellets, )
+    \item Number of Agents: 5.
+    \item Number of Pellets: 500. 
+    \item Number of Episodes Observed: 1000. 
+    \item Locations of Agents: fixed by RANDOM seeds
+    \item Locations of Pellets: fixed by MANUAL specifications
+    \item Collision with Decorations (desks, chairs): disabled
 \end{itemize}
 
 \subsection{Greedy-Random Agents} 
@@ -443,6 +448,8 @@ for the crumb collection problem.
 } 
 \label{fig:RL_init}
 \end{figure}
+
+\textbf{TODO: tiled tabular Q-learning agents intro}.
 
 % preliminary results
 Before diving into the investigation of multiagent coordination, we take 
@@ -504,6 +511,7 @@ monitor collaborators' positions (light-blue curve).
 
 % multiagent coordination
 \subsection{High-level Reinforcement Learning}
+\textbf{TODO:}
 After the preliminary experiments, it is natural to investigate the problem of how
 to incorporate effective coordinations for this particular multiagent system.
 
