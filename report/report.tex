@@ -602,12 +602,7 @@ One might wonder if agents could benefit from additional sensors detecting furht
 \label{neroevolution:evolved_comunication}
 \end{figure}
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=3.0in]{./figures/neroevolution/comm_result.eps}
-\caption{\textbf{Communicating Roomba results.} Comparison of non-communicating agents ($n=0$) with communicating ones. The more neighbors an agent communicates with, the slower it learns. Furthermore, none of the communicating agents exceed the performance of non-communicating ones, with more communication in fact resulting in worse performance. }
-\label{neroevolution:communication_results}
-\end{figure}
+
 
 %Communication
 
@@ -616,6 +611,12 @@ We have establishes that training with rtNEAT can outperform the hardcoded greed
 The network design, shown in Fig. \ref{neroevolution:communication}, is straightforward. Inputs consist of the offset of the nearest crumb as well as that the nearest $n$ agents. Offsets are polar, consisting of an angular direction and a scalar magnitude. As before, the single output represents the angular direction the agent will turn to face. 
 This section compares experimental results for different choices $n$, where $n=0$ represents no communication, and each increment adds another neighbor to each agent's awareness.
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=3.0in]{./figures/neroevolution/comm_result.eps}
+\caption{\textbf{Communicating Roomba results.} Comparison of non-communicating agents ($n=0$) with communicating ones. The more neighbors an agent communicates with, the slower it learns. Furthermore, none of the communicating agents exceed the performance of non-communicating ones, with more communication in fact resulting in worse performance. }
+\label{neroevolution:communication_results}
+\end{figure}
 
 As seen in Fig. \ref{neroevolution:communication_results}, the more neighbors the agent communicates with, the longer it takes to learn.  Fig. \ref{neroevolution:communication_results} shows that the $n=1$ neighbor network catches up with the $n=0$ network after about 20 episodes. The other networks, however do not reach this level even after several hundred episodes of training. Note that while the networks appear to cap out at 400 crumbs per episode, there are approximately 30-50 crumbs uncollected at this point. So while there is still room for improvement over the $n=0$ network, none of the communicating networks achieve better results. In fact the networks with higher $n$-values do \textit{worse} than the non-communicating network, plateauing at significantly lower crumb counts.
 
@@ -627,6 +628,20 @@ Fig. \ref{neroevolution:shared_fitness} show the results for a non-communicating
 
 \subsection{Evolved Communication}
 
+\begin{figure}[b]
+\centering
+\includegraphics[width=3.0in]{./figures/neroevolution/shared_result.eps}
+\caption{\textbf{Comparison of individual vs shared fitness.} Shows the difference between individual and shared fitness functions. As before, the non-communicating network learns faster than the communicating one. We also observe that agents with shared fitness do not learn at all -- or at least learn extremely slowly.}
+\label{neroevolution:shared_fitness}
+\end{figure}
+
+\begin{figure}[b]
+\centering
+\includegraphics[width=3.0in]{./figures/neroevolution/emerg.eps}
+\caption{\textbf{Comparison of evolved communication.} Over a long timespan, the higher $n$-value networks eventually reach, but do not exceed the performance of the non-communicating ($n=0$) network. For any $n>1$, this takes several hundred episodes. }
+\label{neroevolution:evolved_comunication_results}
+\end{figure}
+
 Counterintuitive, these experiments have shown that communication is in fact detrimental to the learning process.
 However, conveying the location of fellow agents is a very simple form of communication. It is possible that with different signals and messages, the agents could learn to use communication to their advantage.
 
@@ -636,23 +651,12 @@ In order for communication to be valuable, agents must have information to share
 Each agent is equipped with a sensor which detects how many crumbs are within a small radius. A radius of 1/8 of the length of the environment was chosen through experimentation -- larger radii rendered the sensor useless.
 
 
+
 The goal is for agents to learn to communicate their short range observations to each other in order to improve their overall performance.
 Unfortunately, results were little better than with the simple communicating network (Fig. \ref{neroevolution:evolved_comunication_results}). 
 Again, the more neighbors communicated with, the longer it took a network to learn. Ultimately, the higher $n$-value networks did reach the same performance as the 0-neighbor network, but not until over 500 episodes. Whereas the 0-neighbor network peeked within 10 episodes, and the 1-neighbor in about 25. At no point did any of the communicating networks consistently outperform the $n=0$ network. Nether did this communication with evolved signal perform any better than the simple communication of neighbors' location. 
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=3.0in]{./figures/neroevolution/shared_result.eps}
-\caption{\textbf{Comparison of individual vs shared fitness.} Shows the difference between individual and shared fitness functions. As before, the non-communicating network learns faster than the communicating one. We also observe that agents with shared fitness do not learn at all -- or at least learn extremely slowly.}
-\label{neroevolution:shared_fitness}
-\end{figure}
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=3.0in]{./figures/neroevolution/emerg.eps}
-\caption{\textbf{Comparison of evolved communication.} Over a long timespan, the higher $n$-value networks eventually reach, but do not exceed the performance of the non-communicating ($n=0$) network. For any $n>1$, this takes several hundred episodes. }
-\label{neroevolution:evolved_comunication_results}
-\end{figure}
 
 
 %neroevolution conclusion
@@ -672,8 +676,10 @@ techniques, i.e. naive Q-learning and neuroevolution.
 
 
 
-% TODO: reiteration of detailed important results
-\textbf{reiteration of detailed important results}
+% Neuroevolution conclussion
+Using neuroevolution, we were able to successfully evolve a network which performs better than the hardcoded greedy algorithm. This demonstrates the power of neuroevolution and its ability to find good solutions to complicated optimization problems.
+
+Perhaps a more surprising result, our experiments show that communication can in fact impede the learning process. Presenting a network with more information makes learning more difficult, and there is no guarantee that the network will be able to use that information productively. Effective communication seems especially difficult in a complicated environment such as this, where there is far too much state information for agents to try to digest and communicate effectively.
 
 % 1. RL:
 % 2. Neuroevolution:
@@ -683,13 +689,6 @@ the Roomba environment.
 Both of MD-DCOP and ND-POMDP synthesize the MDP and DCOP and serve as powerful
 statistical models to formulate the multiagent planning problem, where the
 coordinative behaviors are supposed to be incorporated. 
-\textbf{Neuro: future works}
-
-% Neuroevolution conclussion
-Using neuroevolution, we were able to successfully evolve a network which performs better than the hardcoded greedy algorithm. This demonstrates the power of neuroevolution and its ability to find good solutions to complicated optimization problems.
-
-Perhaps a more surprising result, our experiments show that communication can in fact impede the learning process. Presenting a network with more information makes learning more difficult, and there is no guarantee that the network will be able to use that information productively. Effective communication seems especially difficult in a complicated environment such as this, where there is far too much state information for agents to try to digest and communicate effectively.
-
 
 % trigger a \newpage just before the given reference
 % number - used to balance the columns on the last page
