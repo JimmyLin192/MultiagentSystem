@@ -481,7 +481,6 @@ Before diving into the investigation of multiagent coordination, we take
 preliminary experiments to investigate the effects of various discounting
 factors on the learning outcome of the tiled tabular Q-learning.
 
-
 The Fig. \ref{fig:RL_init2} shows the effects that various discounting factors
 will bring to the outcome of tilted tabular Q-learning. It turns out that the
 best learning outcome came from the discounting factor $\gamma = 0.5$ under
@@ -535,9 +534,10 @@ monitor collaborators' positions (light-blue curve).
 
 % multiagent coordination
 \subsection{High-level Reinforcement Learning}
-\textbf{TODO:}
-After the preliminary experiments, it is natural to investigate the problem of how
-to incorporate effective coordinations for this particular multiagent system.
+
+After the preliminary experiments, it is natural to investigate the problem of
+how to incorporate effective coordinations for this particular multiagent
+system.
 
 
 %#########################################################################
@@ -603,6 +603,19 @@ In order to improve over the greedy algorithm, it suffices to add just one more 
 This result is both logical and significant. It demonstrates that agents learn to leverage the additional information of how far away a crumb is. An agent is more likely to capture nearby crumbs, improving its fitness. When the crumb is further away, however, it is more likely that another agent will reach that crumb first. Thus, the agent has better odds by moving to another area. 
 One might wonder if agents could benefit from additional sensors detecting furhter away crumbs. In practice, however, there was improvement from simply adding sensors that pointed to further crumbs.
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=3.0in]{./figures/neroevolution/comm_network.png}
+\caption{\textbf{Communicating Roomba network.} Initial network to be evolved with rtNEAT. Sensors detect the polar offsets (angle and magnitude) of the $n$ nearest neighboring agents, as well as the nearest crumb. Output represents the (angular) direction in which the agent should move.}
+\label{neroevolution:communication}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=3.0in]{./figures/neroevolution/emerg_comm_network.png}
+\caption{\textbf{Communicating Roomba network with evolved signals.} The addition of a broadcast signal gives agents a more expressive means of communication. This network receives the direction of and signal being broadcast by each of the $n$ nearest neighboring agents. It also has stronger information about its local environment, receiving both the density of nearby crumbs as well the angle to the nearest crumb.  }
+\label{neroevolution:evolved_comunication}
+\end{figure}
 
 \begin{figure}[t]
 \centering
@@ -618,19 +631,7 @@ One might wonder if agents could benefit from additional sensors detecting furht
 \label{neroevolution:shared_fitness}
 \end{figure}
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=3.0in]{./figures/neroevolution/comm_network.png}
-\caption{\textbf{Communicating Roomba network.} Initial network to be evolved with rtNEAT. Sensors detect the polar offsets (angle and magnitude) of the $n$ nearest neighboring agents, as well as the nearest crumb. Output represents the (angular) direction in which the agent should move.}
-\label{neroevolution:communication}
-\end{figure}
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=3.0in]{./figures/neroevolution/emerg_comm_network.png}
-\caption{\textbf{Communicating Roomba network with evolved signals.} The addition of a broadcast signal gives agents a more expressive means of communication. This network receives the direction of and signal being broadcast by each of the $n$ nearest neighboring agents. It also has stronger information about its local environment, receiving both the density of nearby crumbs as well the angle to the nearest crumb.  }
-\label{neroevolution:evolved_comunication}
-\end{figure}
 
 \subsection{Communication}
 
