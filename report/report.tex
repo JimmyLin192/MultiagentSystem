@@ -219,24 +219,10 @@ sampling \cite{banerjee2012sample} and initialization
  real-world uncertainty in multiagent domains, they fail to exploit such
  locality of interaction. On the other hand, DCOP captures the locality of
  interaction but fails to capture planning under uncertainty.
-
-One model-free, scalable learning approach that synthesizes multiagent
-reinforcement learning and distributed constraint optimization (DCOP) was
-illustrated in \cite{zhang2011coordinated}. This method found globally optimal
-policy under the groupwise observability.
-
-\cite{zhang2011coordinated} This paper presents a
-. By exploiting
-structured interaction in ND-POMDPs, our approach
-distributes the learning of the joint policy and employs
-DCOP techniques to coordinate distributed learning to
-ensure the global learning performance. Our approach
-can learn a globally optimal policy for ND-POMDPs
-with a property called groupwise observability. Experimental
-results show that, with communication during
-learning and execution, our approach significantly outperforms
-the nearly-optimal non-communication policies
-computed offline.
+One model-free, scalable learning approach, employing the special structure
+of ND-POMDP, finds globally optimal policy under the assumption
+of groupwise observability and outperforms the nearly-optimal
+non-communication policies computed offline\cite{zhang2011coordinated}. 
 
 
 %######################################################################
