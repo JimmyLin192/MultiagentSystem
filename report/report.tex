@@ -153,18 +153,27 @@ neuroevolution techniques.
 
 \subsection{Multiagent Planning as Optimization}
 % DCOP
-The Distributed Constraint Optimization Problem (DCOP) is a promising approach
-for modeling distributed reasoning tasks that arise in multiagent systems.
-\textbf{Within the DCOP framework...}
-Agents need to coordinate their value assignments
-to maximize the sum of the resulting constraint utilities.  
-An utility-propagation method was proposed to address the large-scale multiagent
-constraint optimization problem \cite{petcu2005scalable}.
-One recent study \cite{boyd2011distributed} employed alternating direction
-method of multipliers (ADMM) to derive solutions for the DCOP.
+The \textit{Distributed Constraint Optimization Problem} (DCOP), for a long
+time, has been a promising approach for modeling distributed reasoning tasks
+that arise in multiagent systems, where agents need to coordinate their value
+assignments to maximize the sum of the resulting constraint utilities.
+Within the DCOP framework, multiagent problems can be solvd efficiently
+using fully distributed algorithms which are often based on existing
+centralized techniques.  For instances, the OptAPO algorithm
+\cite{mailler2004solving} performs partial centralization and serves as an
+effective approach to find solutions for the multiagent planning.
+In addition, the ADOPT method, introduced in \cite{modi2005adopt}, maintains
+distribution of the DCOP and achieves theoretical guarantees on its global
+solution.
+It also turns out that the degree of allowed centralization has significant impact
+on the amount of computation required by an agent \cite{davin2005impact}. 
+Other solvers include an utility-propagation method that is amenable to
+large-scale multiagent constraint optimization problem
+\cite{petcu2005scalable} and an alternating direction method of multipliers
+(ADMM) based algorithm \cite{boyd2011distributed}.
 
 % Dyn-DCOP
-Dynamic Distributed Constraint Optimization Problem (Dynamic DCOP) was
+\textit{Dynamic Distributed Constraint Optimization Problem} (Dynamic DCOP) was
 proposed to model dynamically changing multiagent coordination problems.
 A dynamic DCOP is a sequence of static DCOPs, each of which partially
 different from the DCOP preceding it.
@@ -172,21 +181,17 @@ The formulation of Dynamic DCOPs allows us to model problems that
 can not be assumed to be static, with particular advantages when the problems
 change so frequently that by the time a DCOP solver has found a solution
 it is already obsolete. 
-A series of asynchronous algorithms have been proposed to approximately solve
-the Dynamic DCOP. 
-For example, the ADOPT method provides an available solver with theoretical
-guarantees on the global solution \cite{modi2005adopt}. 
-Also, Support-Based Distributed Optimization (SBDO) serves as a robust
-alternative for solving the Dynamic DCOPs problems \cite{billiau2012sbdo}.
+Support-Based Distributed Optimization (SBDO) was proposed as a robust method
+to solve the Dynamic DCOPs problems \cite{billiau2012sbdo}.
 
 \subsection{Reinforcement Learning Based Coordination}
 %######################################################################
 %  MDP, DEC-POMDP, and ND-POMDP
-Factored Markov Decision Process (Factored MDP) is a common model-based
+\textit{Factored Markov Decision Process} (Factored MDP) is a common model-based
 reinforcement learning formulation for cooperative multiagent dynamic systems.
 This framework simply views the entire multiagent system as a single, large
-MDP, which can be represented in a factored way using a dynamic Bayesian
-network (DBN) \cite{guestrin2001multiagent}. 
+MDP, which can be represented in a factored way using a \textit{dynamic Bayesian
+    network} (DBN) \cite{guestrin2001multiagent}. 
 It implies that the action space of the resulting MDP is the exponential union
 of action space of the entire set of agents. 
 One effective approach is to employ factored linear value functions as an
@@ -200,15 +205,14 @@ action without explicitly considering every possible action in their
 exponentially large joint action space \cite{guestrin2002coordinated}. 
 However, the factored MDP may not be applicable to the real application due to
 its large search space and associated complexity.
-To address this problem, an accelerated gradient method comes up with
+To address this problem, the \textit{accelerated gradient method} comes up with
 $\mathcal{O}(\epsilon^{-1})$ rate of convergence for solving the distributed
 multi-agent planning with Factored MDPs \cite{suegeo2011accgrad}.
 
 
 
-
 %######################################################################
-% Algorithm: DCOP and its variants
+% ND-POMDP
 \cite{zhang2011coordinated} This paper presents a
 model-free, scalable learning approach that synthesizes
 multi-agent reinforcement learning (MARL) and distributed
@@ -411,7 +415,7 @@ Another Collision avoidance.
 \section{Reinforcement Learning Experiments}
 \label{section:rlexpo} 
 
-This section presents our experimental investigation in the thread of reinforcement
+This section presents our experimental investigation on the thread of reinforcement
 learning based agents.
 
 \subsection{Greedy-Random Agents} 
@@ -530,8 +534,9 @@ to incorporate effective coordinations for this particular multiagent system.
 %\subsection{Methodology}
 
 In the following experiments, agents were controlled by neural networks
-trained using NeuroEvolution of Augmenting Topologies (NEAT) \cite{stanley2002evolving}.
-In particular, networks were evolved with real-time NEAT, which does not use generations - it instead replaces agents' networks throughout the simulation. Despite this, however, the search space is eventually depleted of crumbs and must be reset. Simulations are therefore divided into \textit{episodes} which last a fixed interval, and  each episode begins by distributing agents and crumbs around the environment. Agents' networks are continually swapped out throughout an episode according to the rtNEAT algorithm.
+trained using \textit{NeuroEvolution of Augmenting Topologies} (NEAT)
+\cite{stanley2002evolving}.
+In particular, we evolved these networks with real-time NEAT, which does not use generations -- instead replacing agent's networks without halting the simulation. However, the search space is eventually depleted of crumbs and must be reset. Simulations are therefore divided into \textit{episodes} which last a fixed interval, and  each episode begins by distributing agents and crumbs around the environment. Agents' networks are continually swapped out throughout an episode according to the rtNEAT algorithm.
 
 \subsection{Setup}
 
