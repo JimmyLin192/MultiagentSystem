@@ -146,9 +146,9 @@ section \ref{conclusion}.
 \end{figure}
 
 \section{Technical Literature} \label{section:literature}
-This section summarizes previous work on multiagent
-coordination using reinforcement learning and
-neuroevolution techniques.
+This section summarizes previous works on the topic of multiagent planning and
+coordination from the perspectives of optimization, reinforcement learning,
+and neuroevolution respectively.
 
 \subsection{An Optimization Perspective}
 % DCOP
@@ -390,21 +390,45 @@ more likely to yield the globally optimal performance.
 This section presents our experimental investigation on the thread of reinforcement
 learning based agents.
 
+\subsection{Default Settings}
+
+\textbf{TODO: explain some other constants} (
+\begin{itemize}
+    \item Number of agents, pellets, )
+\end{itemize}
+
 \subsection{Greedy-Random Agents} 
 Greedy-random Agents serve as the benchmark for our reinforcement
 learning based agents.
 Agents with greedy strategy simply approaches to the direction where the
 closest pellet to it is there.
-The greedy-random agents basically follow such greedy strategy but they make
-their final decisions with some probability to make random movements. 
-We incorporate such randomness because we need to .
+The greedy-random agents basically follow such greedy strategy but 
+their final decisions are formed with some probability to reject such greedy
+behaviors and make random movements instead. 
+In our experiments, the rejection probability is set to 0.1.
+The reason of incorporate such randomness is to make the greedy-random agents
+consistent with other Q-learning agents, all of which yields random
+explorative movements with 0.1 probability.
 
 \subsection{Tiled Tabular Q-learning Agents}
 The motives to use Tiled Tabular Q-learning include
-(i) verifying that we have set up the environment correctly for general
-reinforcement learning techniques. 
-(ii) illustrating the benchmark (reinforcement learning) intelligence for the
-crumb collection problem.
+(i) the implementation simplicity,
+(ii) verifying that we have set up the environment correctly for general
+reinforcement learning techniques, and 
+(iii) illustrating the reinforcement learning based benchmark intelligence
+for the crumb collection problem.
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=3.0in]{./figures/RL/init_setup2.eps}
+\caption{\textbf{Q-learning with various discounting factors.} (i) Red: G-random curve
+    represents the greedy agent with $0.1$ probability to make a random
+    decision, which serve as the benchmark agents. 
+    (ii) (iii) (iv) the tilted tabular Q-learning with discounting factors
+    $\gamma = 0.1, 0.5, 0.8$ for Q-Discount-low, Q-Discount-med, and
+    Q-Discount-high respectively.}
+\label{fig:RL_init2}
+\end{figure}
 
 \begin{figure}[!t]
 \centering
@@ -420,27 +444,22 @@ crumb collection problem.
 \label{fig:RL_init}
 \end{figure}
 
-\begin{figure}[!t]
-\centering
-\includegraphics[width=3.0in]{./figures/RL/init_setup2.eps}
-\caption{\textbf{Q-learning with various discounting factors.} (i) Red: G-random curve
-    represents the greedy agent with $0.1$ probability to make a random
-    decision, which serve as the benchmark agents. 
-    (ii) (iii) (iv) the tilted tabular Q-learning with discounting factors
-    $\gamma = 0.1, 0.5, 0.8$ for Q-Discount-low, Q-Discount-med, and
-    Q-Discount-high respectively.}
-\label{fig:RL_init2}
-\end{figure}
-
 % preliminary results
 Before diving into the investigation of multiagent coordination, we take 
-preliminary experiments to investigate the impact of various collections of
-simple sensors and the effects of various discounting factors on the outcome
-of the tiled tabular Q-learning.
+preliminary experiments to investigate the effects of various discounting
+factors on the learning outcome of the tiled tabular Q-learning.
 
-TODO: explain some other constans (Number of agents, pellets, )
+The Fig. \ref{fig:RL_init2} shows the effects that various discounting factors
+will bring to the outcome of tilted tabular Q-learning. It turns out that the
+best learning outcome came from the discounting factor $\gamma = 0.5$ under
+the given setting. On top of that, this chart also indicates the negative
+effects of too large or too small discounting factors, by which worse learning
+outcome arises. Nevertheless, it can be concluded that the team formed by
+tabular Q-learning agents cannot never outperform the team whose members
+employ the greedy strategy, regardless of how the discounting factor is set.
 
-
+We also investigate the issue of how the collaborative communication benefits
+by using various collections of sensors.
 The sensors designed for the local perspective of each agent are as follows. 
 \begin{align}
     S_{nc} = \left( \begin{array}{c}
@@ -469,27 +488,19 @@ The sensors designed for the local perspective of each agent are as follows.
 Note that we discretize all real-value sensors by using the tiling
 techniques mentioned in the previous section. 
 
-The learning outcomes derived from these sensors are compared in the
-Fig. \ref{fig:RL_init}. 
+The learning outcomes derived from these simply designed sensors are compared
+in the Fig. \ref{fig:RL_init}. 
 Observations tell us that the positional information of the closest crumb
-tremendously contributes to the quality of agents' learned policies. 
-In addition to that, the relative position to the closest collaborated agent
-indeed hinder the Q-learning process, such that the communicative agents (black
-curve) performs worse than the team that do not monitor collaborators'
-positions (light-blue curve) during the observed episodes. One exciting
-discovery behind the figure is the narrow performance gap between the team of
-tiled tabular Q-learning agents and that of greedy-random agents. It turns out
-that the collective works made by naive Q-learning agents even outperform the
-team with greedy strategies.
-
-The Fig. \ref{fig:RL_init2} shows the effects that various discounting factors
-will bring to the outcome of tilted tabular Q-learning. It turns out that the
-best learning outcome came from the discounting factor $\gamma = 0.5$ under
-the given setting. On top of that, this chart also indicates the negative
-effects of too large or too small discounting factors, by which worse learning
-outcome arises. Nevertheless, it can be concluded that the team formed by
-tabular Q-learning agents cannot never outperform the team whose members
-employ the greedy strategy, regardless of how the discounting factor is set.
+tremendously contributes to the quality of agents' learned policies, comparing
+the performances between the Q-default curve and the Q-noCrumb curve. 
+ The exciting discovery behind the figure is the narrow performance gap
+ between the team of tiled tabular Q-learning agents and that of greedy-random
+ agents. It turns out that the collective works made by naive Q-learning
+ agents even outperform the team with greedy strategies.
+Nevertheless, the relative position to the closest collaborated agent indeed
+hinder the Q-learning process during the observed episodes, such that the
+communicative agents (black curve) performs worse than the team that do not
+monitor collaborators' positions (light-blue curve).
 
 % multiagent coordination
 \subsection{High-level Reinforcement Learning}
@@ -631,6 +642,8 @@ Again, the more neighbors communicated with, the longer it took a network to lea
 %Say something about how, surprisingly, communication can actually hurt network performance.
 
 \section{Conclusions} \label{conclusion}
+\textbf{TODO: }
+
 The conclusion goes here. In this paper, we investigate.
 
 Promising future Works go here.
