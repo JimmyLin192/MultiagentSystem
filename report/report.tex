@@ -364,12 +364,27 @@ movements around an area.
 \subsection{Expected Multiagent Behaviors}
 
 \textit{Workload Balance.} This is the foremost coordinative behaviors the
-agents should reflect in the Roomba System. This is also known as competition
-avoidance. If the workload can be evenly distributed to each agent, in terms of
-local perceptions and limited amount of communicative information, the team is
-more likely to yield the globally optimal performance.
+agents are supposed to reflect in the Roomba System. This is also known as
+competition avoidance. From the global perspective, if the workload can be
+evenly distributed to each agent, the team is more likely to yield the
+globally optimal performance.  
+Nevertheless, given that all agents make their autonomous decisions in terms
+of local perceptions and limited amount of communicative information, 
+it is still a challenging issue to find the joint policies that are globally
+optimal. 
 
-\textit{Collision avoidance.} Communicating Geometric Information
+\textit{Collisions Avoidance.} Collision-free vacuum cleaners, with no doubt,
+consume less time and thus achieving better working efficacy with less
+physical damages.  The general "collisions" refers to (i) collisions between
+Roombas agents, (ii) collision of agents with the decorations (i.e.  desks,
+chairs, etc.), and (iii) bumping of agents towards walls.  The scenarios (i)
+are formulated as an issue explicitly about the multiagent coordination, which
+is the focus of our research.  The second and third class of collisions can be
+implicitly correlated to the multiagent behaviors, in a sense that if robots
+are able to share their geographic knowledge about the computer lab, these two
+types of collisions can be avoided in a large degree. Note that concerns for
+the (ii) category of collisions can be ruled out, since we disable the
+collisions of agents with the decorations for simplicity.
 
 %\section{Our Approaches}
 %This section articulates, in a formal way, our original ideas or design
