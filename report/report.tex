@@ -413,6 +413,8 @@ experimented agents in this section. The detailed specifications are as follows:
     \item Number of Agents: 5.
     \item Number of Pellets: 500. 
     \item Number of Episodes Observed: 1000. 
+    \item Size of the Lab: (200, 200)
+    \item Size of an Agent : (10, 10)
     \item Locations of Agents: fixed by RANDOM seeds
     \item Locations of Pellets: fixed by MANUAL specifications
     \item Collision with Decorations (desks, chairs): disabled
@@ -601,6 +603,21 @@ In order to improve over the greedy algorithm, it suffices to add just one more 
 This result is both logical and significant. It demonstrates that agents learn to leverage the additional information of how far away a crumb is. An agent is more likely to capture nearby crumbs, improving its fitness. When the crumb is further away, however, it is more likely that another agent will reach that crumb first. Thus, the agent has better odds by moving to another area. 
 One might wonder if agents could benefit from additional sensors detecting furhter away crumbs. In practice, however, there was improvement from simply adding sensors that pointed to further crumbs.
 
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=3.0in]{./figures/neroevolution/comm_result.eps}
+\caption{\textbf{Communicating Roomba results.} Comparison of non-communicating agents ($n=0$) with communicating ones. The more neighbors an agent communicates with, the slower it learns. Furthermore, none of the communicating agents exceed the performance of non-communicating ones, with more communication in fact resulting in worse performance. }
+\label{neroevolution:communication_results}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=3.0in]{./figures/neroevolution/shared_result.eps}
+\caption{\textbf{Comparison of individual vs shared fitness.}}
+\label{neroevolution:shared_fitness}
+\end{figure}
+
 \begin{figure}[t]
 \centering
 \includegraphics[width=3.0in]{./figures/neroevolution/comm_network.png}
@@ -610,9 +627,9 @@ One might wonder if agents could benefit from additional sensors detecting furht
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=3.0in]{./figures/neroevolution/comm_result.eps}
-\caption{\textbf{Communicating Roomba results.} Comparison of non-communicating agents ($n=0$) with communicating ones. The more neighbors an agent communicates with, the slower it learns. Furthermore, none of the communicating agents exceed the performance of non-communicating ones, with more communication in fact resulting in worse performance. }
-\label{neroevolution:communication_results}
+\includegraphics[width=3.0in]{./figures/neroevolution/emerg_comm_network.png}
+\caption{\textbf{Communicating Roomba network with evolved signals.} The addition of a broadcast signal gives agents a more expressive means of communication. This network receives the direction of and signal being broadcast by each of the $n$ nearest neighboring agents. It also has stronger information about its local environment, receiving both the density of nearby crumbs as well the angle to the nearest crumb.  }
+\label{neroevolution:evolved_comunication}
 \end{figure}
 
 \subsection{Communication}
@@ -624,6 +641,7 @@ We have establishes that training with rtNEAT can outperform the hardcoded greed
 The network design, shown in Fig. \ref{neroevolution:communication}, is straightforward. Inputs consist of the offset of the nearest crumb as well as that the nearest $n$ agents. Offsets are polar, consisting of an angular direction and a scalar magnitude. As before, the single output represents the angular direction the agent will turn to face. 
 This section compares experimental results for different choices $n$, where $n=0$ represents no communication, and each increment adds another neighbor to each agent's awareness.
 
+
 As seen in Fig. \ref{neroevolution:communication_results}, the more neighbors the agent communicates with, the longer it takes to learn.  Fig. \ref{neroevolution:communication_results} shows that the $n=1$ neighbor network catches up with the $n=0$ network after about 20 episodes. The other networks, however do not reach this level even after several hundred episodes of training. Note that while the networks appear to cap out at 400 crumbs per episode, there are approximately 30-50 crumbs uncollected at this point. So while there is still room for improvement over the $n=0$ network, none of the communicating networks achieve better results. In fact the networks with higher $n$-values do \textit{worse} than the non-communicating network, plateauing at significantly lower crumb counts.
 
 %Shared fitness
@@ -632,12 +650,6 @@ To explore this, we use a modification of the Roomba environment to share fitnes
 
 Fig. \ref{neroevolution:shared_fitness} show the results for a non-communicating network ($n=0$) and a network which observes one neighbor ($n=1$). In both cases, the shared fitness networks perform abysmally, showing no learning whatsoever.
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=3.0in]{./figures/neroevolution/shared_result.eps}
-\caption{\textbf{Comparison of individual vs shared fitness.}}
-\label{neroevolution:shared_fitness}
-\end{figure}
 
 \subsection{Evolved Communication}
 
@@ -649,12 +661,7 @@ One way to test this is to have the network evolve its own communication (Fig. \
 In order for communication to be valuable, agents must have information to share. 
 Each agent is equipped with a sensor which detects how many crumbs are within a small radius. A radius of 1/8 of the length of the environment was chosen through experimentation -- larger radii rendered the sensor useless.
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=3.0in]{./figures/neroevolution/emerg_comm_network.png}
-\caption{\textbf{Communicating Roomba network with evolved signals.} The addition of a broadcast signal gives agents a more expressive means of communication. This network receives the direction of and signal being broadcast by each of the $n$ nearest neighboring agents. It also has stronger information about its local environment, receiving both the density of nearby crumbs as well the angle to the nearest crumb.  }
-\label{neroevolution:evolved_comunication}
-\end{figure}
+
 
 The goal is for agents to learn to communicate their short range observations to each other in order to improve their overall performance.
 Unfortunately, results were little better than with the simple communicating network (Fig. \ref{neroevolution:evolved_comunication_results}). 
