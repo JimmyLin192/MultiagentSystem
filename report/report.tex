@@ -109,17 +109,16 @@ Neuroevolution.
 % Our aim and contributions in this paper
 In this paper, we
 investigate various multiagent coordination techniques under the framework of
-reinforcement learning and neuroevolution, with the aim of developing improved distributed search techniques. 
+reinforcement learning and neuroevolution, with the aim of developing improved
+distributed search techniques. 
 Our contributions include: 
-(i) setting up this problem in the Roomba environment. 
+(i) setting up this problem in the Roomba environment, 
 (ii) implementing reinforcement learning mechanism and fixing up the default
-neuroevolution mechanism. 
+neuroevolution mechanism, 
 (iii) designing sensors and their representations for multiagent
-communication and coordination. 
+communication and coordination, and 
 (iv) comparing agents' performances learned through various approaches and
 settings.
-\textbf{TODO: update and check the contributions}
-% TODO: more contribution or more specific descriptions
 
 % outline of this paper
 The remained part of this paper is organized as follows. 
@@ -137,13 +136,12 @@ We summarize our conclusions and discuss some promising future works in the
 section \ref{conclusion}. 
 
 
-% TODO: to remove this graph
-\begin{figure}[!t]
-\centering
-\includegraphics[width=3in,height=2.1in]{./figures/roombas/roomba3.png}
-\caption{\textbf{A exempla Roomba robot in the real world.}}
-\label{roomba:world}
-\end{figure}
+%\begin{figure}[!t]
+%\centering
+%\includegraphics[width=3in,height=2.1in]{./figures/roombas/roomba3.png}
+%\caption{\textbf{A exempla Roomba robot in the real world.}}
+%\label{roomba:world}
+%\end{figure}
 
 \section{Technical Literature} \label{section:literature}
 This section summarizes previous works on the topic of multiagent planning and
@@ -195,7 +193,7 @@ enables model-based reinforcement learning techniques to solve DCOPs.
 \subsection{A Markov Decision Process Perspective}
 %######################################################################
 % MDP, DEC-MDP
-Another thread that motivates the reinforcement Learning sources from 
+Another thread that motivates the reinforcement Learning approach sources from 
 \textit{Markov decision process} (MDP), which is the fundamental model of
 agents interacting with an environment.
 A \textit{partially observable Markov decision process}
@@ -281,6 +279,7 @@ of Roomba environment, which supports the communication and coordination of
 multiple robots. This module is designed for agent-based search problems, and, with some modification, it is well suited to our study of multiagent coordination.
 
 \subsection{Structure}
+
 % intro to roomba
 The Roomba environment is a virtual office space with crumbs distributed on
 the floor.
@@ -299,6 +298,13 @@ number of agents to employ. On each run of the
 simulation, only one type of AI agents may be loaded and this setting cannot be changed while the simulation is in progress. 
 If one needs to switch to the other type of AI agents, the running agents have
 to be removed and then the user is able to effectively load the desired AI agents.
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=3.2in,height=2.1in]{./figures/roombas/roomba2.png}
+\caption{\textbf{A snapshot for the Roomba Environment}}
+\label{roomba:world}
+\end{figure}
 
 % placement of pellets 
 The distribution of crumbs takes place in one of three different modes (MANUAL, RANDOM, and CLUSTER).
@@ -324,12 +330,7 @@ Episodic experience and learned knowledge
 (such as accumulated Q values and network weights) are preserved across episodes.  
 As there is no hard cap on the number of episodes in an experiment, training can continue as long as necessary. The experiments in this paper are of no standard length, but rather vary with the configuration being examined.
 
-\begin{figure}[!t]
-\centering
-\includegraphics[width=3.2in,height=2.1in]{./figures/roombas/roomba2.png}
-\caption{\textbf{Overall Picture of the Roomba Environment}}
-\label{roomba:world}
-\end{figure}
+
 
 \subsection{Practical Issues}
 % sensors (default setting for greedy agents)
@@ -407,7 +408,7 @@ learning based agents.
 
 \subsection{Experimental Settings}
 The default settings are set for fair performance comparison between all
-experimented agents. A detailed list is as follows:
+experimented agents in this section. The detailed specifications are as follows:
 \begin{itemize}
     \item Number of Agents: 5.
     \item Number of Pellets: 500. 
@@ -426,7 +427,7 @@ The greedy-random agents basically follow such greedy strategy but
 their final decisions are formed with some probability to reject such greedy
 behaviors and make random movements instead. 
 In our experiments, the rejection probability is set to 0.1.
-The reason of incorporate such randomness is to make the greedy-random agents
+The reason of incorporating such randomness is to make the greedy-random agents
 consistent with other Q-learning agents, all of which yields random
 explorative movements with 0.1 probability.
 
@@ -438,10 +439,10 @@ reinforcement learning techniques, and
 (iii) illustrating the reinforcement learning based benchmark intelligence
 for the crumb collection problem.
 
-\begin{figure}[!t]
+\begin{figure}[t]
 \centering
 \includegraphics[width=3.0in]{./figures/RL/init_setup2.eps}
-\caption{\textbf{Q-learning with various discounting factors.} (i) Red: G-random curve
+\caption{\textbf{Tiled Tabular Q-learning Agents with various discounting factors.} (i) Red: G-random curve
     represents the greedy agent with $0.1$ probability to make a random
     decision, which serve as the benchmark agents. 
     (ii) (iii) (iv) the tilted tabular Q-learning with discounting factors
@@ -450,10 +451,10 @@ for the crumb collection problem.
 \label{fig:RL_init2}
 \end{figure}
 
-\begin{figure}[!t]
+\begin{figure}[t]
 \centering
 \includegraphics[width=3.0in]{./figures/RL/init_setup1.eps}
-\caption{\textbf{Q-learning with various simple sensors.} (i) Red: G-random curve
+\caption{\textbf{Tiled Tabular Q-learning Agents with various simple sensors.} (i) Red: G-random curve
     represents the greedy agent with $0.1$ probability to make a random
     decision, which serve as the benchmark agents. 
     (ii) (iii) (iv) agents receive various collection of sensors for their
@@ -464,12 +465,20 @@ for the crumb collection problem.
 \label{fig:RL_init}
 \end{figure}
 
-\textbf{TODO: tiled tabular Q-learning agents intro}.
+Q-learning is a model-free reinforcement learning technique and is utilized to
+find an optimal action-selection policy for any given MDP. 
+It works by learning an action-value function that ultimately gives the
+expected utility of taking a given action in a given state and following the
+optimal policy thereafter. 
+Out of simplicity, the implementation of Q-learning, in our experiments,
+simply uses tables to store data. On top of that, the tiling technique is
+employed to discretize all real-value sensors for less learning complexity. 
 
 % preliminary results
 Before diving into the investigation of multiagent coordination, we take 
 preliminary experiments to investigate the effects of various discounting
 factors on the learning outcome of the tiled tabular Q-learning.
+
 
 The Fig. \ref{fig:RL_init2} shows the effects that various discounting factors
 will bring to the outcome of tilted tabular Q-learning. It turns out that the
@@ -507,8 +516,6 @@ The sensors designed for the local perspective of each agent are as follows.
   \end{array} \right)
         \nonumber
 \end{align}
-Note that we discretize all real-value sensors by using the tiling
-techniques mentioned in the previous section. 
 
 The learning outcomes derived from these simply designed sensors are compared
 in the Fig. \ref{fig:RL_init}. 
