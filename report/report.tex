@@ -13,7 +13,7 @@
 % paper title
 % can use linebreaks \\ within to get better formatting as desired
 % Do not put math or special symbols in the title.
-\title{Multiagent Coordination in the Roomba: Using
+\title{Multiagent Coordination with Roombas: Using
     Reinforcement Learning and Neuroevolution}
 
 
@@ -24,13 +24,13 @@
 \author{ 
 Jimmy Xin Lin \\
 Department of Computer Science\\
-the University of Texas at Austin\\
+The University of Texas at Austin\\
 Austin, TX 78712 \\
 \texttt{jimmylin@cs.utexas.edu} \\
 \and
 Barry Feigenbaum \\
 Department of Computer Science\\
-the University of Texas at Austin\\
+The University of Texas at Austin\\
 Austin, TX 78712 \\
 \texttt{baf@cs.utexas.edu} \\
 }
@@ -207,12 +207,18 @@ make their decision in terms of their private perceptions and limited
 communication with other agents. Such \textit{decentralized partially
     observable Markov decision process}, abbreviated as DEC-POMDP, is the
 modelling that suits most of multiagent systems. A series of academic works
-have been proposed to solve relevant practical problems
-\cite{banerjee2012sample, kraemer2012informed}. 
+have been proposed to address practical problems of DEC-POMDP, including
+sampling \cite{banerjee2012sample} and initialization
+\cite{kraemer2012informed}. 
 
 %######################################################################
 % ND-POMDP and algorithm
-\cite{nair2005networked}.
+\textit{Network distributed POMDP} (ND-POMDP) was introduced as a synthesis of
+ distributed constraint optimization and partially observable Markov decision
+ process \cite{nair2005networked}. On the one hand, POMDP capture the
+ real-world uncertainty in multiagent domains, they fail to exploit such
+ locality of interaction. On the other hand, DCOP captures the locality of
+ interaction but fails to capture planning under uncertainty.
 
 One model-free, scalable learning approach that synthesizes multiagent
 reinforcement learning and distributed constraint optimization (DCOP) was
