@@ -44,20 +44,10 @@ Austin, TX 78712 \\
 % in the abstract
 \begin{abstract}
     % aim of this paper
-    This paper presents our research about the reinforcement learning approach
-    and the neuroevolution approach, by which the crumb collection task can be
-    more effectively and efficiently solved with communication and
-    coordination between multiple agents under the simulated Roombas
-    environment.
-    % literature
-    The preliminary literature part gives a brief overview about how existing
-    works fulfill the coordination under general multiagent environments.
-    % results
-    The initial setup experimentation shows our works about the
-    learned agents that simulate greedy strategies.
-    The key things ... are shown in the following multiagent experiments.
-    % important conclusion
-    It is observed from our experiments that .
+    Developing artificial intelligence agents which can cooperate with each other is an important research problem. The \textit{multiagent search problem} is a key example of a problem which requires agent coordination in order to achieve good results. 
+    In this paper, we apply reinforcement learning and neruoevolution techniques to teams of agents. We show how communication and coordination can be leveraged to improve the learning process and more effectively solve the task at hand. 
+    Here the problem of agent coordination is formulated in terms of multiagent search. In particular, we develop intelligence for autonomous vacuum cleaning robots (Roombas) as they attempt to explore a search space. 
+    Our experiments are conducted using the OpenNERO environment.
 \end{abstract}
 
 \IEEEpeerreviewmaketitle
@@ -67,12 +57,7 @@ Austin, TX 78712 \\
 \section{Introduction}
 % TODO: why we investigate Roomba
 % utility of roomba and some literatures about its usage in real world
-In the past years, Roomba Vacuum has gained its popularity in the industry of
-domestic services.  Most of existing studies about Roomba (iRobots) is to 
-qualitatively investigate its utility in the home as a single autonomous
-domestic service provider. In the contrast, our interests focus on the working
-efficacy of Roomba agents under a decentralized system. 
-\textbf{TODO: improve this section}
+
 
 % Decentralized system
 Decentralized decision making has a long history, originated from the team
@@ -93,18 +78,16 @@ possibility for conflict and cooperation among agents.
 
 % Reinforcement learning
 Reinforcement learning has been widely used as an effective techniques for
-autonomous game playing (TD-Gammon \cite{tesauro1994td} and NERO
-\cite{stanley2005real}) for either single-agent or multi-agent environment. 
+game playing (TD-Gammon \cite{tesauro1994td} and NERO
+\cite{stanley2005real}) in either single-agent or multi-agent environment. 
 An early study \cite{tan1993multi} shows that under the reinforcement learning
 framework, additional information from another agent is beneficial if it
-can be used efficiently. The benefits lay in a faster learning process and better performance for joint tasks.  
+can be used efficiently. The benefits include a faster learning process and better performance for joint tasks.  
 Based on this investigative study, we consider the application of reinforcement learning to the space of multiagent search problems.
 
 % Neuroevolution: intro & motivation
-\textbf{TODO: make the intro here..}
-Neuroevolution.
-
-\cite{stanley2005real} Real time neuroevolution for NERO game. 
+Neuroevolution has been widely studied for its applications to game playing and control systems. Previous work has shown that neuroevolution can be used to coordinate agents. In particular, it has been used to develop cooperative search for both static and moving targets \cite{yong2001cooperative, rajagopalan2011role, rawal2010coevolution}.
+For our experiments, we use the OpenNERO platform \cite{karpov2008opennero}, which includes an implementation of real-time \textit{Neuroevolution of Augmenting Topologies} (NEAT) \cite{stanley2005real}. 
 
 % Our aim and contributions in this paper
 In this paper, we
@@ -112,12 +95,12 @@ investigate various multiagent coordination techniques under the framework of
 reinforcement learning and neuroevolution, with the aim of developing improved
 distributed search techniques. 
 Our contributions include: 
-(i) setting up this problem in the Roomba environment, 
-(ii) implementing reinforcement learning mechanism and fixing up the default
-neuroevolution mechanism, 
-(iii) designing sensors and their representations for multiagent
+(i)  setting up the Roomba environment for multiagent learning, 
+(ii) implementing reinforcement learning mechanisms and correcting significant issues with the Roomba module's
+neuroevolution setup, 
+(iii) designing sensors and other mechanisms specifically for multiagent
 communication and coordination, and 
-(iv) comparing agents' performances learned through various approaches and
+(iv) comparing agents' performances through the various learning approaches and
 settings.
 
 % outline of this paper
@@ -302,7 +285,7 @@ to be removed and then the user is able to effectively load the desired AI agent
 \begin{figure}[!t]
 \centering
 \includegraphics[width=3.2in,height=2.1in]{./figures/roombas/roomba2.png}
-\caption{\textbf{A snapshot for the Roomba Environment}}
+\caption{\textbf{The Roomba Environment.} Roomba agents are shown as grey cylinders. The blue cubes represent crumbs to be collected. Tables and chairs provide obstacles -- though in most experiments, collision detection is disabled.} 
 \label{roomba:world}
 \end{figure}
 
@@ -549,9 +532,7 @@ system.
 In the following experiments, agents were controlled by neural networks
 trained using \textit{NeuroEvolution of Augmenting Topologies} (NEAT)
 \cite{stanley2002evolving}.
-In particular, we evolved these networks with real-time NEAT, which does not use generations -- instead replacing agent's networks without halting the simulation. However, the search space is eventually depleted of crumbs and must be reset. Simulations are therefore divided into \textit{episodes} which last a fixed interval, and  each episode begins by distributing agents and crumbs around the environment. Agents' networks are continually swapped out throughout an episode according to the rtNEAT algorithm.
-
-\subsection{Setup}
+In particular, we evolved these networks with real-time NEAT, which does not use generations -- instead replacing agent's networks continuously throughout the simulation. However, the search space is eventually depleted of crumbs and must be reset. Simulations are therefore divided into \textit{episodes} which last a fixed interval, and  each episode begins by distributing agents and crumbs around the environment. Agents' networks are continually swapped out throughout an episode according to the rtNEAT algorithm.
 
 \begin{figure}[!t]
 \centering
@@ -559,6 +540,8 @@ In particular, we evolved these networks with real-time NEAT, which does not use
 \caption{\textbf{Effect of population size on neuroevolution.} Demonstrates the effect of choosing different network population sizes in an environment with five agents. Observe that having more networks than agents slows the learning process. Further note that this is using a simple one input / one output network; with a more complicated network, the large population shows only marginal results even after 1,000 episodes.}
 \label{neroevolution:pop_size}
 \end{figure}
+
+\subsection{Setup}
 
 Experiments using the original configuration of the Roomba module yielded poor results. Agents' performance did not increase over time.  Even after hundred of episodes, no evidence of learning occurred. This section discusses the steps necessary to enable even basic training of the Roomba agent. These results serve as a yardstick for later experiments on multiagent coordination.
 
@@ -577,7 +560,7 @@ Originally, an agent's fitness was based purely on collecting crumbs. Various ot
 
 Where $n_{curmbs}$ is the number of crumbs collected and $n_{collisions}$ the number of wall collisions over the course of an episode. 
  
-Performance generally improved with increases to either $\phi$ or $psi$.
+Performance generally improved with increases to either $\phi$ or $\psi$.
 Interestingly, combining high values for both $\phi$ and $\psi$ resulted in worse performance than increasing either value individually, suggesting that the two behaviors interfere with each other in some way. 
 Experimentally derived results show $\phi = 1, \psi = 0.05$ as good choices, which moderately incentively collision avoidance while primarily focusing on crumb collection. 
 
@@ -589,6 +572,12 @@ Experimentally derived results show $\phi = 1, \psi = 0.05$ as good choices, whi
 % \label{neroevolution:fitness}
 %\end{figure}
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=3.0in]{./figures/neroevolution/comm_network.png}
+\caption{\textbf{Communicating Roomba network.} Initial network to be evolved with rtNEAT. Sensors detect the polar offsets (angle and magnitude) of the $n$ nearest neighboring agents, as well as the nearest crumb. Output represents the (angular) direction in which the agent should move.}
+\label{neroevolution:communication}
+\end{figure}
 
 \subsection{Neuroevolution Baseline}
 
@@ -603,12 +592,8 @@ In order to improve over the greedy algorithm, it suffices to add just one more 
 This result is both logical and significant. It demonstrates that agents learn to leverage the additional information of how far away a crumb is. An agent is more likely to capture nearby crumbs, improving its fitness. When the crumb is further away, however, it is more likely that another agent will reach that crumb first. Thus, the agent has better odds by moving to another area. 
 One might wonder if agents could benefit from additional sensors detecting furhter away crumbs. In practice, however, there was improvement from simply adding sensors that pointed to further crumbs.
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=3.0in]{./figures/neroevolution/comm_network.png}
-\caption{\textbf{Communicating Roomba network.} Initial network to be evolved with rtNEAT. Sensors detect the polar offsets (angle and magnitude) of the $n$ nearest neighboring agents, as well as the nearest crumb. Output represents the (angular) direction in which the agent should move.}
-\label{neroevolution:communication}
-\end{figure}
+
+\subsection{Communication}
 
 \begin{figure}[t]
 \centering
@@ -623,17 +608,6 @@ One might wonder if agents could benefit from additional sensors detecting furht
 \caption{\textbf{Communicating Roomba results.} Comparison of non-communicating agents ($n=0$) with communicating ones. The more neighbors an agent communicates with, the slower it learns. Furthermore, none of the communicating agents exceed the performance of non-communicating ones, with more communication in fact resulting in worse performance. }
 \label{neroevolution:communication_results}
 \end{figure}
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=3.0in]{./figures/neroevolution/shared_result.eps}
-\caption{\textbf{Comparison of individual vs shared fitness.}}
-\label{neroevolution:shared_fitness}
-\end{figure}
-
-
-
-\subsection{Communication}
 
 %Communication
 
@@ -651,7 +625,6 @@ To explore this, we use a modification of the Roomba environment to share fitnes
 
 Fig. \ref{neroevolution:shared_fitness} show the results for a non-communicating network ($n=0$) and a network which observes one neighbor ($n=1$). In both cases, the shared fitness networks perform abysmally, showing no learning whatsoever.
 
-
 \subsection{Evolved Communication}
 
 Counterintuitive, these experiments have shown that communication is in fact detrimental to the learning process.
@@ -663,10 +636,16 @@ In order for communication to be valuable, agents must have information to share
 Each agent is equipped with a sensor which detects how many crumbs are within a small radius. A radius of 1/8 of the length of the environment was chosen through experimentation -- larger radii rendered the sensor useless.
 
 
-
 The goal is for agents to learn to communicate their short range observations to each other in order to improve their overall performance.
 Unfortunately, results were little better than with the simple communicating network (Fig. \ref{neroevolution:evolved_comunication_results}). 
 Again, the more neighbors communicated with, the longer it took a network to learn. Ultimately, the higher $n$-value networks did reach the same performance as the 0-neighbor network, but not until over 500 episodes. Whereas the 0-neighbor network peeked within 10 episodes, and the 1-neighbor in about 25. At no point did any of the communicating networks consistently outperform the $n=0$ network. Nether did this communication with evolved signal perform any better than the simple communication of neighbors' location. 
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=3.0in]{./figures/neroevolution/shared_result.eps}
+\caption{\textbf{Comparison of individual vs shared fitness.} Shows the difference between individual and shared fitness functions. As before, the non-communicating network learns faster than the communicating one. We also observe that agents with shared fitness do not learn at all -- or at least learn extremely slowly.}
+\label{neroevolution:shared_fitness}
+\end{figure}
 
 \begin{figure}[t]
 \centering
@@ -683,6 +662,11 @@ Again, the more neighbors communicated with, the longer it took a network to lea
 \textbf{TODO: }
 
 The conclusion goes here. In this paper, we investigate.
+
+% Neuroevolution conclussion
+Using neuroevolution, we were able to successfully evolve a network which performs better than the hardcoded greedy algorithm. This demonstrates the power of neuroevolution and its ability to find good solutions to complicated optimization problems.
+
+Perhaps a more surprising result, our experiments show that communication can in fact impede the learning process. Presenting a network with more information makes learning more difficult, and there is no guarantee that the network will be able to use that information productively. Effective communication seems especially difficult in a complicated environment such as this, where there is far too much state information for agents to try to digest and communicate effectively.
 
 Promising future Works go here.
 
