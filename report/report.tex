@@ -93,8 +93,8 @@ conflict and cooperation among agent interests.
 
 % Reinforcement learning
 Reinforcement learning has been widely used as an effective techniques for
-autonomous game playing (Atari, Pacman, and Angry Bird) for either
-single-agent or multi-agent environment. 
+autonomous game playing (TD-Gammon \cite{tesauro1994td} and NERO
+\cite{stanley2005real}) for either single-agent or multi-agent environment. 
 An early study \cite{tan1993multi} shows that under the reinforcement learning
 framework, additional sensation from another agent is benefial if it
 can be used effiently. The benefits lie in the faster learning process at the
@@ -153,7 +153,7 @@ This section summarizes previous work on multiagent
 coordination using reinforcement learning and
 neuroevolution techniques.
 
-\subsection{Multiagent Planning as Optimization}
+\subsection{An Optimization Perspective}
 % DCOP
 The \textit{Distributed Constraint Optimization Problem} (DCOP), for a long
 time, has been a promising approach for modeling distributed reasoning tasks
@@ -175,22 +175,70 @@ large-scale multiagent constraint optimization problem
 (ADMM) based algorithm \cite{boyd2011distributed}.
 
 % Dyn-DCOP
-\textit{Dynamic Distributed Constraint Optimization Problem} (Dynamic DCOP) was
+\textit{Dynamic DCOP} (Dyn-DCOP) was
 proposed to model dynamically changing multiagent coordination problems.
-A dynamic DCOP is a sequence of static DCOPs, each of which partially
-different from the DCOP preceding it.
-The formulation of Dynamic DCOPs allows us to model problems that
+A Dyn-DCOP is a sequence of static DCOPs, each of which partially different
+from the DCOP preceding it.
+The formulation of Dyn-DCOP allows us to model problems that
 can not be assumed to be static, with particular advantages when the problems
-change so frequently that by the time a DCOP solver has found a solution
-it is already obsolete. 
+change so frequently that by the time a DCOP solver has found a solution it is
+already obsolete. 
 Support-Based Distributed Optimization (SBDO) was proposed as a robust method
-to solve the Dynamic DCOPs problems \cite{billiau2012sbdo}.
+to solve the Dyn-DCOP problems \cite{billiau2012sbdo}.
 
-\subsection{Reinforcement Learning Based Coordination}
+% MD-DCOPs
+\textit{Markovian Dynamic DCOP} (MD-DCOP) was recently proposed by the study
+ \cite{nguyen2014decentralized}. Under MD-DCOP formulation, the DCOP in the
+next time step is a function of the value assignments in the current time
+step. The study also proposed two distributed
+reinforcement learning algorithms: the Distributed RVI Q-learning algorithm
+and the Distributed R-learning algorithm. This demonstrated that the MD-DCOP
+enables model-based reinforcement learning techniques to solve DCOPs.
+
+\subsection{A Markov Decision Process Perspective}
 %######################################################################
-%  MDP, DEC-POMDP, and ND-POMDP
-\textit{Factored Markov Decision Process} (Factored MDP) is a common model-based
-reinforcement learning formulation for cooperative multiagent dynamic systems.
+% MDP, DEC-MDP
+Another thread that motivates the reinforcement Learning sources from 
+\textit{Markov decision process} (MDP), which is the fundamental model of
+agents interacting with an environment.
+A \textit{partially observable Markov decision process}
+(POMDP) is a generalization of an MDP in which an agent must base its
+decisions on \textit{incomplete} information about the state of the environment. 
+In one multiagent system where autonomous agents are enforced, agents have to
+make their decision in terms of their private perceptions and limited
+communication with other agents. Such \textit{decentralized partially
+    observable Markov decision process}, abbreviated as DEC-POMDP, is the
+modelling that suits most of multiagent systems. A series of academic works
+have been proposed to solve relevant practical problems
+\cite{banerjee2012sample, kraemer2012informed}. 
+
+%######################################################################
+% ND-POMDP and algorithm
+\cite{nair2005networked}.
+
+One model-free, scalable learning approach that synthesizes multiagent
+reinforcement learning and distributed constraint optimization (DCOP) was
+illustrated in \cite{zhang2011coordinated}. This method found globally optimal
+policy under the groupwise observability.
+
+\cite{zhang2011coordinated} This paper presents a
+. By exploiting
+structured interaction in ND-POMDPs, our approach
+distributes the learning of the joint policy and employs
+DCOP techniques to coordinate distributed learning to
+ensure the global learning performance. Our approach
+can learn a globally optimal policy for ND-POMDPs
+with a property called groupwise observability. Experimental
+results show that, with communication during
+learning and execution, our approach significantly outperforms
+the nearly-optimal non-communication policies
+computed offline.
+
+
+%######################################################################
+% large-scale practical technique for the MDP formulation
+\textit{Factored Markov decision process} (Factored MDP) is a common model-based
+reinforcement learning technique for cooperative multiagent dynamic systems.
 This framework simply views the entire multiagent system as a single, large
 MDP, which can be represented in a factored way using a \textit{dynamic Bayesian
     network} (DBN) \cite{guestrin2001multiagent}. 
@@ -212,43 +260,7 @@ $\mathcal{O}(\epsilon^{-1})$ rate of convergence for solving the distributed
 multi-agent planning with Factored MDPs \cite{suegeo2011accgrad}.
 
 
-
-%######################################################################
-% ND-POMDP
-\cite{zhang2011coordinated} This paper presents a
-model-free, scalable learning approach that synthesizes
-multi-agent reinforcement learning (MARL) and distributed
-constraint optimization (DCOP). By exploiting
-structured interaction in ND-POMDPs, our approach
-distributes the learning of the joint policy and employs
-DCOP techniques to coordinate distributed learning to
-ensure the global learning performance. Our approach
-can learn a globally optimal policy for ND-POMDPs
-with a property called groupwise observability. Experimental
-results show that, with communication during
-learning and execution, our approach significantly outperforms
-the nearly-optimal non-communication policies
-computed offline.
-
-\cite{nguyen2014decentralized} Existing work typically assumes that the prob-
-lem in each time step is decoupled from the problems in other time steps,
-which might not hold in some applications. Therefore, in this paper, we make
-the following contributions: (i) We introduce a new model, called Markovian
-Dynamic DCOPs (MD-DCOPs), where the DCOP in the next time step is a function
-of the value assignments in the current time step; (ii) We introduce two
-distributed reinforcement learning algo- rithms, the Distributed RVI
-Q-learning algorithm and the Dis- tributed R-learning algorithm, that balance
-exploration and exploitation to solve MD-DCOPs in an online manner; and (iii)
-We empirically evaluate them against an existing multi- arm bandit DCOP
-algorithm on dynamic DCOPs.
-%######################################################################
-
-
 \cite{zhang2013coordinating}
-
-\cite{banerjee2012sample}
-
-\cite{kraemer2012informed}
 
 \cite{boukhtouta2011adaptive}
 Complex problems involving multiple agents exhibit varying degrees of
@@ -263,7 +275,6 @@ benefits of communication between the agents and show that, with
 communication, the solution quality approaches that of the ideal situation
 where the entire problem is controlled by a single agent.
 
-\cite{sen1994learning}
 
 \subsection{Neuroevolution for Multiagent Coordination}
 
@@ -511,8 +522,6 @@ discovery behind the figure is the narrow performance gap between the team of
 tiled tabular Q-learning agents and that of greedy-random agents. It turns out
 that the collective works made by naive Q-learning agents even outperform the
 team with greedy strategies.
-
-
 
 The Fig. \ref{fig:RL_init2} shows the effects that various discounting factors
 will bring to the outcome of tilted tabular Q-learning. It turns out that the
