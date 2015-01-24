@@ -142,7 +142,7 @@ class SandboxMod:
         # Create RTNEAT object
         rbound = OpenNero.FeatureVectorInfo()
         rbound.add_continuous(-sys.float_info.max, sys.float_info.max)
-        rtneat = OpenNero.RTNEAT("data/ai/neat-params.dat", 10, 1, pop_size, 1.0, rbound, False)
+        rtneat = OpenNero.RTNEAT("data/ai/neat-params.dat", 2, 1, pop_size, 1.0, rbound, False)
         rtneat.set_weight(0,1)
         OpenNero.set_ai("rtneat",rtneat)
         OpenNero.enable_ai()
@@ -540,7 +540,7 @@ class RoombaEnvironment(OpenNero.Environment):
 	    for i in range(num_agent_sensors):
                 (dist, ang, signal) = min_dist[i]
                 sensors[2 * i + 2] = ang
-	        sensors[2 * i + 3] = dist
+	        sensors[2 * i + 3] = dist / max_dist
 		# signal isnot used
 
 	return sensors

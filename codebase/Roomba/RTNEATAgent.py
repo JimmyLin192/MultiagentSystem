@@ -58,7 +58,7 @@ class RTNEATAgent(AgentBrain):
         # make sure we have the right number of sensors
         assert(len(sensors)==18)
         # create the list of sensors
-        inputs = [sensor for sensor in sensors[0:10]]        
+        inputs = [sensor for sensor in sensors[0:2]]        
 
         # get the rtNEAT organism we are assigned
         org = get_ai("rtneat").get_organism(self)
