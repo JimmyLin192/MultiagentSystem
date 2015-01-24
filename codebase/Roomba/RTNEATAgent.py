@@ -2,6 +2,8 @@ from OpenNero import *
 import math
 import random
 
+import barry
+
 class RTNEATAgent(AgentBrain):
     """
     rtNEAT agent
@@ -13,7 +15,7 @@ class RTNEATAgent(AgentBrain):
         # this line is crucial, otherwise the class is not recognized as an AgentBrainPtr by C++
         AgentBrain.__init__(self)
 
-        self.mirror = 1
+        self.past_actions = None
 
     def initialize(self, init_info):
         """
@@ -59,11 +61,11 @@ class RTNEATAgent(AgentBrain):
         Collect and interpret the outputs as valid maze actions.
         """
         # make sure we have the right number of sensors
-        assert(len(sensors)==6)
+        assert(len(sensors)==18)
         # convert the sensors into the [0.0, 1.0] range
         #sensors = self.sensors.normalize(sensors)
         # create the list of sensors
-        inputs = [sensor for sensor in sensors[4:5]]        
+        inputs = [sensor for sensor in sensors[0:10]]        
         # add the bias value
         ## Barry: WTF is this bias thing for?
         ##inputs.append(0.3)
@@ -87,14 +89,15 @@ class RTNEATAgent(AgentBrain):
             actions[i] = outputs[i]
 
         #Barry's logging
-	with open("barry.log", "a") as myfile:
-            if (inputs[0] != 0):
-                ratio = self.actions.denormalize(actions)[0]/inputs[0]
-            else:
-                ratio = "NaN"
-    	    myfile.write("agent {}: \n\t inputs: {} ({})\n\t outputs: {}, \n\t actions: {} ({}) \n\t out/in: {} \n".format(self, inputs, self.sensors.denormalize(sensors)[4:5], outputs, actions, self.actions.denormalize(actions), ratio)) 
+	#with open(barry.logFile(), "a") as myfile:
+        #    if (inputs[0] != 0):
+        #        ratio = self.actions.denormalize(actions)[0]/inputs[0]
+        #    else:
+        #        ratio = "NaN"
+    	#    myfile.write("agent {}: \n\t inputs: {} ({})\n\t outputs: {}, \n\t actions: {} ({}) \n\t out/in: {} \n".format(self, inputs, self.sensors.denormalize(sensors)[0:3], outputs, actions, self.actions.denormalize(actions), ratio)) 
 
         # convert the action vector back from [0.0, 1.0] range
         actions = self.actions.denormalize(actions)
+	self.past_actions = actions
         #print "in:", inputs, "out:", outputs, "a:", actions
         return actions

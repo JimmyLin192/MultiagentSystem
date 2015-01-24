@@ -2,7 +2,7 @@
 STEP_DT = 0.001
 AGENT_X = 10
 AGENT_Y = 10
-MAX_SPEED = .5 # max per-step translational speed
+MAX_SPEED = .33 # max per-step translational speed
 ANGULAR_SPEED = 90 # max angles in degrees agent can turn in one step
 TIME_PER_STEP = 0.01 # min time between steps in seconds
 STEPS_PER_EPISODE = 100 # max number of steps per episode
