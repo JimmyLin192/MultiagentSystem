@@ -2,8 +2,6 @@ from OpenNero import *
 import math
 import random
 
-import barry
-
 class RTNEATAgent(AgentBrain):
     """
     rtNEAT agent
@@ -29,15 +27,12 @@ class RTNEATAgent(AgentBrain):
         """
         start of an episode
         """
-        #sensors = self.sensors.normalize(sensors)
         return self.network_action(sensors)
 
     def act(self, time, sensors, reward):
         """
         a state transition
         """
-        #if reward >= 1:
-        #    sensors = self.sensors.normalize(sensors)
 	return self.network_action(sensors)
 
     def end(self, time, reward):
@@ -62,13 +57,8 @@ class RTNEATAgent(AgentBrain):
         """
         # make sure we have the right number of sensors
         assert(len(sensors)==18)
-        # convert the sensors into the [0.0, 1.0] range
-        #sensors = self.sensors.normalize(sensors)
         # create the list of sensors
         inputs = [sensor for sensor in sensors[0:10]]        
-        # add the bias value
-        ## Barry: WTF is this bias thing for?
-        ##inputs.append(0.3)
 
         # get the rtNEAT organism we are assigned
         org = get_ai("rtneat").get_organism(self)
@@ -87,14 +77,6 @@ class RTNEATAgent(AgentBrain):
         # assign network outputs to action vector
         for i in range(0,len(self.actions.get_instance())):
             actions[i] = outputs[i]
-
-        #Barry's logging
-	#with open(barry.logFile(), "a") as myfile:
-        #    if (inputs[0] != 0):
-        #        ratio = self.actions.denormalize(actions)[0]/inputs[0]
-        #    else:
-        #        ratio = "NaN"
-    	#    myfile.write("agent {}: \n\t inputs: {} ({})\n\t outputs: {}, \n\t actions: {} ({}) \n\t out/in: {} \n".format(self, inputs, self.sensors.denormalize(sensors)[0:3], outputs, actions, self.actions.denormalize(actions), ratio)) 
 
         # convert the action vector back from [0.0, 1.0] range
         actions = self.actions.denormalize(actions)

@@ -18,8 +18,6 @@ from roomba import RoombaBrain
 from RTNEATAgent import RTNEATAgent
 from RLAgent import TabularRLAgent
 
-import barry
-
 gREWARD = 0
 
 crumb_count = 0
@@ -198,8 +196,6 @@ class RoombaEnvironment(OpenNero.Environment):
         """
         Create the environment
         """
-	with open(barry.logFile(), "w") as myfile:
-    	    myfile.write("")
 
         #self.Qlog = open("Qlog", "wb+")
         OpenNero.Environment.__init__(self) 
@@ -258,10 +254,9 @@ class RoombaEnvironment(OpenNero.Environment):
        
         # sensors
         rtneat_sbound.add_continuous(-math.pi, math.pi) # nearest crumb angle
-        #rtneat_sbound.add_continuous(0, 1) # nearest crumb distance
-
         rtneat_sbound.add_continuous(0, 1) # proportion of crumb nearby
 
+	# angle and distance sensors for (up to) 8  nearest neighbors
         rtneat_sbound.add_continuous(-math.pi, math.pi)
         rtneat_sbound.add_continuous(0, 1)
         rtneat_sbound.add_continuous(-math.pi, math.pi)
@@ -279,13 +274,6 @@ class RoombaEnvironment(OpenNero.Environment):
         rtneat_sbound.add_continuous(0, 1)
         rtneat_sbound.add_continuous(-math.pi, math.pi)
         rtneat_sbound.add_continuous(0, 1)
-
-        #rtneat_sbound.add_continuous(-1, 1)
-        #rtneat_sbound.add_continuous(-1, 1)
-        #rtneat_sbound.add_continuous(-1, 1)
-        #rtneat_sbound.add_continuous(-1, 1)
-        #rtneat_sbound.add_continuous(-1, 1)
-        #rtneat_sbound.add_continuous(-1, 1)
     
         # rewards
         rtneat_rbound.add_continuous(-math.pi, math.pi)
@@ -369,21 +357,13 @@ class RoombaEnvironment(OpenNero.Environment):
         global gREWARD
         gREWARD = 0
 
-        ## Barry's Logging
-	print "*******************************************"
+        ## Crumbs collected logging
 	global crumb_count
         global crumb_time
         if crumb_count > 0:
 	    print "Episode {} crumb count: {}".format(state.episode_count, crumb_count)
-	    with open(barry.logFile(), "a") as myfile:
-                    if crumb_count < 200:
-                        myfile.write("Time to crumb 200: TIMEOUT \n")
-		    if crumb_count < 400:
-                        myfile.write("Time to crumb 400: TIMEOUT \n")
-    		    myfile.write("Episode {} crumb count: {}\n".format(state.episode_count, crumb_count))
 	    crumb_count = 0
             crumb_time = time.clock()
-	    print "*******************************************"
 
         return True
 
@@ -421,8 +401,9 @@ class RoombaEnvironment(OpenNero.Environment):
         global gREWARD 
         gREWARD += reward
 
-	global crumb_count
-	state.reward = crumb_count
+	# Enable to use shared reward
+	#global crumb_count
+	#state.reward = crumb_count
         return reward
 
     # delta_angle (degrees) is change in angle
@@ -442,8 +423,6 @@ class RoombaEnvironment(OpenNero.Environment):
         position.x += delta_dist*math.cos(math.radians(rotation.z))
         position.y += delta_dist*math.sin(math.radians(rotation.z))
 
-	#with open(barry.logFile(), "a") as myfile:
-    	#    myfile.write("agent {} rotation: {}, rotation.z: {} \n".format(agent, agent.state.rotation, rotation.z))
 
 	reward = 0
 
@@ -488,14 +467,8 @@ class RoombaEnvironment(OpenNero.Environment):
                 if distance < constants.ROOMBA_RAD:
                     getMod().unmark(crumb.x, crumb.y)
                     reward += crumb.reward
-                    with open(barry.logFile(), "a") as myfile:
-    		        #myfile.write("********* Crumb reward: {} \n".format(crumb.reward))
-		        global crumb_count
-		        crumb_count += 1
-                        if (crumb_count == 200):
-                            myfile.write("Time to crumb 200: {} \n".format(time.clock() - crumb_time))
-                        if (crumb_count == 400):
-                            myfile.write("Time to crumb 400: {} \n".format(time.clock() - crumb_time))
+                    global crumb_count
+		    crumb_count += 1
                 
         # check if agent has expended its step allowance
         if (self.max_steps != 0) and (state.step_count >= self.max_steps):
@@ -535,7 +508,7 @@ class RoombaEnvironment(OpenNero.Environment):
                 disty = cube_position[1] - agent.state.position.y
                 dist = math.hypot(distx, disty)
                 angle = math.atan2(disty, distx)
-                angle = angle # range -pi, pi]
+                angle = angle # range [-pi, pi]
 		if dist < min_dist:
 		    min_dist = dist
                     min_dist_angle = angle
@@ -544,9 +517,7 @@ class RoombaEnvironment(OpenNero.Environment):
 
             
             sensors[0] = min_dist_angle
-	    #sensors[1] = min_dist / max_dist
-
-            sensors[1] = nearby_crumbs / len(getMod().marker_map)
+            sensors[1] = nearby_crumbs / len(getMod().marker_map) # propotion of crumbs which are nearby
 
             # Min angle and distance to nearest other agent
             num_agent_sensors = 8
@@ -570,10 +541,8 @@ class RoombaEnvironment(OpenNero.Environment):
                 (dist, ang, signal) = min_dist[i]
                 sensors[2 * i + 2] = ang
 	        sensors[2 * i + 3] = dist
+		# signal isnot used
 
-	## Barry's logging
-	#with open(barry.logFile(), "a") as myfile:
-    	#	myfile.write("Sensors: {} \n".format(sensors))
 	return sensors
 
     def sense_crumbs(self, sensors, num_sensors, start_sensor, agent):
